@@ -1,0 +1,26 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Configure MiniOS
+Name[de]=Konfigurieren MiniOS
+Name[es]=Configurar MiniOS
+Name[fr]=Configurer MiniOS
+Name[it]=Configura MiniOS
+Name[pt]=Configurar MiniOS
+Name[pt_BR]=Configure o MiniOS
+Name[ru]=Настроить MiniOS
+Comment=Configure settings for MiniOS
+Comment[de]=Einstellungen für MiniOS konfigurieren
+Comment[es]=Configurar ajustes para MiniOS
+Comment[fr]=Configurer les paramètres pour MiniOS
+Comment[it]=Configura le impostazioni per MiniOS
+Comment[pt]=Configurar configurações para MiniOS
+Comment[pt_BR]=Configure as configurações do MiniOS
+Comment[ru]=Настройка параметров для MiniOS
+Keywords=configure;settings;
+Exec=sudo --preserve-env=DBUS_SESSION_BUS_ADDRESS,XDG_RUNTIME_DIR sh -c 'minios-configurator'
+Icon=preferences-system
+Terminal=false
+Categories=GTK;System;Settings;
+NotShowIn=KDE;
+X-Ayatana-Appmenu-Show-Stubs=False
