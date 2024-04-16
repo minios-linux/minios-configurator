@@ -39,18 +39,6 @@ validate_password() {
     fi
 }
 
-read_config_value() {
-    if [ ! -f "$1" ]; then
-        echo
-        return
-    fi
-    if grep -q "^$2=" $1; then
-        grep "^$2=" $1 | cut -d "=" -f 2- | tail -n 1 | sed -e "s/^['\"]//;s/['\"]$//"
-    else
-        echo
-    fi
-}
-
 # Set text domain
 export TEXTDOMAIN="minios-configurator"
 
@@ -73,24 +61,24 @@ fi
 
 while true; do
     FORM_OUTPUT=$(
-        yad --form --title "Minios Configurator" \
+        yad --form --center --title="$(gettext "MiniOS Configurator")" \
             --borders=10 \
             --window-icon="preferences-system" \
             --width=500 \
-            --text="<span>$(gettext 'You can read more about the parameters in man minios-configurator')\n\n</span><span font-size=\"large\">$(gettext 'Select configurator options for MiniOS')\n</span>" \
+            --text="<span>$(gettext 'You can read more about the parameters in man minios-configurator')\n\n</span><span font-size=\"large\">$(gettext 'Select configuration options for MiniOS')\n</span>" \
             --text-align="center" \
             --field="$(gettext "Username")" "$USER_NAME" \
             --field="$(gettext "User password")" "$USER_PASSWORD" \
             --field="$(gettext "Root password")" "$ROOT_PASSWORD" \
             --field="$(gettext "Hostname")" "$HOST_NAME" \
-            --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
             --field="$(gettext "Enable services (delimiter ,)")" "$ENABLE_SERVICES" \
             --field="$(gettext "Disable services (delimiter ,)")" "$DISABLE_SERVICES" \
             --field="$(gettext "SSH key name on flash drive")" "$SSH_KEY" \
+            --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
+            --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
             --field="$(gettext "Scripts"):CHK" "$SCRIPTS" \
             --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
             --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
-            --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
             --field="$(gettext "Export logs to flash drive"):CHK" "$EXPORT_LOGS"
     )
 
@@ -102,7 +90,7 @@ while true; do
     IFS='|' read -r USER_NAME USER_PASSWORD ROOT_PASSWORD HOST_NAME DEFAULT_TARGET ENABLE_SERVICES DISABLE_SERVICES SSH_KEY SCRIPTS HIDE_CREDENTIALS AUTOLOGIN SYSTEM_TYPE EXPORT_LOGS <<<"$FORM_OUTPUT"
 
     if validate_username "$USER_NAME" && validate_hostname "$HOST_NAME" && validate_password "$USER_PASSWORD" && validate_password "$ROOT_PASSWORD"; then
-        yad --form \
+        yad --form --center \
             --borders=10 \
             --window-icon="preferences-system" \
             --title="$(gettext 'Reminder')" \
@@ -116,16 +104,16 @@ while true; do
         break
     else
         if ! validate_username "$USER_NAME"; then
-            yad --error --borders=10 --window-icon="dialog-error" --text $(gettext "Invalid username. Read 'man useradd' for more information.")
+            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Invalid username. Read 'man useradd' for more information.")
         fi
         if ! validate_hostname "$HOST_NAME"; then
-            yad --error --borders=10 --window-icon="dialog-error" --text $(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")
+            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")
         fi
         if ! validate_password "$USER_PASSWORD"; then
-            yad --error --borders=10 --window-icon="dialog-error" --text $(gettext "User password should not contain spaces or single quotes.")
+            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "User password should not contain spaces or single quotes.")
         fi
         if ! validate_password "$ROOT_PASSWORD"; then
-            yad --error --borders=10 --window-icon="dialog-error" --text $(gettext "Root password should not contain spaces or single quotes.")
+            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Root password should not contain spaces or single quotes.")
         fi
     fi
 done

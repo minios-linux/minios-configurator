@@ -69,12 +69,16 @@ msgstr "La contraseña no debe contener espacios ni comillas simples."
 msgid "Password is valid."
 msgstr "La contraseña es válida."
 
+#: minios-configurator:76
+msgid "MiniOS Configurator"
+msgstr "Configurador MiniOS"
+
 #: minios-configurator:77
 msgid "You can read more about the parameters in man minios-configurator"
 msgstr "Puede leer más sobre los parámetros en man minios-configurator"
 
 #: minios-configurator:77
-msgid "Select configurator options for MiniOS"
+msgid "Select configuration options for MiniOS"
 msgstr "Seleccione opciones de configuración para MiniOS"
 
 #: minios-configurator:82

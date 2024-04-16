@@ -69,12 +69,16 @@ msgstr "Le mot de passe ne doit pas comporter d’espaces ni de guillemets simpl
 msgid "Password is valid."
 msgstr "Le mot de passe est valide."
 
+#: minios-configurator:76
+msgid "MiniOS Configurator"
+msgstr "Configurateur MiniOS"
+
 #: minios-configurator:77
 msgid "You can read more about the parameters in man minios-configurator"
 msgstr "Vous pouvez en savoir plus sur les paramètres dans man minios-configurator"
 
 #: minios-configurator:77
-msgid "Select configurator options for MiniOS"
+msgid "Select configuration options for MiniOS"
 msgstr "Sélectionnez les options de configurator pour MiniOS"
 
 #: minios-configurator:82

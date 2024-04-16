@@ -70,12 +70,16 @@ msgstr "Пароль не должен содержать пробелы или 
 msgid "Password is valid."
 msgstr "Пароль допустим."
 
+#: minios-configurator:76
+msgid "MiniOS Configurator"
+msgstr "Настройка MiniOS"
+
 #: minios-configurator:77
 msgid "You can read more about the parameters in man minios-configurator"
 msgstr "Вы можете узнать больше о параметрах в руководстве по minios-configurator"
 
 #: minios-configurator:77
-msgid "Select configurator options for MiniOS"
+msgid "Select configuration options for MiniOS"
 msgstr "Выберите параметры конфигурации для MiniOS"
 
 #: minios-configurator:82

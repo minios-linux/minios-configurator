@@ -69,12 +69,16 @@ msgstr "Das Passwort sollte keine Leerzeichen oder einfache Anführungszeichen e
 msgid "Password is valid."
 msgstr "Das Passwort ist gültig."
 
+#: minios-configurator:76
+msgid "MiniOS Configurator"
+msgstr "MiniOS-Konfigurator"
+
 #: minios-configurator:77
 msgid "You can read more about the parameters in man minios-configurator"
 msgstr "Sie können mehr über die Parameter in der Manpage minios-configurator lesen"
 
 #: minios-configurator:77
-msgid "Select configurator options for MiniOS"
+msgid "Select configuration options for MiniOS"
 msgstr "Wählen Sie Konfigurationsoptionen für MiniOS"
 
 #: minios-configurator:82
