@@ -55,7 +55,7 @@ msgstr "2. Solo puede contener a-z, A-Z, 0-9 y guión."
 
 #: minios-configurator:24
 msgid "3. Must start and end with a letter or number."
-msgstr "3. Debe comenzar y terminar con una letra o número"
+msgstr "3. Debe comenzar y terminar con una letra o número."
 
 #: minios-configurator:27
 msgid "Hostname is valid."
@@ -114,8 +114,8 @@ msgid "SSH key name on flash drive"
 msgstr "Nombre de la clave SSH en la unidad flash"
 
 #: minios-configurator:90
-msgid "Scripts"
-msgstr "Scripts"
+msgid "Executing scripts on boot"
+msgstr "Ejecución de scripts al inicio"
 
 #: minios-configurator:91
 msgid "Hide credentials"

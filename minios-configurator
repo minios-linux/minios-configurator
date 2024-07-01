@@ -2,13 +2,20 @@
 
 . /usr/lib/minios/libminioslive || exit 1
 
+set -x
+
+# Check if the script is running as root, if not, run with root privileges using pkexec
+check_root_permissions() {
+    if [[ "${EUID}" -ne 0 ]]; then
+        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Error")" --text="$(gettext "This program must be run as root. Attempting to run with pkexec...")"
+        pkexec "$0"
+        exit 0
+    fi
+}
+
 validate_username() {
     if [[ ${#1} -gt 32 || "$1" =~ ^[-+~] || "$1" =~ ^[0-9]+$ || "$1" =~ [^a-zA-Z0-9_\$] || "$1" =~ \. || "$1" =~ "[:/, ]" ]]; then
-        echo $(gettext "Invalid username. Rules:")
-        echo $(gettext "1. Length must be <= 32.")
-        echo $(gettext "2. Must not start with a dash, plus, or tilde, and cannot be all numeric.")
-        echo $(gettext "3. Only a-z, A-Z, 0-9, and underscore allowed. Cannot end with a dollar sign.")
-        echo $(gettext "4. '.', '..', colon, comma, whitespace, and '/' are not allowed.")
+        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Username")" --text="$(gettext "Invalid username. Rules:\n1. Length must be <= 32.\n2. Must not start with a dash, plus, or tilde, and cannot be all numeric.\n3. Only a-z, A-Z, 0-9, and underscore allowed. Cannot end with a dollar sign.\n4. '.', '..', colon, comma, whitespace, and '/' are not allowed.")"
         return 1
     else
         echo $(gettext "Username is valid.")
@@ -18,10 +25,7 @@ validate_username() {
 
 validate_hostname() {
     if [[ ${#1} -lt 2 || ${#1} -gt 63 || ! "$1" =~ ^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$ ]]; then
-        echo $(gettext "Invalid hostname. Rules:")
-        echo $(gettext "1. Length must be between 2 and 63 characters.")
-        echo $(gettext "2. Can only contain a-z, A-Z, 0-9, and dash.")
-        echo $(gettext "3. Must start and end with a letter or number.")
+        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Hostname")" --text="$(gettext "Invalid hostname. Rules:\n1. Length must be between 2 and 63 characters.\n2. Can only contain a-z, A-Z, 0-9, and dash.\n3. Must start and end with a letter or number.")"
         return 1
     else
         echo $(gettext "Hostname is valid.")
@@ -31,7 +35,7 @@ validate_hostname() {
 
 validate_password() {
     if [[ "$1" =~ [[:space:]\'] ]]; then
-        echo $(gettext "Password should not contain spaces or single quotes.")
+        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "Password should not contain spaces or single quotes.")"
         return 1
     else
         echo $(gettext "Password is valid.")
@@ -41,6 +45,9 @@ validate_password() {
 
 # Set text domain
 export TEXTDOMAIN="minios-configurator"
+
+# Call the function to check root permissions
+check_root_permissions
 
 CONFIG_FILE='/etc/minios/minios.conf'
 KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'SYSTEM_TYPE' 'EXPORT_LOGS')
@@ -76,46 +83,67 @@ while true; do
             --field="$(gettext "SSH key name on flash drive")" "$SSH_KEY" \
             --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
             --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
-            --field="$(gettext "Scripts"):CHK" "$SCRIPTS" \
+            --field="$(gettext "Executing scripts on boot"):CHK" "$SCRIPTS" \
             --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
             --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
             --field="$(gettext "Export logs to flash drive"):CHK" "$EXPORT_LOGS"
     )
 
     if [ "$?" = 252 ] || [ -z "$FORM_OUTPUT" ]; then
-        echo $(gettext "Operation cancelled or window closed by user.")
+        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Operation Cancelled")" --text="$(gettext "Operation cancelled or window closed by user.")"
         exit 1
     fi
 
-    IFS='|' read -r USER_NAME USER_PASSWORD ROOT_PASSWORD HOST_NAME DEFAULT_TARGET ENABLE_SERVICES DISABLE_SERVICES SSH_KEY SCRIPTS HIDE_CREDENTIALS AUTOLOGIN SYSTEM_TYPE EXPORT_LOGS <<<"$FORM_OUTPUT"
+    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
 
-    if validate_username "$USER_NAME" && validate_hostname "$HOST_NAME" && validate_password "$USER_PASSWORD" && validate_password "$ROOT_PASSWORD"; then
-        yad --form --center \
-            --borders=10 \
-            --window-icon="preferences-system" \
-            --title="$(gettext 'Reminder')" \
-            --text="<span>\n\n\n$(gettext 'You will need to reboot your system to apply the settings.')</span>" \
-            --text-align="center" \
-            --width=400 \
-            --buttons-layout="center" \
-            --on-top \
-            --form \
-            --button=Ok:0
+    # Convert boolean values to lowercase
+    FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
+    FORM_HIDE_CREDENTIALS=$(echo "$FORM_HIDE_CREDENTIALS" | tr '[:upper:]' '[:lower:]')
+    FORM_AUTOLOGIN=$(echo "$FORM_AUTOLOGIN" | tr '[:upper:]' '[:lower:]')
+    FORM_EXPORT_LOGS=$(echo "$FORM_EXPORT_LOGS" | tr '[:upper:]' '[:lower:]')
+
+    if validate_username "$FORM_USER_NAME" && validate_hostname "$FORM_HOST_NAME" && validate_password "$FORM_USER_PASSWORD" && validate_password "$FORM_ROOT_PASSWORD"; then
+        USER_NAME="$FORM_USER_NAME"
+        USER_PASSWORD="$FORM_USER_PASSWORD"
+        ROOT_PASSWORD="$FORM_ROOT_PASSWORD"
+        HOST_NAME="$FORM_HOST_NAME"
+        ENABLE_SERVICES="$FORM_ENABLE_SERVICES"
+        DISABLE_SERVICES="$FORM_DISABLE_SERVICES"
+        SSH_KEY="$FORM_SSH_KEY"
+        DEFAULT_TARGET="$FORM_DEFAULT_TARGET"
+        SYSTEM_TYPE="$FORM_SYSTEM_TYPE"
+        SCRIPTS="$FORM_SCRIPTS"
+        HIDE_CREDENTIALS="$FORM_HIDE_CREDENTIALS"
+        AUTOLOGIN="$FORM_AUTOLOGIN"
+        EXPORT_LOGS="$FORM_EXPORT_LOGS"
+
         break
     else
-        if ! validate_username "$USER_NAME"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Invalid username. Read 'man useradd' for more information.")
+        if ! validate_username "$FORM_USER_NAME"; then
+            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Username")" --text="$(gettext "Invalid username. Read 'man useradd' for more information.")"
         fi
-        if ! validate_hostname "$HOST_NAME"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")
+        if ! validate_hostname "$FORM_HOST_NAME"; then
+            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Hostname")" --text="$(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")"
         fi
-        if ! validate_password "$USER_PASSWORD"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "User password should not contain spaces or single quotes.")
+        if ! validate_password "$FORM_USER_PASSWORD"; then
+            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "User password should not contain spaces or single quotes.")"
         fi
-        if ! validate_password "$ROOT_PASSWORD"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --text $(gettext "Root password should not contain spaces or single quotes.")
+        if ! validate_password "$FORM_ROOT_PASSWORD"; then
+            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "Root password should not contain spaces or single quotes.")"
         fi
     fi
 done
 
 update_config "$CONFIG_FILE" "${KEYS[@]}"
+
+yad --form --center \
+    --borders=10 \
+    --window-icon="preferences-system" \
+    --title="$(gettext 'Reminder')" \
+    --text="<span>\n\n\n$(gettext 'You will need to reboot your system to apply the settings.')</span>" \
+    --text-align="center" \
+    --width=400 \
+    --buttons-layout="center" \
+    --on-top \
+    --form \
+    --button=Ok:0

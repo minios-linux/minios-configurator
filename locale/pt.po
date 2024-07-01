@@ -114,8 +114,8 @@ msgid "SSH key name on flash drive"
 msgstr "Nome da chave SSH no pendrive"
 
 #: minios-configurator:90
-msgid "Scripts"
-msgstr "Scripts"
+msgid "Executing scripts on boot"
+msgstr "Executar scripts na inicialização"
 
 #: minios-configurator:91
 msgid "Hide credentials"

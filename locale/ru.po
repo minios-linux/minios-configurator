@@ -115,8 +115,8 @@ msgid "SSH key name on flash drive"
 msgstr "Имя SSH-ключа на флеш-накопителе"
 
 #: minios-configurator:90
-msgid "Scripts"
-msgstr "Скрипты"
+msgid "Executing scripts on boot"
+msgstr "Выполнение скриптов при загрузке"
 
 #: minios-configurator:91
 msgid "Hide credentials"
