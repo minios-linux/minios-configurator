@@ -1,13 +1,108 @@
 #!/bin/bash
 
-. /usr/lib/minios/libminioslive || exit 1
+# MiniOS Configurator
+# A graphical tool for configuring MiniOS settings
+# Allows modifying parameters in /etc/minios/minios.conf
+#
+# Usage: minios-configurator [/path/to/config/file]
+# If no config file path is provided, it defaults to /etc/minios/minios.conf
+#
+# Author: crims0n. <http://minios.dev>
 
-set -x
+# Set text domain
+export TEXTDOMAIN="minios-configurator"
+
+# Function to read configuration from a file and set variables based on the specified key list
+# Usage: read_config <CONFIG_FILE> <KEYLIST...>
+# Example: read_config "/path/to/config.conf" "USER_NAME" "USER_PASSWORD" "HOST_NAME"
+read_config() {
+    shopt -s extglob
+    local CONFIG_FILE="${1}"
+    local KEYLIST="${@:2}"
+    if [[ ! "$CONFIG_FILE" ]]; then
+        error "No configuration file given"
+        exit 1
+    fi
+    if [[ ! -f "${CONFIG_FILE}" ]]; then
+        error "${CONFIG_FILE} is not a file!"
+        exit 1
+    fi
+    if [[ ! -r "${CONFIG_FILE}" ]]; then
+        error "${CONFIG_FILE} is not readable!"
+        exit 1
+    fi
+    KEYLIST="${KEYLIST// /|}"
+    while IFS='= ' read -r LHS RHS; do
+        if [[ "${LHS}" =~ ^(${KEYLIST})$ ]] && [[ -n ${RHS} ]]; then
+            RHS="${RHS%\"*}"
+            RHS="${RHS#\"*}"
+            RHS="${RHS%\'*}"
+            RHS="${RHS#\'*}"
+            if [[ "${RHS}" =~ ^\((.*)\)$ ]]; then
+                eval ${LHS}=\("${BASH_REMATCH[1]}"\)
+            else
+                eval ${LHS}=\"${RHS}\"
+            fi
+        fi
+    done <<<"$(tr -d '\r' <${CONFIG_FILE})"
+    shopt -u extglob
+}
+
+# Function to update configuration file with new values for specified arguments
+# Usage: update_config <CONFIG_FILE> [<ARG1> <ARG2> ...]
+# If no arguments are provided, all variables in the config file will be updated
+# Example: update_config "/path/to/config.conf" "USER_NAME" "HOST_NAME"
+update_config() {
+    local CONFIG_FILE="${1}"
+    shift
+    if [[ ! "$CONFIG_FILE" ]]; then
+        error "No configuration file given"
+        exit 1
+    fi
+    if [[ ! -f "${CONFIG_FILE}" ]]; then
+        error "${CONFIG_FILE} is not a file!"
+        exit 1
+    fi
+    if [[ ! -r "${CONFIG_FILE}" ]]; then
+        error "${CONFIG_FILE} is not readable!"
+        exit 1
+    fi
+    local -a ARGS
+    if (($# > 0)); then
+        ARGS=("$@")
+    else
+        ARGS=($(grep -v '^#' "${CONFIG_FILE}" | awk -F '=' '{print $1}'))
+    fi
+    for ARG in "${ARGS[@]}"; do
+        local -n VAR="${ARG}"
+        local NEW_VALUE ELEMENT
+        if [[ -z "${VAR[@]}" ]]; then
+            continue
+        fi
+        case "$(declare -p "${ARG}" 2>/dev/null)" in
+        "declare -a"*)
+            NEW_VALUE="${ARG}=("
+            for ELEMENT in "${VAR[@]}"; do
+                NEW_VALUE+="\"${ELEMENT}\""
+                [[ "${ELEMENT}" != "${VAR[-1]}" ]] && NEW_VALUE+=" "
+            done
+            NEW_VALUE+=")"
+            ;;
+        *)
+            NEW_VALUE="${ARG}=\"${VAR}\""
+            ;;
+        esac
+        if grep -q "^${ARG}=" "${CONFIG_FILE}"; then
+            sed -i "s|^${ARG}=.*|${NEW_VALUE}|" "${CONFIG_FILE}"
+        else
+            echo -e "\n${NEW_VALUE}" >>"${CONFIG_FILE}"
+        fi
+    done
+}
 
 # Check if the script is running as root, if not, run with root privileges using pkexec
 check_root_permissions() {
     if [[ "${EUID}" -ne 0 ]]; then
-        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Error")" --text="$(gettext "This program must be run as root. Attempting to run with pkexec...")"
         pkexec "$0"
         exit 0
     fi
@@ -43,14 +138,11 @@ validate_password() {
     fi
 }
 
-# Set text domain
-export TEXTDOMAIN="minios-configurator"
-
 # Call the function to check root permissions
 check_root_permissions
 
-CONFIG_FILE='/etc/minios/minios.conf'
-KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'SYSTEM_TYPE' 'EXPORT_LOGS')
+CONFIG_FILE="${1:-/etc/minios/minios.conf}"
+KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS')
 
 read_config "$CONFIG_FILE" "${KEYS[@]}"
 
@@ -86,20 +178,22 @@ while true; do
             --field="$(gettext "Executing scripts on boot"):CHK" "$SCRIPTS" \
             --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
             --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
+            --field="$(gettext "Link user directories to storage"):CHK" "$LINK_USER_DIRS" \
             --field="$(gettext "Export logs to flash drive"):CHK" "$EXPORT_LOGS"
     )
 
     if [ "$?" = 252 ] || [ -z "$FORM_OUTPUT" ]; then
-        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Operation Cancelled")" --text="$(gettext "Operation cancelled or window closed by user.")"
+        #yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Operation Cancelled")" --text="$(gettext "Operation cancelled or window closed by user.")"
         exit 1
     fi
 
-    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
+    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
 
     # Convert boolean values to lowercase
     FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
     FORM_HIDE_CREDENTIALS=$(echo "$FORM_HIDE_CREDENTIALS" | tr '[:upper:]' '[:lower:]')
     FORM_AUTOLOGIN=$(echo "$FORM_AUTOLOGIN" | tr '[:upper:]' '[:lower:]')
+    FORM_LINK_USER_DIRS=$(echo "$FORM_LINK_USER_DIRS" | tr '[:upper:]' '[:lower:]')
     FORM_EXPORT_LOGS=$(echo "$FORM_EXPORT_LOGS" | tr '[:upper:]' '[:lower:]')
 
     if validate_username "$FORM_USER_NAME" && validate_hostname "$FORM_HOST_NAME" && validate_password "$FORM_USER_PASSWORD" && validate_password "$FORM_ROOT_PASSWORD"; then
@@ -115,6 +209,7 @@ while true; do
         SCRIPTS="$FORM_SCRIPTS"
         HIDE_CREDENTIALS="$FORM_HIDE_CREDENTIALS"
         AUTOLOGIN="$FORM_AUTOLOGIN"
+        LINK_USER_DIRS="$FORM_LINK_USER_DIRS"
         EXPORT_LOGS="$FORM_EXPORT_LOGS"
 
         break
@@ -136,14 +231,16 @@ done
 
 update_config "$CONFIG_FILE" "${KEYS[@]}"
 
-yad --form --center \
-    --borders=10 \
-    --window-icon="preferences-system" \
-    --title="$(gettext 'Reminder')" \
-    --text="<span>\n\n\n$(gettext 'You will need to reboot your system to apply the settings.')</span>" \
-    --text-align="center" \
-    --width=400 \
-    --buttons-layout="center" \
-    --on-top \
-    --form \
-    --button=Ok:0
+if [ "$CONFIG_FILE" = "/etc/minios/minios.conf" ]; then
+    yad --form --center \
+        --borders=10 \
+        --window-icon="preferences-system" \
+        --title="$(gettext 'Reminder')" \
+        --text="<span>\n\n\n$(gettext 'You will need to reboot your system to apply the settings.')</span>" \
+        --text-align="center" \
+        --width=400 \
+        --buttons-layout="center" \
+        --on-top \
+        --form \
+        --button=Ok:0
+fi

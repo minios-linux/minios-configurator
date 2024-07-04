@@ -18,6 +18,7 @@ DISABLE_SERVICES
 SSH_KEY
 HIDE_CREDENTIALS
 AUTOLOGIN
+LINK_USER_DIRS
 SYSTEM_TYPE
 EXPORT_LOGS
 ```
@@ -36,6 +37,7 @@ SSH_KEY="authorized_keys"
 SCRIPTS="true"
 HIDE_CREDENTIALS="false"
 AUTOLOGIN="true"
+LINK_USER_DIRS="false"
 SYSTEM_TYPE="puzzle"
 EXPORT_LOGS="false"
 ```
@@ -54,11 +56,12 @@ EXPORT_LOGS="false"
 | SCRIPTS          | Enable or disable running shell scripts from the minios/scripts folder. | SCRIPTS=true        |
 | HIDE_CREDENTIALS | Hide credentials displayed as tooltip in tty.                        | HIDE_CREDENTIALS=false |
 | AUTOLOGIN        | Enable or disable automatic login.                                   | AUTOLOGIN=true       |
+| LINK_USER_DIRS   | Enable or disable linking user directories to storage.               | LINK_USER_DIRS=false |
 | SYSTEM_TYPE      | Select the operating mode of the system (puzzle or classic).         | SYSTEM_TYPE=puzzle   |
-| EXPORT_LOGS      | Enable or disable MiniOS logs copy to minios/logs folder.            | EXPORT_LOGS="false"   |
+| EXPORT_LOGS      | Enable or disable MiniOS logs copy to minios/logs folder.            | EXPORT_LOGS="false"  |
 
 ## IMPORTANT POINTS
-- On the first boot in persistent mode, `HOST_NAME` and `DEFAULT_TARGET` can be optionally changed.
+- On the first boot in persistent mode, `HOST_NAME`, `DEFAULT_TARGET` and `LINK_USER_DIRS` can be optionally changed.
 
 ## SEE ALSO
 [Original Documentation](https://github.com/minios-linux/minios-live/wiki/Configuration-file)
