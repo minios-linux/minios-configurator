@@ -124,7 +124,7 @@ msgstr "Inicio de sesión automático"
 
 #: minios-configurator:181
 msgid "Link user directories to storage"
-msgstr "Vincular directorios de usuario al almacenamiento."
+msgstr "Vincular directorios de usuario al almacenamiento"
 
 #: minios-configurator:182
 msgid "Export logs to flash drive"

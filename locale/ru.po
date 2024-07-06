@@ -125,7 +125,7 @@ msgstr "Автоматический вход"
 
 #: minios-configurator:181
 msgid "Link user directories to storage"
-msgstr "Создание ссылок на папки пользователя на накопителе."
+msgstr "Создание ссылок на папки пользователя на накопителе"
 
 #: minios-configurator:182
 msgid "Export logs to flash drive"

@@ -132,7 +132,7 @@ msgstr "Automatisches Einloggen"
 #: minios-configurator:181
 #, fuzzy
 msgid "Link user directories to storage"
-msgstr "Benutzerverzeichnisse mit Speicher verknüpfen."
+msgstr "Benutzerverzeichnisse mit Speicher verknüpfen"
 
 #: minios-configurator:182
 msgid "Export logs to flash drive"

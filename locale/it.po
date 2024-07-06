@@ -124,7 +124,7 @@ msgstr "Accesso automatico"
 
 #: minios-configurator:181
 msgid "Link user directories to storage"
-msgstr "Collega le directory degli utenti allo storage."
+msgstr "Collega le directory degli utenti allo storage"
 
 #: minios-configurator:182
 msgid "Export logs to flash drive"

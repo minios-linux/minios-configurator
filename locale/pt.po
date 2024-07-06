@@ -124,7 +124,7 @@ msgstr "Login automático"
 
 #: minios-configurator:181
 msgid "Link user directories to storage"
-msgstr "Vincular diretórios de usuário ao armazenamento."
+msgstr "Vincular diretórios de usuário ao armazenamento"
 
 #: minios-configurator:182
 msgid "Export logs to flash drive"
