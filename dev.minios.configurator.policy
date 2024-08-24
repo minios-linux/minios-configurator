@@ -4,7 +4,7 @@
   <vendor>MiniOS</vendor>
   <vendor_url>https://minios.dev/</vendor_url>
   <icon_name>preferences-system</icon_name>
-  <action id="org.minios.configurator.configure">
+  <action id="dev.minios.configurator.configure">
     <description>Configure MiniOS</description>
     <message>Authentication is required to configure MiniOS</message>
     <defaults>

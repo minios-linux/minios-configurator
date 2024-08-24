@@ -1,6 +1,6 @@
 EXECUTABLES = minios-configurator
 APPLICATIONS = minios-configurator.desktop
-POLICIES = org.minios.configurator.policy
+POLICIES = dev.minios.configurator.policy
 
 BINDIR = usr/bin
 APPLICATIONSDIR = usr/share/applications

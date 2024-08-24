@@ -21,6 +21,6 @@ Keywords=configure;settings;
 Exec=sudo --preserve-env=DBUS_SESSION_BUS_ADDRESS,XDG_RUNTIME_DIR sh -c 'minios-configurator'
 Icon=preferences-system
 Terminal=false
-Categories=GTK;System;Settings;
+Categories=GTK;System;
 NotShowIn=KDE;
 X-Ayatana-Appmenu-Show-Stubs=False
