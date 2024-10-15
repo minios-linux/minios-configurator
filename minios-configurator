@@ -12,6 +12,27 @@
 # Set text domain
 export TEXTDOMAIN="minios-configurator"
 
+# Display an error message
+error() {
+    local MESSAGE="${1-}"
+    local TITLE="${2-$(gettext "Error")}"
+    yad --error --center --borders=10 --window-icon="dialog-error" --title="$TITLE" --text="$MESSAGE"
+}
+
+# Display a warning message
+warning() {
+    local MESSAGE="${1-}"
+    local TITLE="${2-$(gettext "Warning")}"
+    yad --warning --center --borders=10 --window-icon="dialog-warning" --title="$TITLE" --text="$MESSAGE"
+}
+
+# Display an information message
+information() {
+    local MESSAGE="${1-}"
+    local TITLE="${2-$(gettext "Information")}"
+    yad --info --center --borders=10 --window-icon="dialog-information" --title="$TITLE" --text="$MESSAGE"
+}
+
 # Function to read configuration from a file and set variables based on the specified key list
 # Usage: read_config <CONFIG_FILE> <KEYLIST...>
 # Example: read_config "/path/to/config.conf" "USER_NAME" "USER_PASSWORD" "HOST_NAME"
@@ -110,30 +131,24 @@ check_root_permissions() {
 
 validate_username() {
     if [[ ${#1} -gt 32 || "$1" =~ ^[-+~] || "$1" =~ ^[0-9]+$ || "$1" =~ [^a-zA-Z0-9_\$] || "$1" =~ \. || "$1" =~ "[:/, ]" ]]; then
-        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Username")" --text="$(gettext "Invalid username. Rules:\n1. Length must be <= 32.\n2. Must not start with a dash, plus, or tilde, and cannot be all numeric.\n3. Only a-z, A-Z, 0-9, and underscore allowed. Cannot end with a dollar sign.\n4. '.', '..', colon, comma, whitespace, and '/' are not allowed.")"
         return 1
     else
-        echo $(gettext "Username is valid.")
         return 0
     fi
 }
 
 validate_hostname() {
     if [[ ${#1} -lt 2 || ${#1} -gt 63 || ! "$1" =~ ^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$ ]]; then
-        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Hostname")" --text="$(gettext "Invalid hostname. Rules:\n1. Length must be between 2 and 63 characters.\n2. Can only contain a-z, A-Z, 0-9, and dash.\n3. Must start and end with a letter or number.")"
         return 1
     else
-        echo $(gettext "Hostname is valid.")
         return 0
     fi
 }
 
 validate_password() {
     if [[ "$1" =~ [[:space:]\'] ]]; then
-        yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "Password should not contain spaces or single quotes.")"
         return 1
     else
-        echo $(gettext "Password is valid.")
         return 0
     fi
 }
@@ -142,21 +157,18 @@ validate_password() {
 check_root_permissions
 
 CONFIG_FILE="${1:-/etc/minios/minios.conf}"
-KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS')
+KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS' 'LOCALE' 'LAYOUT_SWITCH')
 
 read_config "$CONFIG_FILE" "${KEYS[@]}"
 
-if [ "$DEFAULT_TARGET" == "multi-user.target" ]; then
-    DEFAULT_TARGET_FIELD="multi-user.target!graphical.target"
-else
-    DEFAULT_TARGET_FIELD="graphical.target!multi-user.target"
-fi
-
-if [ "$SYSTEM_TYPE" == "classic" ]; then
-    SYSTEM_TYPE_FIELD="classic!puzzle"
-else
-    SYSTEM_TYPE_FIELD="puzzle!classic"
-fi
+DEFAULT_TARGETS=('graphical.target' 'multi-user.target' 'rescue.target')
+SYSTEM_TYPES=('classic' 'puzzle')
+LOCALES=('de_DE' 'en_US' 'es_ES' 'fr_FR' 'it_IT' 'pt_BR' 'ru_RU')
+LAYOUT_SWITCH_METHODS=('alt_shift' 'alt_space' 'caps' 'ctrl_shift' 'win_space'
+DEFAULT_TARGET_FIELD="$DEFAULT_TARGET!$(printf "%s\n" "${DEFAULT_TARGETS[@]/$DEFAULT_TARGET/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
+SYSTEM_TYPE_FIELD="$SYSTEM_TYPE!$(printf "%s\n" "${SYSTEM_TYPES[@]/$SYSTEM_TYPE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
+LOCALE_FIELD="$LOCALE!$(printf "%s\n" "${LOCALES[@]/$LOCALE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
+LAYOUT_SWITCH_FIELD="$LAYOUT_SWITCH!$(printf "%s\n" "${LAYOUT_SWITCH_METHODS[@]/$LAYOUT_SWITCH/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
 
 while true; do
     FORM_OUTPUT=$(
@@ -170,11 +182,13 @@ while true; do
             --field="$(gettext "User password")" "$USER_PASSWORD" \
             --field="$(gettext "Root password")" "$ROOT_PASSWORD" \
             --field="$(gettext "Hostname")" "$HOST_NAME" \
+            --field="$(gettext "Language"):CB" "$LOCALE_FIELD" \
+            --field="$(gettext "Layout switch method"):CB" "$LAYOUT_SWITCH_FIELD" \
+            --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
+            --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
             --field="$(gettext "Enable services (delimiter ,)")" "$ENABLE_SERVICES" \
             --field="$(gettext "Disable services (delimiter ,)")" "$DISABLE_SERVICES" \
             --field="$(gettext "SSH key name on flash drive")" "$SSH_KEY" \
-            --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
-            --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
             --field="$(gettext "Executing scripts on boot"):CHK" "$SCRIPTS" \
             --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
             --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
@@ -184,11 +198,10 @@ while true; do
     )
 
     if [ "$?" = 252 ] || [ -z "$FORM_OUTPUT" ]; then
-        #yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Operation Cancelled")" --text="$(gettext "Operation cancelled or window closed by user.")"
         exit 1
     fi
 
-    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
+    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_LOCALE FORM_LAYOUT_SWITCH FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
 
     # Convert boolean values to lowercase
     FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
@@ -206,6 +219,8 @@ while true; do
         ENABLE_SERVICES="$FORM_ENABLE_SERVICES"
         DISABLE_SERVICES="$FORM_DISABLE_SERVICES"
         SSH_KEY="$FORM_SSH_KEY"
+        LOCALE="$FORM_LOCALE"
+        LAYOUT_SWITCH="$FORM_LAYOUT_SWITCH"
         DEFAULT_TARGET="$FORM_DEFAULT_TARGET"
         SYSTEM_TYPE="$FORM_SYSTEM_TYPE"
         SCRIPTS="$FORM_SCRIPTS"
@@ -214,20 +229,19 @@ while true; do
         ELEVATION_PASSWORD_REQUIRED="$FORM_ELEVATION_PASSWORD_REQUIRED"
         LINK_USER_DIRS="$FORM_LINK_USER_DIRS"
         EXPORT_LOGS="$FORM_EXPORT_LOGS"
-
         break
     else
         if ! validate_username "$FORM_USER_NAME"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Username")" --text="$(gettext "Invalid username. Read 'man useradd' for more information.")"
+            error "$(gettext "Invalid username. Read 'man useradd' for more information.")" "Invalid Username"
         fi
         if ! validate_hostname "$FORM_HOST_NAME"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Hostname")" --text="$(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")"
+            error "$(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")" "Invalid Hostname"
         fi
         if ! validate_password "$FORM_USER_PASSWORD"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "User password should not contain spaces or single quotes.")"
+            error "$(gettext "User password should not contain spaces or single quotes.")" "Invalid Password"
         fi
         if ! validate_password "$FORM_ROOT_PASSWORD"; then
-            yad --error --center --borders=10 --window-icon="dialog-error" --title="$(gettext "Invalid Password")" --text="$(gettext "Root password should not contain spaces or single quotes.")"
+            error "$(gettext "Root password should not contain spaces or single quotes.")" "Invalid Password"
         fi
     fi
 done
