@@ -97,7 +97,7 @@ update_config() {
     for ARG in "${ARGS[@]}"; do
         local -n VAR="${ARG}"
         local NEW_VALUE ELEMENT
-        if [[ -z "${VAR[@]}" ]]; then
+        if [[ -z "${VAR+x}" ]]; then
             continue
         fi
         case "$(declare -p "${ARG}" 2>/dev/null)" in
@@ -124,7 +124,7 @@ update_config() {
 # Check if the script is running as root, if not, run with root privileges using pkexec
 check_root_permissions() {
     if [[ "${EUID}" -ne 0 ]]; then
-        pkexec "$0"
+        pkexec "$0" "$@"
         exit 0
     fi
 }
@@ -153,22 +153,20 @@ validate_password() {
     fi
 }
 
+
 # Call the function to check root permissions
-check_root_permissions
+check_root_permissions "$@"
+
 
 CONFIG_FILE="${1:-/etc/minios/minios.conf}"
-KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS' 'LOCALE' 'LAYOUT_SWITCH')
+KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS')
 
 read_config "$CONFIG_FILE" "${KEYS[@]}"
 
 DEFAULT_TARGETS=('graphical.target' 'multi-user.target' 'rescue.target')
 SYSTEM_TYPES=('classic' 'puzzle')
-LOCALES=('de_DE' 'en_US' 'es_ES' 'fr_FR' 'it_IT' 'pt_BR' 'ru_RU')
-LAYOUT_SWITCH_METHODS=('alt_shift' 'alt_space' 'caps' 'ctrl_shift' 'win_space'
 DEFAULT_TARGET_FIELD="$DEFAULT_TARGET!$(printf "%s\n" "${DEFAULT_TARGETS[@]/$DEFAULT_TARGET/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
 SYSTEM_TYPE_FIELD="$SYSTEM_TYPE!$(printf "%s\n" "${SYSTEM_TYPES[@]/$SYSTEM_TYPE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
-LOCALE_FIELD="$LOCALE!$(printf "%s\n" "${LOCALES[@]/$LOCALE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
-LAYOUT_SWITCH_FIELD="$LAYOUT_SWITCH!$(printf "%s\n" "${LAYOUT_SWITCH_METHODS[@]/$LAYOUT_SWITCH/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
 
 while true; do
     FORM_OUTPUT=$(
@@ -182,8 +180,6 @@ while true; do
             --field="$(gettext "User password")" "$USER_PASSWORD" \
             --field="$(gettext "Root password")" "$ROOT_PASSWORD" \
             --field="$(gettext "Hostname")" "$HOST_NAME" \
-            --field="$(gettext "Language"):CB" "$LOCALE_FIELD" \
-            --field="$(gettext "Layout switch method"):CB" "$LAYOUT_SWITCH_FIELD" \
             --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
             --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
             --field="$(gettext "Enable services (delimiter ,)")" "$ENABLE_SERVICES" \
@@ -201,7 +197,7 @@ while true; do
         exit 1
     fi
 
-    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_DEFAULT_TARGET FORM_SYSTEM_TYPE FORM_LOCALE FORM_LAYOUT_SWITCH FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
+    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_SYSTEM_TYPE FORM_DEFAULT_TARGET FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
 
     # Convert boolean values to lowercase
     FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
@@ -219,8 +215,6 @@ while true; do
         ENABLE_SERVICES="$FORM_ENABLE_SERVICES"
         DISABLE_SERVICES="$FORM_DISABLE_SERVICES"
         SSH_KEY="$FORM_SSH_KEY"
-        LOCALE="$FORM_LOCALE"
-        LAYOUT_SWITCH="$FORM_LAYOUT_SWITCH"
         DEFAULT_TARGET="$FORM_DEFAULT_TARGET"
         SYSTEM_TYPE="$FORM_SYSTEM_TYPE"
         SCRIPTS="$FORM_SCRIPTS"
