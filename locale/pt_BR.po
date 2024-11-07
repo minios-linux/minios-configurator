@@ -1,0 +1,159 @@
+# Brazilian Portuguese translations for minios-configurator package.
+# Copyright (C) 2024 MiniOS Linux.
+# This file is distributed under the same license as the minios-configurator package.
+# crims0n <crims0n@minios.dev>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: minios-configurator 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-03 21:21+0300\n"
+"PO-Revision-Date: 2024-03-17 14:43+0300\n"
+"Last-Translator: crims0n <crims0n@minios.dev>, 2024.\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#: minios-configurator:113 minios-configurator:218
+msgid "Invalid Username"
+msgstr "Nome de usuário inválido"
+
+#: minios-configurator:113
+msgid ""
+"Invalid username. Rules:\\n1. Length must be <= 32.\\n2. Must not start with "
+"a dash, plus, or tilde, and cannot be all numeric.\\n3. Only a-z, A-Z, 0-9, "
+"and underscore allowed. Cannot end with a dollar sign.\\n4. '.', '..', "
+"colon, comma, whitespace, and '/' are not allowed."
+msgstr ""
+"Nome de usuário inválido. Regras:\\n1. O comprimento deve ser <= 32.\\n2. Não deve começar com um hífen, sinal de mais ou til, e não pode ser totalmente numérico.\\n3. Somente a-z, A-Z, 0-9 e sublinhado são permitidos. Não pode terminar com um sinal de dólar.\\n4. '.', '..', dois pontos, vírgula, espaço em branco e '/' não são permitidos."
+
+#: minios-configurator:116
+msgid "Username is valid."
+msgstr "Nome de usuário válido."
+
+#: minios-configurator:123 minios-configurator:221
+msgid "Invalid Hostname"
+msgstr "Nome de host inválido"
+
+#: minios-configurator:123
+msgid ""
+"Invalid hostname. Rules:\\n1. Length must be between 2 and 63 characters."
+"\\n2. Can only contain a-z, A-Z, 0-9, and dash.\\n3. Must start and end with "
+"a letter or number."
+msgstr ""
+"Nome de host inválido. Regras:\\n1. O comprimento deve ter entre 2 e 63 caracteres.\\n2. Pode conter apenas a-z, A-Z, 0-9 e hífen.\\n3. Deve começar e terminar com uma letra ou número."
+
+#: minios-configurator:126
+msgid "Hostname is valid."
+msgstr "Nome de host válido."
+
+#: minios-configurator:133 minios-configurator:224 minios-configurator:227
+msgid "Invalid Password"
+msgstr "Senha inválida"
+
+#: minios-configurator:133
+msgid "Password should not contain spaces or single quotes."
+msgstr "A senha não deve conter espaços ou aspas simples."
+
+#: minios-configurator:136
+msgid "Password is valid."
+msgstr "Senha válida."
+
+#: minios-configurator:163
+msgid "MiniOS Configurator"
+msgstr "Configurador do MiniOS"
+
+#: minios-configurator:167
+msgid "You can read more about the parameters in man minios-configurator"
+msgstr "Você pode ler mais sobre os parâmetros em man minios-configurator"
+
+#: minios-configurator:167
+msgid "Select configuration options for MiniOS"
+msgstr "Selecione as opções de configuração para o MiniOS"
+
+#: minios-configurator:169
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: minios-configurator:170
+msgid "User password"
+msgstr "Senha do usuário"
+
+#: minios-configurator:171
+msgid "Root password"
+msgstr "Senha de root"
+
+#: minios-configurator:172
+msgid "Hostname"
+msgstr "Nome do host"
+
+#: minios-configurator:173
+msgid "Enable services (delimiter ,)"
+msgstr "Habilitar serviços (delimitador ,)"
+
+#: minios-configurator:174
+msgid "Disable services (delimiter ,)"
+msgstr "Desabilitar serviços (delimitador ,)"
+
+#: minios-configurator:175
+msgid "SSH key name on flash drive"
+msgstr "Nome da chave SSH no pendrive"
+
+#: minios-configurator:176
+msgid "Default SystemD target"
+msgstr "Alvo padrão do SystemD"
+
+#: minios-configurator:177
+msgid "System type"
+msgstr "Tipo de sistema"
+
+#: minios-configurator:178
+msgid "Executing scripts on boot"
+msgstr "Executando scripts na inicialização"
+
+#: minios-configurator:179
+msgid "Hide credentials"
+msgstr "Ocultar credenciais"
+
+#: minios-configurator:180
+msgid "Autologin"
+msgstr "Login automático"
+
+#: minios-configurator:181
+msgid "Link user directories to storage"
+msgstr "Vincular diretórios de usuário ao armazenamento"
+
+#: minios-configurator:182
+msgid "Export logs to flash drive"
+msgstr "Exportar logs para o pendrive"
+
+#: minios-configurator:218
+msgid "Invalid username. Read 'man useradd' for more information."
+msgstr "Nome de usuário inválido. Leia 'man useradd' para mais informações."
+
+#: minios-configurator:221
+msgid ""
+"Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, "
+"start and end with a letter or number, and be between 2 to 63 characters "
+"long."
+msgstr ""
+"O nome do host deve conter apenas letras (a-z, A-Z), dígitos (0-9) ou hífens, começar e terminar com uma letra ou número e ter entre 2 e 63 caracteres de comprimento."
+
+#: minios-configurator:224
+msgid "User password should not contain spaces or single quotes."
+msgstr "A senha do usuário não deve conter espaços ou aspas simples."
+
+#: minios-configurator:227
+msgid "Root password should not contain spaces or single quotes."
+msgstr "A senha de root não deve conter espaços ou aspas simples."
+
+#: minios-configurator:238
+msgid "Reminder"
+msgstr "Lembrete"
+
+#: minios-configurator:239
+msgid "You will need to reboot your system to apply the settings."
+msgstr "Você precisará reiniciar o sistema para aplicar as configurações."
