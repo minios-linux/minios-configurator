@@ -163,9 +163,11 @@ KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' '
 
 read_config "$CONFIG_FILE" "${KEYS[@]}"
 
-DEFAULT_TARGETS=('graphical.target' 'multi-user.target' 'rescue.target')
-SYSTEM_TYPES=('classic' 'puzzle')
+DEFAULT_TARGETS=('graphical' 'multi-user' 'rescue')
+DEFAULT_TARGET="${DEFAULT_TARGET%.target}"
 DEFAULT_TARGET_FIELD="$DEFAULT_TARGET!$(printf "%s\n" "${DEFAULT_TARGETS[@]/$DEFAULT_TARGET/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
+
+SYSTEM_TYPES=('classic' 'puzzle')
 SYSTEM_TYPE_FIELD="$SYSTEM_TYPE!$(printf "%s\n" "${SYSTEM_TYPES[@]/$SYSTEM_TYPE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
 
 while true; do
