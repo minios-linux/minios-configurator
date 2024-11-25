@@ -242,7 +242,7 @@ while true; do
     fi
 done
 
-update_config "$CONFIG_FILE" "${KEYS[@]}"
+update_config -a "$CONFIG_FILE" "${KEYS[@]}"
 
 if [ "$CONFIG_FILE" = "/etc/minios/minios.conf" ]; then
     yad --form --center \
