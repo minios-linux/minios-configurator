@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 21:21+0300\n"
+"POT-Creation-Date: 2024-12-02 00:22+0300\n"
 "PO-Revision-Date: 2024-03-17 14:43+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2024.\n"
 "Language-Team: Italian\n"
@@ -17,142 +17,147 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: minios-configurator:113 minios-configurator:218
-msgid "Invalid Username"
-msgstr "Nome utente non valido"
+#: minios-configurator:18
+msgid "Error"
+msgstr "Errore"
 
-#: minios-configurator:113
-msgid ""
-"Invalid username. Rules:\\n1. Length must be <= 32.\\n2. Must not start with "
-"a dash, plus, or tilde, and cannot be all numeric.\\n3. Only a-z, A-Z, 0-9, "
-"and underscore allowed. Cannot end with a dollar sign.\\n4. '.', '..', "
-"colon, comma, whitespace, and '/' are not allowed."
-msgstr ""
-"Nome utente non valido. Regole:\\n1. La lunghezza deve essere <= 32.\\n2. Non deve iniziare con un trattino, un più, un tilde, o essere completamente numerico.\\n3. Solo a-z, A-Z, 0-9 e underscore sono consentiti. Non può terminare con il simbolo del dollaro.\\n4. '.', '..', colon, virgole, spazi e '/' non sono consentiti."
+#: minios-configurator:25
+msgid "Warning"
+msgstr "Avviso"
 
-#: minios-configurator:116
-msgid "Username is valid."
-msgstr "Il nome utente è valido."
+#: minios-configurator:32
+msgid "Information"
+msgstr "Informazione"
 
-#: minios-configurator:123 minios-configurator:221
-msgid "Invalid Hostname"
-msgstr "Nome di host non valido"
-
-#: minios-configurator:123
-msgid ""
-"Invalid hostname. Rules:\\n1. Length must be between 2 and 63 characters."
-"\\n2. Can only contain a-z, A-Z, 0-9, and dash.\\n3. Must start and end with "
-"a letter or number."
-msgstr ""
-"Nome di host non valido. Regole:\\n1. La lunghezza deve essere tra 2 e 63 caratteri.\\n2. Può contenere solo a-z, A-Z, 0-9 e trattino.\\n3. Deve iniziare e terminare con una lettera o un numero."
-
-#: minios-configurator:126
-msgid "Hostname is valid."
-msgstr "Il nome del host è valido."
-
-#: minios-configurator:133 minios-configurator:224 minios-configurator:227
-msgid "Invalid Password"
-msgstr "Password non valida"
-
-#: minios-configurator:133
-msgid "Password should not contain spaces or single quotes."
-msgstr "La password non dovrebbe contenere spazi o apostrofi."
-
-#: minios-configurator:136
-msgid "Password is valid."
-msgstr "La password è valida."
-
-#: minios-configurator:163
+#: minios-configurator:194
 msgid "MiniOS Configurator"
 msgstr "Configuratore MiniOS"
 
-#: minios-configurator:167
+#: minios-configurator:198
 msgid "You can read more about the parameters in man minios-configurator"
-msgstr "Puoi leggere di più sui parametri nel manuale di minios-configurator"
+msgstr "Per maggiori informazioni sui parametri, consultare il manuale `man minios-configurator`"
 
-#: minios-configurator:167
+#: minios-configurator:198
 msgid "Select configuration options for MiniOS"
 msgstr "Seleziona le opzioni di configurazione per MiniOS"
 
-#: minios-configurator:169
+#: minios-configurator:200
 msgid "Username"
 msgstr "Nome utente"
 
-#: minios-configurator:170
+#: minios-configurator:201
 msgid "User password"
-msgstr "Password dell'utente"
+msgstr "Password utente"
 
-#: minios-configurator:171
+#: minios-configurator:202
 msgid "Root password"
-msgstr "Password di root"
+msgstr "Password root"
 
-#: minios-configurator:172
+#: minios-configurator:203
 msgid "Hostname"
 msgstr "Nome host"
 
-#: minios-configurator:173
-msgid "Enable services (delimiter ,)"
-msgstr "Abilita servizi (delimitatore ,)"
-
-#: minios-configurator:174
-msgid "Disable services (delimiter ,)"
-msgstr "Disabilita servizi (delimitatore ,)"
-
-#: minios-configurator:175
-msgid "SSH key name on flash drive"
-msgstr "Nome della chiave SSH su pendrive"
-
-#: minios-configurator:176
-msgid "Default SystemD target"
-msgstr "Target predefinito di SystemD"
-
-#: minios-configurator:177
+#: minios-configurator:204
 msgid "System type"
 msgstr "Tipo di sistema"
 
-#: minios-configurator:178
-msgid "Executing scripts on boot"
-msgstr "Esecuzione degli script all'avvio"
+#: minios-configurator:205
+msgid "Default SystemD target"
+msgstr "Target SystemD predefinito"
 
-#: minios-configurator:179
+#: minios-configurator:206
+msgid "Enable services (delimiter ,)"
+msgstr "Abilita servizi (separatore ,)"
+
+#: minios-configurator:207
+msgid "Disable services (delimiter ,)"
+msgstr "Disabilita servizi (separatore ,)"
+
+#: minios-configurator:208
+msgid "SSH key name on flash drive"
+msgstr "Nome chiave SSH sulla chiavetta USB"
+
+#: minios-configurator:209
+msgid "Executing scripts on boot"
+msgstr "Esecuzione script all'avvio"
+
+#: minios-configurator:210
 msgid "Hide credentials"
 msgstr "Nascondi credenziali"
 
-#: minios-configurator:180
+#: minios-configurator:211
 msgid "Autologin"
-msgstr "Accesso automatico"
+msgstr "Accedi automaticamente"
 
-#: minios-configurator:181
+#: minios-configurator:212
+msgid "Require password for sudo/pkexec"
+msgstr "Richiedi password per sudo/pkexec"
+
+#: minios-configurator:213
 msgid "Link user directories to storage"
-msgstr "Collega le directory degli utenti allo storage"
+msgstr "Collega le directory utente all'archiviazione"
 
-#: minios-configurator:182
+#: minios-configurator:214
 msgid "Export logs to flash drive"
-msgstr "Esporta log su pendrive"
+msgstr "Esporta i log sulla chiavetta USB"
 
-#: minios-configurator:218
+#: minios-configurator:250
 msgid "Invalid username. Read 'man useradd' for more information."
-msgstr "Nome utente non valido. Leggi 'man useradd' per maggiori informazioni."
+msgstr "Nome utente non valido. Per maggiori informazioni, consultare `man useradd`."
 
-#: minios-configurator:221
+#: minios-configurator:253
 msgid ""
 "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, "
 "start and end with a letter or number, and be between 2 to 63 characters "
 "long."
-msgstr "Il nome di host deve contenere solo lettere (a-z, A-Z), cifre (0-9) o trattini, iniziare e terminare con una lettera o un numero, e essere lungo da 2 a 63 caratteri."
+msgstr "Il nome host deve contenere solo lettere (a-z, A-Z), cifre (0-9) o trattini, iniziare e terminare con una lettera o un numero, ed essere lungo tra 2 e 63 caratteri."
 
-#: minios-configurator:224
+#: minios-configurator:256
 msgid "User password should not contain spaces or single quotes."
-msgstr "La password dell'utente non dovrebbe contenere spazi o apostrofi."
+msgstr "La password utente non deve contenere spazi o apostrofi."
 
-#: minios-configurator:227
+#: minios-configurator:259
 msgid "Root password should not contain spaces or single quotes."
-msgstr "La password di root non dovrebbe contenere spazi o apostrofi."
+msgstr "La password root non deve contenere spazi o apostrofi."
 
-#: minios-configurator:238
+#: minios-configurator:270
 msgid "Reminder"
 msgstr "Promemoria"
 
-#: minios-configurator:239
+#: minios-configurator:271
 msgid "You will need to reboot your system to apply the settings."
-msgstr "Dovrai riavviare il sistema per applicare le impostazioni."
+msgstr "È necessario riavviare il sistema per applicare le impostazioni."
+
+msgid "Invalid Username"
+msgstr "Nome utente non valido"
+
+msgid ""
+"Invalid username. Rules:\n1. Length must be <= 32.\n2. Must not start "
+"with a dash, plus, or tilde, and cannot be all numeric.\n3. Only a-z, A-"
+"Z, 0-9, and underscore allowed. Cannot end with a dollar sign.\n4. '.', "
+"'..', colon, comma, whitespace, and '/' are not allowed."
+msgstr "Nome utente non valido. Regole:\n1. Lunghezza massima: 32 caratteri.\n2. Non deve iniziare con un trattino, un più o una tilde, e non può essere completamente numerico.\n3. Sono consentiti solo i caratteri a-z, A-Z, 0-9 e underscore. Non può terminare con il simbolo del dollaro.\n4. I caratteri '.', '..', ':', ',', gli spazi e '/' non sono consentiti."
+
+msgid "Username is valid."
+msgstr "Nome utente valido."
+
+msgid "Invalid Hostname"
+msgstr "Nome host non valido"
+
+msgid ""
+"Invalid hostname. Rules:\n1. Length must be between 2 and 63 characters.\n"
+"2. Can only contain a-z, A-Z, 0-9, and dash.\n3. Must start and end "
+"with a letter or number."
+msgstr "Nome host non valido. Regole:\n1. La lunghezza deve essere compresa tra 2 e 63 caratteri.\n2. Può contenere solo i caratteri a-z, A-Z, 0-9 e trattino.\n3. Deve iniziare e terminare con una lettera o un numero."
+
+msgid "Hostname is valid."
+msgstr "Nome host valido."
+
+msgid "Invalid Password"
+msgstr "Password non valida"
+
+msgid "Password should not contain spaces or single quotes."
+msgstr "La password non deve contenere spazi o apostrofi."
+
+msgid "Password is valid."
+msgstr "Password valida."
