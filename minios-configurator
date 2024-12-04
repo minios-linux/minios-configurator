@@ -7,7 +7,7 @@
 # Usage: minios-configurator [/path/to/config/file]
 # If no config file path is provided, it defaults to /etc/minios/minios.conf
 #
-# Author: crims0n. <http://minios.dev>
+# Author: crims0n <https://minios.dev>
 
 # Set text domain
 export TEXTDOMAIN="minios-configurator"
