@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # MiniOS Configurator
 # A graphical tool for configuring MiniOS settings
 # Allows modifying parameters in /etc/minios/minios.conf
