@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 00:22+0300\n"
+"POT-Creation-Date: 2025-01-31 16:43+0300\n"
 "PO-Revision-Date: 2024-03-17 14:43+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2024.\n"
 "Language-Team: Portuguese\n"
@@ -17,147 +17,189 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: minios-configurator:18
+#: minios-configurator:17
 msgid "Error"
 msgstr "Erro"
 
-#: minios-configurator:25
+#: minios-configurator:24
 msgid "Warning"
 msgstr "Aviso"
 
-#: minios-configurator:32
+#: minios-configurator:31
 msgid "Information"
 msgstr "Informação"
 
-#: minios-configurator:194
+#: minios-configurator:191
 msgid "MiniOS Configurator"
 msgstr "Configurador MiniOS"
 
-#: minios-configurator:198
+#: minios-configurator:195
 msgid "You can read more about the parameters in man minios-configurator"
 msgstr "Pode ler mais sobre os parâmetros em `man minios-configurator`"
 
-#: minios-configurator:198
+#: minios-configurator:195
 msgid "Select configuration options for MiniOS"
 msgstr "Selecione as opções de configuração para o MiniOS"
 
-#: minios-configurator:200
+#: minios-configurator:197
 msgid "Username"
 msgstr "Nome de utilizador"
 
-#: minios-configurator:201
+#: minios-configurator:198
 msgid "User password"
 msgstr "Senha do utilizador"
 
-#: minios-configurator:202
+#: minios-configurator:199
 msgid "Root password"
 msgstr "Senha root"
 
-#: minios-configurator:203
+#: minios-configurator:200
 msgid "Hostname"
 msgstr "Nome do host"
 
-#: minios-configurator:204
+#: minios-configurator:201
 msgid "System type"
 msgstr "Tipo de sistema"
 
-#: minios-configurator:205
+#: minios-configurator:202
 msgid "Default SystemD target"
 msgstr "Destino SystemD padrão"
 
-#: minios-configurator:206
+#: minios-configurator:203
 msgid "Enable services (delimiter ,)"
 msgstr "Ativar serviços (delimitador ,)"
 
-#: minios-configurator:207
+#: minios-configurator:204
 msgid "Disable services (delimiter ,)"
 msgstr "Desativar serviços (delimitador ,)"
 
-#: minios-configurator:208
+#: minios-configurator:205
 msgid "SSH key name on flash drive"
 msgstr "Nome da chave SSH no pendrive"
 
-#: minios-configurator:209
+#: minios-configurator:206
 msgid "Executing scripts on boot"
 msgstr "Executar scripts na inicialização"
 
-#: minios-configurator:210
+#: minios-configurator:207
 msgid "Hide credentials"
 msgstr "Ocultar credenciais"
 
-#: minios-configurator:211
+#: minios-configurator:208
 msgid "Autologin"
 msgstr "Login automático"
 
-#: minios-configurator:212
+#: minios-configurator:209
 msgid "Require password for sudo/pkexec"
 msgstr "Requerer senha para sudo/pkexec"
 
-#: minios-configurator:213
+#: minios-configurator:210
 msgid "Link user directories to storage"
 msgstr "Vincular diretórios de utilizador ao armazenamento"
 
-#: minios-configurator:214
+#: minios-configurator:211
 msgid "Export logs to flash drive"
 msgstr "Exportar registos para o pendrive"
 
-#: minios-configurator:250
+#: minios-configurator:212
+msgid "Locales (delimiter ,)"
+msgstr "Locais (delimitador ,)"
+
+#: minios-configurator:213
+msgid "Timezone"
+msgstr "Fuso horário"
+
+#: minios-configurator:214
+msgid "Keyboard layouts (delimiter ,)"
+msgstr "Layouts de teclado (delimitador ,)"
+
+#: minios-configurator:215
+msgid "Keyboard model"
+msgstr "Modelo de teclado"
+
+#: minios-configurator:216
+msgid "Keyboard options"
+msgstr "Opções de teclado"
+
+#: minios-configurator:217
+msgid "Keyboard variants"
+msgstr "Variantes de teclado"
+
+#: minios-configurator:259
 msgid "Invalid username. Read 'man useradd' for more information."
 msgstr "Nome de utilizador inválido. Leia `man useradd` para mais informações."
 
-#: minios-configurator:253
+#: minios-configurator:262
 msgid ""
 "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, "
 "start and end with a letter or number, and be between 2 to 63 characters "
 "long."
-msgstr "O nome do host deve conter apenas letras (a-z, A-Z), dígitos (0-9) ou hífens, começar e terminar com uma letra ou número, e ter entre 2 a 63 caracteres de comprimento."
+msgstr ""
+"O nome do host deve conter apenas letras (a-z, A-Z), dígitos (0-9) ou "
+"hífens, começar e terminar com uma letra ou número, e ter entre 2 a 63 "
+"caracteres de comprimento."
 
-#: minios-configurator:256
+#: minios-configurator:265
 msgid "User password should not contain spaces or single quotes."
 msgstr "A senha do utilizador não deve conter espaços nem aspas simples."
 
-#: minios-configurator:259
+#: minios-configurator:268
 msgid "Root password should not contain spaces or single quotes."
 msgstr "A senha de root não deve conter espaços nem aspas simples."
 
-#: minios-configurator:270
+#: minios-configurator:279
 msgid "Reminder"
 msgstr "Lembrete"
 
-#: minios-configurator:271
+#: minios-configurator:280
 msgid "You will need to reboot your system to apply the settings."
 msgstr "Será necessário reiniciar o sistema para aplicar as configurações."
 
-msgid "Invalid Username"
-msgstr "Nome de utilizador inválido"
+#~ msgid "Invalid Username"
+#~ msgstr "Nome de utilizador inválido"
 
-msgid ""
-"Invalid username. Rules:\n1. Length must be <= 32.\n2. Must not start "
-"with a dash, plus, or tilde, and cannot be all numeric.\n3. Only a-z, A-"
-"Z, 0-9, and underscore allowed. Cannot end with a dollar sign.\n4. '.', "
-"'..', colon, comma, whitespace, and '/' are not allowed."
-msgstr "Nome de utilizador inválido. Regras:\n1. O comprimento deve ser <= 32.\n2. Não deve começar com um hífen, um sinal de mais ou um til, e não pode ser totalmente numérico.\n3. Apenas a-z, A-Z, 0-9 e sublinhado são permitidos. Não pode terminar com um sinal de dólar.\n4. '.', '..', dois pontos, vírgula, espaços e '/' não são permitidos."
+#~ msgid ""
+#~ "Invalid username. Rules:\n"
+#~ "1. Length must be <= 32.\n"
+#~ "2. Must not start with a dash, plus, or tilde, and cannot be all "
+#~ "numeric.\n"
+#~ "3. Only a-z, A-Z, 0-9, and underscore allowed. Cannot end with a dollar "
+#~ "sign.\n"
+#~ "4. '.', '..', colon, comma, whitespace, and '/' are not allowed."
+#~ msgstr ""
+#~ "Nome de utilizador inválido. Regras:\n"
+#~ "1. O comprimento deve ser <= 32.\n"
+#~ "2. Não deve começar com um hífen, um sinal de mais ou um til, e não pode "
+#~ "ser totalmente numérico.\n"
+#~ "3. Apenas a-z, A-Z, 0-9 e sublinhado são permitidos. Não pode terminar "
+#~ "com um sinal de dólar.\n"
+#~ "4. '.', '..', dois pontos, vírgula, espaços e '/' não são permitidos."
 
-msgid "Username is valid."
-msgstr "Nome de utilizador válido."
+#~ msgid "Username is valid."
+#~ msgstr "Nome de utilizador válido."
 
-msgid "Invalid Hostname"
-msgstr "Nome de host inválido"
+#~ msgid "Invalid Hostname"
+#~ msgstr "Nome de host inválido"
 
-msgid ""
-"Invalid hostname. Rules:\n1. Length must be between 2 and 63 characters.\n"
-"2. Can only contain a-z, A-Z, 0-9, and dash.\n3. Must start and end "
-"with a letter or number."
-msgstr "Nome de host inválido. Regras:\n1. O comprimento deve estar entre 2 e 63 caracteres.\n2. Pode conter apenas a-z, A-Z, 0-9 e hífen.\n3. Deve começar e terminar com uma letra ou número."
+#~ msgid ""
+#~ "Invalid hostname. Rules:\n"
+#~ "1. Length must be between 2 and 63 characters.\n"
+#~ "2. Can only contain a-z, A-Z, 0-9, and dash.\n"
+#~ "3. Must start and end with a letter or number."
+#~ msgstr ""
+#~ "Nome de host inválido. Regras:\n"
+#~ "1. O comprimento deve estar entre 2 e 63 caracteres.\n"
+#~ "2. Pode conter apenas a-z, A-Z, 0-9 e hífen.\n"
+#~ "3. Deve começar e terminar com uma letra ou número."
 
-msgid "Hostname is valid."
-msgstr "Nome de host válido."
+#~ msgid "Hostname is valid."
+#~ msgstr "Nome de host válido."
 
-msgid "Invalid Password"
-msgstr "Senha inválida"
+#~ msgid "Invalid Password"
+#~ msgstr "Senha inválida"
 
-msgid "Password should not contain spaces or single quotes."
-msgstr "A senha não deve conter espaços nem aspas simples."
+#~ msgid "Password should not contain spaces or single quotes."
+#~ msgstr "A senha não deve conter espaços nem aspas simples."
 
-msgid "Password is valid."
-msgstr "Senha válida."
+#~ msgid "Password is valid."
+#~ msgstr "Senha válida."

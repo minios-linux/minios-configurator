@@ -1,3 +1,9 @@
+minios-configurator (1.1) unstable; urgency=medium
+
+  * Added support for LOCALES, TIMEZONE, and keyboard configuration variables.
+
+ -- crims0n <crims0n@minios.dev>  Fri, 31 Jan 2025 16:32:22 +0300
+
 minios-configurator (1.0) unstable; urgency=medium
 
   * Initial release

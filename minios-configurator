@@ -171,13 +171,11 @@ validate_password() {
     fi
 }
 
-
 # Call the function to check root permissions
 check_root_permissions "$@"
 
-
 CONFIG_FILE="${1:-/etc/minios/minios.conf}"
-KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS')
+KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS' 'LOCALES' 'TIMEZONE' 'KEYBOARD_LAYOUTS' 'KEYBOARD_MODEL' 'KEYBOARD_OPTIONS' 'KEYBOARD_VARIANTS')
 
 read_config "$CONFIG_FILE" "${KEYS[@]}"
 
@@ -190,7 +188,7 @@ SYSTEM_TYPE_FIELD="$SYSTEM_TYPE!$(printf "%s\n" "${SYSTEM_TYPES[@]/$SYSTEM_TYPE/
 
 while true; do
     FORM_OUTPUT=$(
-        yad --form --center --title="$(gettext "MiniOS Configurator")" \
+        yad --form --columns 2 --center --title="$(gettext "MiniOS Configurator")" \
             --borders=10 \
             --window-icon="preferences-system" \
             --width=500 \
@@ -205,6 +203,12 @@ while true; do
             --field="$(gettext "Enable services (delimiter ,)")" "$ENABLE_SERVICES" \
             --field="$(gettext "Disable services (delimiter ,)")" "$DISABLE_SERVICES" \
             --field="$(gettext "SSH key name on flash drive")" "$SSH_KEY" \
+            --field="$(gettext "Locales (delimiter ,)")" "$LOCALES" \
+            --field="$(gettext "Timezone")" "$TIMEZONE" \
+            --field="$(gettext "Keyboard layouts (delimiter ,)")" "$KEYBOARD_LAYOUTS" \
+            --field="$(gettext "Keyboard model")" "$KEYBOARD_MODEL" \
+            --field="$(gettext "Keyboard options")" "$KEYBOARD_OPTIONS" \
+            --field="$(gettext "Keyboard variants")" "$KEYBOARD_VARIANTS" \
             --field="$(gettext "Executing scripts on boot"):CHK" "$SCRIPTS" \
             --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
             --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
@@ -217,7 +221,7 @@ while true; do
         exit 1
     fi
 
-    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_SYSTEM_TYPE FORM_DEFAULT_TARGET FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
+    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_SYSTEM_TYPE FORM_DEFAULT_TARGET FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS FORM_LOCALES FORM_TIMEZONE FORM_KEYBOARD_LAYOUTS FORM_KEYBOARD_MODEL FORM_KEYBOARD_OPTIONS FORM_KEYBOARD_VARIANTS <<<"$FORM_OUTPUT"
 
     # Convert boolean values to lowercase
     FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
@@ -243,6 +247,12 @@ while true; do
         ELEVATION_PASSWORD_REQUIRED="$FORM_ELEVATION_PASSWORD_REQUIRED"
         LINK_USER_DIRS="$FORM_LINK_USER_DIRS"
         EXPORT_LOGS="$FORM_EXPORT_LOGS"
+        LOCALES="$FORM_LOCALES"
+        TIMEZONE="$FORM_TIMEZONE"
+        KEYBOARD_LAYOUTS="$FORM_KEYBOARD_LAYOUTS"
+        KEYBOARD_MODEL="$FORM_KEYBOARD_MODEL"
+        KEYBOARD_OPTIONS="$FORM_KEYBOARD_OPTIONS"
+        KEYBOARD_VARIANTS="$FORM_KEYBOARD_VARIANTS"
         break
     else
         if ! validate_username "$FORM_USER_NAME"; then
