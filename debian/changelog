@@ -1,3 +1,9 @@
+minios-configurator (2.0) UNRELEASED; urgency=medium
+
+  * 
+
+ -- crims0n <crims0n@minios.dev>  Sun, 25 May 2025 21:28:52 +0300
+
 minios-configurator (1.1.1) unstable; urgency=medium
 
   * Fixed a bug in minios-configurator that caused incorrect mapping of fields to variables in the config.

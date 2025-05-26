@@ -1,0 +1,491 @@
+# Indonesian translations for minios-configurator package.
+# Copyright (C) 2025 MiniOS Linux.
+# This file is distributed under the same license as the minios-configurator package.
+# crims0n <crims0n@minios.dev>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: minios-configurator 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-26 23:11+0300\n"
+"PO-Revision-Date: 2025-05-26 23:16+0300\n"
+"Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
+"Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: minios-configurator:62
+msgid "General"
+msgstr "Umum"
+
+#: minios-configurator:63
+msgid "live-config command line"
+msgstr "Baris perintah live-config"
+
+#: minios-configurator:64
+msgid ""
+"Additional boot parameters for live-config (separated by spaces).\n"
+"\n"
+"• Passed at startup to control various session aspects.\n"
+"• Example: 'boot=live live-config.debug'\n"
+"\n"
+"See: man 7 live-config (search 'cmdline')"
+msgstr ""
+"Parameter boot tambahan untuk live-config (dipisahkan dengan spasi).\n"
+"\n"
+"• Diberikan saat startup untuk mengontrol berbagai aspek sesi.\n"
+"• Contoh: 'boot=live live-config.debug'\n"
+"\n"
+"Lihat: man 7 live-config (cari 'cmdline')"
+
+#: minios-configurator:68
+msgid "No-root mode"
+msgstr "Mode tanpa root"
+
+#: minios-configurator:69
+msgid ""
+"If enabled, disables the root account, enhancing security.\n"
+"\n"
+"• Prevents root login and administrator access.\n"
+"• Ideal for live sessions.\n"
+"\n"
+"See: man 7 live-config (search 'noroot')"
+msgstr ""
+"Jika diaktifkan, akun root akan dinonaktifkan untuk meningkatkan keamanan.\n"
+"\n"
+"• Mencegah login root dan akses administrator.\n"
+"• Cocok untuk sesi live.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'noroot')"
+
+#: minios-configurator:73
+msgid "Debug mode"
+msgstr "Mode debug"
+
+#: minios-configurator:74
+msgid ""
+"Activate to enable detailed debug output during boot.\n"
+"\n"
+"• Useful for troubleshooting configuration issues.\n"
+"\n"
+"See: man 7 live-config (search 'debug')"
+msgstr ""
+"Aktifkan untuk menampilkan output debug detail saat boot.\n"
+"\n"
+"• Berguna untuk pemecahan masalah konfigurasi.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'debug')"
+
+#: minios-configurator:77
+msgid "Locales"
+msgstr "Lokal"
+
+#: minios-configurator:78
+msgid ""
+"Set system language(s) and regional settings.\n"
+"\n"
+"• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
+"• The first locale is treated as default.\n"
+"\n"
+"See: man 7 live-config (search 'locales')"
+msgstr ""
+"Tentukan bahasa dan pengaturan regional sistem.\n"
+"\n"
+"• Masukkan kode lokal dipisahkan koma (misal: 'de_DE.UTF-8, en_US.UTF-8').\n"
+"• Lokal pertama menjadi default.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'locales')"
+
+#: minios-configurator:82
+msgid "Timezone"
+msgstr "Zona waktu"
+
+#: minios-configurator:83
+msgid ""
+"Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
+"\n"
+"• Affects system clock and displayed times.\n"
+"\n"
+"See: man 7 live-config (search 'timezone')"
+msgstr ""
+"Tentukan zona waktu sistem (misal: 'Europe/Berlin', 'America/New_York').\n"
+"\n"
+"• Mempengaruhi jam sistem dan waktu yang ditampilkan.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'timezone')"
+
+#: minios-configurator:87
+msgid "User"
+msgstr "Pengguna"
+
+#: minios-configurator:88
+msgid "Hostname"
+msgstr "Nama host"
+
+#: minios-configurator:89
+msgid ""
+"Set the computer's network name (hostname).\n"
+"\n"
+"• Allowed characters: letters, numbers, hyphens.\n"
+"• Example: 'minios-pc'.\n"
+"\n"
+"See: man 7 live-config (search 'hostname')"
+msgstr ""
+"Tentukan nama jaringan komputer (hostname).\n"
+"\n"
+"• Karakter yang diizinkan: huruf, angka, tanda hubung.\n"
+"• Contoh: 'minios-pc'.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'hostname')"
+
+#: minios-configurator:93
+msgid "Username"
+msgstr "Nama pengguna"
+
+#: minios-configurator:94
+msgid ""
+"Set the default username for the live session.\n"
+"\n"
+"• This user is created automatically at boot.\n"
+"\n"
+"See: man 7 live-config (search 'username')"
+msgstr ""
+"Tentukan nama pengguna default untuk sesi live.\n"
+"\n"
+"• Pengguna ini dibuat otomatis saat boot.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'username')"
+
+#: minios-configurator:97
+msgid "Full name"
+msgstr "Nama lengkap"
+
+#: minios-configurator:98
+msgid ""
+"Enter the full name for the default user.\n"
+"\n"
+"• Used for display purposes (e.g., on login screens).\n"
+"\n"
+"See: man 7 live-config (search 'user-fullname')"
+msgstr ""
+"Masukkan nama lengkap untuk pengguna default.\n"
+"\n"
+"• Digunakan untuk tampilan (misal: di layar login).\n"
+"\n"
+"Lihat: man 7 live-config (cari 'user-fullname')"
+
+#: minios-configurator:101
+msgid "User groups"
+msgstr "Grup pengguna"
+
+#: minios-configurator:102
+msgid ""
+"Specify additional groups for the user, separated by commas or spaces.\n"
+"\n"
+"• Grants access to devices and features (e.g., 'audio, video, plugdev').\n"
+"\n"
+"See: man 7 live-config (search 'user-default-groups')"
+msgstr ""
+"Tentukan grup tambahan untuk pengguna, dipisahkan koma atau spasi.\n"
+"\n"
+"• Memberikan akses ke perangkat dan fitur (misal: 'audio, video, plugdev').\n"
+"\n"
+"Lihat: man 7 live-config (cari 'user-default-groups')"
+
+#: minios-configurator:105
+msgid "User password"
+msgstr "Kata sandi pengguna"
+
+#: minios-configurator:106
+msgid ""
+"Set the initial password for the default user.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Tentukan kata sandi awal untuk pengguna default.\n"
+"\n"
+"• Biarkan kosong untuk mempertahankan kata sandi lama.\n"
+"• Spasi tidak diperbolehkan.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:110
+msgid "Root password"
+msgstr "Kata sandi root"
+
+#: minios-configurator:111
+msgid ""
+"Set the initial password for the root (administrator) account.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Tentukan kata sandi awal untuk akun root (administrator).\n"
+"\n"
+"• Biarkan kosong untuk mempertahankan kata sandi lama.\n"
+"• Spasi tidak diperbolehkan; diabaikan jika 'Mode tanpa root' aktif.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:116
+msgid "Keyboard"
+msgstr "Keyboard"
+
+#: minios-configurator:117
+msgid "Keyboard model"
+msgstr "Model keyboard"
+
+#: minios-configurator:118
+msgid ""
+"Specify the keyboard hardware model (e.g., 'pc105').\n"
+"\n"
+"• Leave blank for automatic detection.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-model')"
+msgstr ""
+"Tentukan model hardware keyboard (misal: 'pc105').\n"
+"\n"
+"• Biarkan kosong untuk deteksi otomatis.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'keyboard-model')"
+
+#: minios-configurator:121
+msgid "Keyboard layouts"
+msgstr "Tata letak keyboard"
+
+#: minios-configurator:122
+msgid ""
+"List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
+"\n"
+"• Controls which layouts are available in the session.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-layouts')"
+msgstr ""
+"Daftar satu atau lebih tata letak keyboard, dipisahkan koma (misal: 'us, ru').\n"
+"\n"
+"• Mengatur tata letak yang tersedia di sesi.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'keyboard-layouts')"
+
+#: minios-configurator:125
+msgid "Keyboard options"
+msgstr "Opsi keyboard"
+
+#: minios-configurator:126
+msgid ""
+"Set additional keyboard options (XKB).\n"
+"\n"
+"• Example: 'grp:alt_shift_toggle' to switch layouts with Alt+Shift.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-options')"
+msgstr ""
+"Tentukan opsi keyboard tambahan (XKB).\n"
+"\n"
+"• Contoh: 'grp:alt_shift_toggle' untuk mengganti tata letak dengan Alt+Shift.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'keyboard-options')"
+
+#: minios-configurator:129
+msgid "Keyboard variants"
+msgstr "Varian keyboard"
+
+#: minios-configurator:130
+msgid ""
+"Specify keyboard variants for chosen layouts, separated by commas.\n"
+"\n"
+"• Customize layout (e.g., 'dvorak' for US).\n"
+"• Leave blank if not needed.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-variants')"
+msgstr ""
+"Tentukan varian keyboard untuk tata letak yang dipilih, dipisahkan koma.\n"
+"\n"
+"• Kustomisasi tata letak (misal: 'dvorak' untuk US).\n"
+"• Biarkan kosong jika tidak diperlukan.\n"
+"\n"
+"Lihat: man 7 live-config (cari 'keyboard-variants')"
+
+#: minios-configurator:135
+msgid "Advanced"
+msgstr "Lanjutan"
+
+#: minios-configurator:136
+msgid "Module mode"
+msgstr "Mode modul"
+
+#: minios-configurator:137
+msgid ""
+"Choose how system modules are loaded:\n"
+"• 'simple' – load modules as-is.\n"
+"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; "
+"updates caches.\n"
+"\n"
+"Usually not required unless modules are built independently.\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Pilih cara modul sistem dimuat:\n"
+"• 'simple' – muat modul apa adanya.\n"
+"• 'merged' – gabungkan database dpkg, passwd, shadow, dan groups; perbarui cache.\n"
+"\n"
+"Biasanya tidak perlu kecuali modul dibangun terpisah.\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:142
+msgid "Default systemd target"
+msgstr "Target systemd default"
+
+#: minios-configurator:143
+msgid ""
+"Set the default boot target for systemd:\n"
+"• 'graphical' – start with a desktop.\n"
+"• 'multi-user' – console mode.\n"
+"• 'rescue' – minimal rescue mode.\n"
+"\n"
+"See: man systemd.special (search for 'target')"
+msgstr ""
+"Tentukan target boot default untuk systemd:\n"
+"• 'graphical' – mulai dengan desktop.\n"
+"• 'multi-user' – mode konsol.\n"
+"• 'rescue' – mode penyelamatan minimal.\n"
+"\n"
+"Lihat: man systemd.special (cari 'target')"
+
+#: minios-configurator:148
+msgid "Enable services"
+msgstr "Aktifkan layanan"
+
+#: minios-configurator:149
+msgid ""
+"List systemd services to enable at boot, separated by commas.\n"
+"\n"
+"• Example: 'ssh, NetworkManager'.\n"
+"• Use service names with or without '.service'.\n"
+"\n"
+"See: man systemctl (search 'enable')"
+msgstr ""
+"Daftar layanan systemd yang diaktifkan saat boot, dipisahkan koma.\n"
+"\n"
+"• Contoh: 'ssh, NetworkManager'.\n"
+"• Gunakan nama layanan dengan atau tanpa '.service'.\n"
+"\n"
+"Lihat: man systemctl (cari 'enable')"
+
+#: minios-configurator:153
+msgid "Disable services"
+msgstr "Nonaktifkan layanan"
+
+#: minios-configurator:154
+msgid ""
+"List systemd services to disable at boot, separated by commas.\n"
+"\n"
+"• Example: 'bluetooth, ModemManager'.\n"
+"• Use service names with or without '.service'.\n"
+"\n"
+"See: man systemctl (search 'disable')"
+msgstr ""
+"Daftar layanan systemd yang dinonaktifkan saat boot, dipisahkan koma.\n"
+"\n"
+"• Contoh: 'bluetooth, ModemManager'.\n"
+"• Gunakan nama layanan dengan atau tanpa '.service'.\n"
+"\n"
+"Lihat: man systemctl (cari 'disable')"
+
+#: minios-configurator:158
+msgid "Link user directories to storage"
+msgstr "Tautkan direktori pengguna ke penyimpanan"
+
+#: minios-configurator:159
+msgid ""
+"If enabled, user home directories will be symlinked to persistent storage.\n"
+"\n"
+"• Helps retain user data across reboots.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Jika diaktifkan, direktori home pengguna akan disymlink ke penyimpanan persisten.\n"
+"\n"
+"• Membantu menyimpan data pengguna antar reboot.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:162
+msgid "Bind user directories to storage"
+msgstr "Bind direktori pengguna ke penyimpanan"
+
+#: minios-configurator:163
+msgid ""
+"If enabled, user home directories will be bind-mounted to persistent "
+"storage.\n"
+"\n"
+"• Provides transparent persistent data access.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Jika diaktifkan, direktori home pengguna akan di-bind mount ke penyimpanan persisten.\n"
+"\n"
+"• Memberikan akses data persisten secara transparan.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:166
+msgid "User directories path on storage"
+msgstr "Path direktori pengguna di penyimpanan"
+
+#: minios-configurator:167
+msgid ""
+"Set the base path on persistent storage for user directories.\n"
+"\n"
+"• Example: '/minios/userdirs'.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Tentukan path dasar di penyimpanan persisten untuk direktori pengguna.\n"
+"\n"
+"• Contoh: '/minios/userdirs'.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:170
+msgid "Export logs to flash drive"
+msgstr "Ekspor log ke flash drive"
+
+#: minios-configurator:171
+msgid ""
+"If enabled, system logs will be copied to a connected flash drive at "
+"shutdown.\n"
+"\n"
+"• Useful for diagnostics and troubleshooting.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+"Jika diaktifkan, log sistem akan disalin ke flash drive saat shutdown.\n"
+"\n"
+"• Berguna untuk diagnostik dan pemecahan masalah.\n"
+"\n"
+"Lihat: https://github.com/minios-linux/minios-live/wiki"
+
+#: minios-configurator:332
+msgid ""
+"If you are unsure about a field, do not change it. Incorrect settings may "
+"prevent the system from booting."
+msgstr ""
+"Jika Anda ragu tentang suatu isian, jangan diubah. Pengaturan salah dapat membuat sistem gagal boot."
+
+#: minios-configurator:446
+msgid "Save"
+msgstr "Simpan"
+
+#: minios-configurator:467
+msgid "Failed to load config: {}"
+msgstr "Gagal memuat konfigurasi: {}"
+
+#: minios-configurator:614
+msgid "Failed to update config: {}"
+msgstr "Gagal memperbarui konfigurasi: {}"

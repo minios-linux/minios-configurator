@@ -1,0 +1,440 @@
+# Russian translations for minios-configurator package.
+# Copyright (C) 2025 MiniOS Linux.
+# This file is distributed under the same license as the minios-configurator package.
+# crims0n <crims0n@minios.dev>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: minios-configurator 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-26 23:11+0300\n"
+"PO-Revision-Date: 2025-05-26 19:44+0300\n"
+"Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
+"Language-Team: Russian <gnu@d07.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: minios-configurator:62
+msgid "General"
+msgstr "Общие"
+
+#: minios-configurator:63
+msgid "live-config command line"
+msgstr "Параметры live-config"
+
+#: minios-configurator:64
+msgid ""
+"Additional boot parameters for live-config (separated by spaces).\n"
+"\n"
+"• Passed at startup to control various session aspects.\n"
+"• Example: 'boot=live live-config.debug'\n"
+"\n"
+"See: man 7 live-config (search 'cmdline')"
+msgstr ""
+
+#: minios-configurator:68
+msgid "No-root mode"
+msgstr "Режим без root"
+
+#: minios-configurator:69
+msgid ""
+"If enabled, disables the root account, enhancing security.\n"
+"\n"
+"• Prevents root login and administrator access.\n"
+"• Ideal for live sessions.\n"
+"\n"
+"See: man 7 live-config (search 'noroot')"
+msgstr ""
+
+#: minios-configurator:73
+msgid "Debug mode"
+msgstr "Режим отладки"
+
+#: minios-configurator:74
+msgid ""
+"Activate to enable detailed debug output during boot.\n"
+"\n"
+"• Useful for troubleshooting configuration issues.\n"
+"\n"
+"See: man 7 live-config (search 'debug')"
+msgstr ""
+
+#: minios-configurator:77
+msgid "Locales"
+msgstr "Языки"
+
+#: minios-configurator:78
+msgid ""
+"Set system language(s) and regional settings.\n"
+"\n"
+"• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
+"• The first locale is treated as default.\n"
+"\n"
+"See: man 7 live-config (search 'locales')"
+msgstr ""
+
+#: minios-configurator:82
+msgid "Timezone"
+msgstr "Часовой пояс"
+
+#: minios-configurator:83
+msgid ""
+"Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
+"\n"
+"• Affects system clock and displayed times.\n"
+"\n"
+"See: man 7 live-config (search 'timezone')"
+msgstr ""
+
+#: minios-configurator:87
+msgid "User"
+msgstr "Пользователь"
+
+#: minios-configurator:88
+msgid "Hostname"
+msgstr "Имя хоста"
+
+#: minios-configurator:89
+msgid ""
+"Set the computer's network name (hostname).\n"
+"\n"
+"• Allowed characters: letters, numbers, hyphens.\n"
+"• Example: 'minios-pc'.\n"
+"\n"
+"See: man 7 live-config (search 'hostname')"
+msgstr ""
+
+#: minios-configurator:93
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: minios-configurator:94
+msgid ""
+"Set the default username for the live session.\n"
+"\n"
+"• This user is created automatically at boot.\n"
+"\n"
+"See: man 7 live-config (search 'username')"
+msgstr ""
+
+#: minios-configurator:97
+msgid "Full name"
+msgstr "Полное имя"
+
+#: minios-configurator:98
+msgid ""
+"Enter the full name for the default user.\n"
+"\n"
+"• Used for display purposes (e.g., on login screens).\n"
+"\n"
+"See: man 7 live-config (search 'user-fullname')"
+msgstr ""
+
+#: minios-configurator:101
+msgid "User groups"
+msgstr "Группы пользователя"
+
+#: minios-configurator:102
+msgid ""
+"Specify additional groups for the user, separated by commas or spaces.\n"
+"\n"
+"• Grants access to devices and features (e.g., 'audio, video, plugdev').\n"
+"\n"
+"See: man 7 live-config (search 'user-default-groups')"
+msgstr ""
+
+#: minios-configurator:105
+msgid "User password"
+msgstr "Пароль пользователя"
+
+#: minios-configurator:106
+msgid ""
+"Set the initial password for the default user.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:110
+msgid "Root password"
+msgstr "Пароль root"
+
+#: minios-configurator:111
+msgid ""
+"Set the initial password for the root (administrator) account.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:116
+msgid "Keyboard"
+msgstr "Клавиатура"
+
+#: minios-configurator:117
+msgid "Keyboard model"
+msgstr "Модель клавиатуры"
+
+#: minios-configurator:118
+msgid ""
+"Specify the keyboard hardware model (e.g., 'pc105').\n"
+"\n"
+"• Leave blank for automatic detection.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-model')"
+msgstr ""
+
+#: minios-configurator:121
+msgid "Keyboard layouts"
+msgstr "Раскладки клавиатуры"
+
+#: minios-configurator:122
+msgid ""
+"List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
+"\n"
+"• Controls which layouts are available in the session.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-layouts')"
+msgstr ""
+
+#: minios-configurator:125
+msgid "Keyboard options"
+msgstr "Параметры клавиатуры"
+
+#: minios-configurator:126
+msgid ""
+"Set additional keyboard options (XKB).\n"
+"\n"
+"• Example: 'grp:alt_shift_toggle' to switch layouts with Alt+Shift.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-options')"
+msgstr ""
+
+#: minios-configurator:129
+msgid "Keyboard variants"
+msgstr "Варианты клавиатуры"
+
+#: minios-configurator:130
+msgid ""
+"Specify keyboard variants for chosen layouts, separated by commas.\n"
+"\n"
+"• Customize layout (e.g., 'dvorak' for US).\n"
+"• Leave blank if not needed.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-variants')"
+msgstr ""
+
+#: minios-configurator:135
+msgid "Advanced"
+msgstr "Дополнительно"
+
+#: minios-configurator:136
+msgid "Module mode"
+msgstr "Режим модулей"
+
+#: minios-configurator:137
+msgid ""
+"Choose how system modules are loaded:\n"
+"• 'simple' – load modules as-is.\n"
+"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; "
+"updates caches.\n"
+"\n"
+"Usually not required unless modules are built independently.\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:142
+msgid "Default systemd target"
+msgstr "Цель systemd по умолчанию"
+
+#: minios-configurator:143
+msgid ""
+"Set the default boot target for systemd:\n"
+"• 'graphical' – start with a desktop.\n"
+"• 'multi-user' – console mode.\n"
+"• 'rescue' – minimal rescue mode.\n"
+"\n"
+"See: man systemd.special (search for 'target')"
+msgstr ""
+
+#: minios-configurator:148
+msgid "Enable services"
+msgstr "Включить сервисы"
+
+#: minios-configurator:149
+msgid ""
+"List systemd services to enable at boot, separated by commas.\n"
+"\n"
+"• Example: 'ssh, NetworkManager'.\n"
+"• Use service names with or without '.service'.\n"
+"\n"
+"See: man systemctl (search 'enable')"
+msgstr ""
+
+#: minios-configurator:153
+msgid "Disable services"
+msgstr "Отключить сервисы"
+
+#: minios-configurator:154
+msgid ""
+"List systemd services to disable at boot, separated by commas.\n"
+"\n"
+"• Example: 'bluetooth, ModemManager'.\n"
+"• Use service names with or without '.service'.\n"
+"\n"
+"See: man systemctl (search 'disable')"
+msgstr ""
+
+#: minios-configurator:158
+msgid "Link user directories to storage"
+msgstr "Связать каталоги пользователей с хранилищем"
+
+#: minios-configurator:159
+msgid ""
+"If enabled, user home directories will be symlinked to persistent storage.\n"
+"\n"
+"• Helps retain user data across reboots.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:162
+msgid "Bind user directories to storage"
+msgstr "Монтировать каталоги пользователей в хранилище"
+
+#: minios-configurator:163
+msgid ""
+"If enabled, user home directories will be bind-mounted to persistent "
+"storage.\n"
+"\n"
+"• Provides transparent persistent data access.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:166
+msgid "User directories path on storage"
+msgstr "Путь к каталогам пользователей в хранилище"
+
+#: minios-configurator:167
+msgid ""
+"Set the base path on persistent storage for user directories.\n"
+"\n"
+"• Example: '/minios/userdirs'.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:170
+msgid "Export logs to flash drive"
+msgstr "Экспортировать логи на флешку"
+
+#: minios-configurator:171
+msgid ""
+"If enabled, system logs will be copied to a connected flash drive at "
+"shutdown.\n"
+"\n"
+"• Useful for diagnostics and troubleshooting.\n"
+"\n"
+"See: https://github.com/minios-linux/minios-live/wiki"
+msgstr ""
+
+#: minios-configurator:332
+msgid ""
+"If you are unsure about a field, do not change it. Incorrect settings may "
+"prevent the system from booting."
+msgstr ""
+"Если вы не уверены в каком-либо поле, не изменяйте его. Неверные настройки "
+"могут помешать загрузке системы."
+
+#: minios-configurator:446
+msgid "Save"
+msgstr "Сохранить"
+
+#: minios-configurator:467
+msgid "Failed to load config: {}"
+msgstr "Не удалось загрузить конфигурацию: {}"
+
+#: minios-configurator:614
+msgid "Failed to update config: {}"
+msgstr "Не удалось обновить конфигурацию: {}"
+
+#~ msgid "Kernel command-line parameters for live-config"
+#~ msgstr "Параметры командной строки ядра для live-config"
+
+#~ msgid "Disable root account for live session"
+#~ msgstr "Отключить root для live-сессии"
+
+#~ msgid "Enable verbose debug output"
+#~ msgstr "Включить подробный вывод отладки"
+
+#~ msgid "Comma-separated list of locales, e.g. en_US, ru_RU"
+#~ msgstr "Список языков через запятую, например: en_US, ru_RU"
+
+#~ msgid "System timezone, e.g. UTC or Europe/Moscow"
+#~ msgstr "Часовой пояс системы, например: UTC или Europe/Moscow"
+
+#~ msgid "Network hostname for the live system"
+#~ msgstr "Сетевое имя хоста для live-системы"
+
+#~ msgid "Default non-root username"
+#~ msgstr "Имя пользователя по умолчанию (не root)"
+
+#~ msgid "User's full name"
+#~ msgstr "Полное имя пользователя"
+
+#~ msgid "Additional groups, comma-separated or space-separated"
+#~ msgstr "Дополнительные группы, через запятую или пробел"
+
+#~ msgid "Initial user password"
+#~ msgstr "Начальный пароль пользователя"
+
+#~ msgid "Initial root password"
+#~ msgstr "Начальный пароль root"
+
+#~ msgid "XKB keyboard model, e.g. pc105"
+#~ msgstr "Модель клавиатуры XKB, например: pc105"
+
+#~ msgid "Comma-separated layouts, e.g. us, ru"
+#~ msgstr "Раскладки через запятую, например: us, ru"
+
+#~ msgid "Additional XKB options"
+#~ msgstr "Дополнительные параметры XKB"
+
+#~ msgid "XKB variants, comma-separated"
+#~ msgstr "Варианты XKB через запятую"
+
+#~ msgid "Choose module loading mode: simple or merged"
+#~ msgstr "Выберите режим загрузки модулей: простой или объединённый"
+
+#~ msgid "Set default boot target for systemd"
+#~ msgstr "Установить цель загрузки по умолчанию для systemd"
+
+#~ msgid "Services to start, comma-separated"
+#~ msgstr "Сервисы для запуска, через запятую"
+
+#~ msgid "Services to disable, comma-separated"
+#~ msgstr "Сервисы для отключения, через запятую"
+
+#~ msgid "Symlink home dirs to persistent storage"
+#~ msgstr "Сделать симлинки домашних директорий на постоянное хранилище"
+
+#~ msgid "Bind mount home dirs to storage"
+#~ msgstr "Монтировать домашние директории в хранилище"
+
+#~ msgid "Base path on storage for user dirs"
+#~ msgstr "Базовый путь в хранилище для каталогов пользователей"
+
+#~ msgid "Copy system logs to a flash drive"
+#~ msgstr "Скопировать системные логи на флешку"
+
+#~ msgid "You will need to reboot your system to apply the settings."
+#~ msgstr "Для применения настроек потребуется перезагрузить систему."

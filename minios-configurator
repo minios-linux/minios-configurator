@@ -1,287 +1,662 @@
-#!/bin/bash
-# MiniOS Configurator
-# A graphical tool for configuring MiniOS settings
-# Allows modifying parameters in /etc/minios/minios.conf
-#
-# Usage: minios-configurator [/path/to/config/file]
-# If no config file path is provided, it defaults to /etc/minios/minios.conf
-#
-# Author: crims0n <https://minios.dev>
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+MiniOS Configurator
+A graphical tool for configuring MiniOS settings via GTK.
+Allows modifying parameters in /etc/live/config.conf.
 
-# Set text domain
-export TEXTDOMAIN="minios-configurator"
+Usage:
+    minios-configurator [/path/to/config/file]
 
-# Display an error message
-error() {
-    local MESSAGE="${1-}"
-    local TITLE="${2-$(gettext "Error")}"
-    yad --error --center --borders=10 --window-icon="dialog-error" --title="$TITLE" --text="$MESSAGE"
+If no config file path is provided, it defaults to /etc/live/config.conf.
+
+Copyright (C) 2025 MiniOS Linux
+Author: crims0n <crims0n@minios.dev>
+"""
+
+import os
+import re
+import sys
+import gi
+import gettext
+import subprocess
+from zoneinfo import available_timezones
+
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gio', '2.0')
+from gi.repository import Gtk, Gdk, Gio
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Constants
+# ──────────────────────────────────────────────────────────────────────────────
+APPLICATION_ID          = 'org.minios.configurator'
+APP_NAME                = 'minios-configurator'
+APP_TITLE               = 'MiniOS Configurator'
+LOCALE_DIRECTORY        = '/usr/share/locale'
+DEFAULT_CONFIG_FILE     = '/etc/live/config.conf'
+CSS_FILE_PATH           = '/usr/share/minios-configurator/style.css'
+
+# Icon names
+ICON_WINDOW             = 'preferences-system'
+ICON_WARNING            = 'dialog-warning'
+ICON_SAVE               = 'document-save-symbolic'
+ICON_EYE_OPEN           = 'eye-open-negative-filled-symbolic'
+ICON_EYE_CLOSED         = 'eye-not-looking-symbolic'
+
+PASSWORD_FIELD_MAP      = {
+    'USER_PASSWORD': 'LIVE_USER_PASSWORD_CRYPTED',
+    'ROOT_PASSWORD': 'LIVE_ROOT_PASSWORD_CRYPTED',
 }
 
-# Display a warning message
-warning() {
-    local MESSAGE="${1-}"
-    local TITLE="${2-$(gettext "Warning")}"
-    yad --warning --center --borders=10 --window-icon="dialog-warning" --title="$TITLE" --text="$MESSAGE"
+# ──────────────────────────────────────────────────────────────────────────────
+# Internationalization
+# ──────────────────────────────────────────────────────────────────────────────
+gettext.bindtextdomain(APP_NAME, LOCALE_DIRECTORY)
+gettext.textdomain(APP_NAME)
+_ = gettext.gettext
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Tab and field definitions
+# ──────────────────────────────────────────────────────────────────────────────
+TAB_DEFINITIONS = {
+    _('General'): [
+        (_("live-config command line"), 'LIVE_CONFIG_CMDLINE', Gtk.Entry,
+         _("Additional boot parameters for live-config (separated by spaces).\n\n"
+           "• Passed at startup to control various session aspects.\n"
+           "• Example: 'boot=live live-config.debug'\n\n"
+           "See: man 7 live-config (search 'cmdline')")),
+        (_("No-root mode"), 'LIVE_CONFIG_NOROOT', Gtk.CheckButton,
+         _("If enabled, disables the root account, enhancing security.\n\n"
+           "• Prevents root login and administrator access.\n"
+           "• Ideal for live sessions.\n\n"
+           "See: man 7 live-config (search 'noroot')")),
+        (_("Debug mode"), 'LIVE_CONFIG_DEBUG', Gtk.CheckButton,
+         _("Activate to enable detailed debug output during boot.\n\n"
+           "• Useful for troubleshooting configuration issues.\n\n"
+           "See: man 7 live-config (search 'debug')")),
+        (_("Locales"), 'LIVE_LOCALES', Gtk.Entry,
+         _("Set system language(s) and regional settings.\n\n"
+           "• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
+           "• The first locale is treated as default.\n\n"
+           "See: man 7 live-config (search 'locales')")),
+        (_("Timezone"), 'LIVE_TIMEZONE', Gtk.Entry,
+         _("Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n\n"
+           "• Affects system clock and displayed times.\n\n"
+           "See: man 7 live-config (search 'timezone')")),
+    ],
+    _('User'): [
+        (_("Hostname"), 'LIVE_HOSTNAME', Gtk.Entry,
+         _("Set the computer's network name (hostname).\n\n"
+           "• Allowed characters: letters, numbers, hyphens.\n"
+           "• Example: 'minios-pc'.\n\n"
+           "See: man 7 live-config (search 'hostname')")),
+        (_("Username"), 'LIVE_USERNAME', Gtk.Entry,
+         _("Set the default username for the live session.\n\n"
+           "• This user is created automatically at boot.\n\n"
+           "See: man 7 live-config (search 'username')")),
+        (_("Full name"), 'LIVE_USER_FULLNAME', Gtk.Entry,
+         _("Enter the full name for the default user.\n\n"
+           "• Used for display purposes (e.g., on login screens).\n\n"
+           "See: man 7 live-config (search 'user-fullname')")),
+        (_("User groups"), 'LIVE_USER_DEFAULT_GROUPS', Gtk.Entry,
+         _("Specify additional groups for the user, separated by commas or spaces.\n\n"
+           "• Grants access to devices and features (e.g., 'audio, video, plugdev').\n\n"
+           "See: man 7 live-config (search 'user-default-groups')")),
+        (_("User password"), 'USER_PASSWORD', Gtk.Entry,
+         _("Set the initial password for the default user.\n\n"
+           "• Leave blank to keep the existing password.\n"
+           "• Spaces are not allowed.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+        (_("Root password"), 'ROOT_PASSWORD', Gtk.Entry,
+         _("Set the initial password for the root (administrator) account.\n\n"
+           "• Leave blank to keep the existing password.\n"
+           "• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+    ],
+    _('Keyboard'): [
+        (_("Keyboard model"), 'LIVE_KEYBOARD_MODEL', Gtk.Entry,
+         _("Specify the keyboard hardware model (e.g., 'pc105').\n\n"
+           "• Leave blank for automatic detection.\n\n"
+           "See: man 7 live-config (search 'keyboard-model')")),
+        (_("Keyboard layouts"), 'LIVE_KEYBOARD_LAYOUTS', Gtk.Entry,
+         _("List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n\n"
+           "• Controls which layouts are available in the session.\n\n"
+           "See: man 7 live-config (search 'keyboard-layouts')")),
+        (_("Keyboard options"), 'LIVE_KEYBOARD_OPTIONS', Gtk.Entry,
+         _("Set additional keyboard options (XKB).\n\n"
+           "• Example: 'grp:alt_shift_toggle' to switch layouts with Alt+Shift.\n\n"
+           "See: man 7 live-config (search 'keyboard-options')")),
+        (_("Keyboard variants"), 'LIVE_KEYBOARD_VARIANTS', Gtk.Entry,
+         _("Specify keyboard variants for chosen layouts, separated by commas.\n\n"
+           "• Customize layout (e.g., 'dvorak' for US).\n"
+           "• Leave blank if not needed.\n\n"
+           "See: man 7 live-config (search 'keyboard-variants')")),
+    ],
+    _('Advanced'): [
+        (_("Module mode"), 'MODULE_MODE', Gtk.ComboBoxText,
+         _("Choose how system modules are loaded:\n"
+           "• 'simple' – load modules as-is.\n"
+           "• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; updates caches.\n\n"
+           "Usually not required unless modules are built independently.\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+        (_("Default systemd target"), 'DEFAULT_TARGET', Gtk.ComboBoxText,
+         _("Set the default boot target for systemd:\n"
+           "• 'graphical' – start with a desktop.\n"
+           "• 'multi-user' – console mode.\n"
+           "• 'rescue' – minimal rescue mode.\n\n"
+           "See: man systemd.special (search for 'target')")),
+        (_("Enable services"), 'ENABLE_SERVICES', Gtk.Entry,
+         _("List systemd services to enable at boot, separated by commas.\n\n"
+           "• Example: 'ssh, NetworkManager'.\n"
+           "• Use service names with or without '.service'.\n\n"
+           "See: man systemctl (search 'enable')")),
+        (_("Disable services"), 'DISABLE_SERVICES', Gtk.Entry,
+         _("List systemd services to disable at boot, separated by commas.\n\n"
+           "• Example: 'bluetooth, ModemManager'.\n"
+           "• Use service names with or without '.service'.\n\n"
+           "See: man systemctl (search 'disable')")),
+        (_("Link user directories to storage"), 'LINK_USER_DIRS', Gtk.CheckButton,
+         _("If enabled, user home directories will be symlinked to persistent storage.\n\n"
+           "• Helps retain user data across reboots.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+        (_("Bind user directories to storage"), 'BIND_USER_DIRS', Gtk.CheckButton,
+         _("If enabled, user home directories will be bind-mounted to persistent storage.\n\n"
+           "• Provides transparent persistent data access.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+        (_("User directories path on storage"), 'USER_DIRS_PATH', Gtk.Entry,
+         _("Set the base path on persistent storage for user directories.\n\n"
+           "• Example: '/minios/userdirs'.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+        (_("Export logs to flash drive"), 'EXPORT_LOGS', Gtk.CheckButton,
+         _("If enabled, system logs will be copied to a connected flash drive at shutdown.\n\n"
+           "• Useful for diagnostics and troubleshooting.\n\n"
+           "See: https://github.com/minios-linux/minios-live/wiki")),
+    ],
 }
 
-# Display an information message
-information() {
-    local MESSAGE="${1-}"
-    local TITLE="${2-$(gettext "Information")}"
-    yad --info --center --borders=10 --window-icon="dialog-information" --title="$TITLE" --text="$MESSAGE"
-}
+# ──────────────────────────────────────────────────────────────────────────────
+# Helper functions
+# ──────────────────────────────────────────────────────────────────────────────
+def hash_system_password(plain_password: str) -> str:
+    """
+    Hash a password using mkpasswd if available, otherwise openssl SHA-512.
+    """
+    try:
+        output = subprocess.check_output(
+            ['mkpasswd', plain_password],
+            text=True,
+            stderr=subprocess.DEVNULL
+        )
+        return output.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        salt = subprocess.check_output(
+            ['openssl', 'rand', '-base64', '12'],
+            text=True
+        ).strip()
+        hashed = subprocess.check_output(
+            ['openssl', 'passwd', '-6', '-salt', salt, plain_password],
+            text=True
+        )
+        return hashed.strip()
 
-# Function to read configuration from a file and set variables based on the specified key list
-# Usage: read_config <CONFIG_FILE> <KEYLIST...>
-# Example: read_config "/path/to/config.conf" "USER_NAME" "USER_PASSWORD" "HOST_NAME"
-read_config() {
-    shopt -s extglob
-    local CONFIG_FILE="${1}"
-    local KEYLIST="${@:2}"
-    if [[ ! "$CONFIG_FILE" ]]; then
-        error "No configuration file given"
-        exit 1
-    fi
-    if [[ ! -f "${CONFIG_FILE}" ]]; then
-        error "${CONFIG_FILE} is not a file!"
-        exit 1
-    fi
-    if [[ ! -r "${CONFIG_FILE}" ]]; then
-        error "${CONFIG_FILE} is not readable!"
-        exit 1
-    fi
-    KEYLIST="${KEYLIST// /|}"
-    while IFS='= ' read -r LHS RHS; do
-        if [[ "${LHS}" =~ ^(${KEYLIST})$ ]] && [[ -n ${RHS} ]]; then
-            RHS="${RHS%\"*}"
-            RHS="${RHS#\"*}"
-            RHS="${RHS%\'*}"
-            RHS="${RHS#\'*}"
-            if [[ "${RHS}" =~ ^\((.*)\)$ ]]; then
-                eval ${LHS}=\("${BASH_REMATCH[1]}"\)
-            else
-                eval ${LHS}=\"${RHS}\"
-            fi
-        fi
-    done <<<"$(tr -d '\r' <${CONFIG_FILE})"
-    shopt -u extglob
-}
+def match_completion_by_token(
+        completion: Gtk.EntryCompletion,
+        key: str,
+        tree_iter: Gtk.TreeIter,
+        entry: Gtk.Entry
+    ) -> bool:
+    """
+    Custom match for inline completion: matches only the current comma-separated segment.
+    """
+    text       = entry.get_text()
+    cursor_pos = entry.get_position()
+    segment    = text[:cursor_pos].rpartition(',')[2].lstrip()
 
-# A function for updating a configuration file in bash.
-# Usage:
-#   update_config [-a] CONFIG_FILE [VAR1] [VAR2] [...]
-#
-# Arguments:
-#   -a: Update only declared variables, even if empty.
-#   CONFIG_FILE - required, this is the path to your configuration file.
-#   VAR1, VAR2, etc - the names of variables you wish to update in the configuration file.
-#   If variable names are not provided, the function will update all variables found in the file.
-update_config() {
-    local ALL_DECLARED=false
-    if [[ "$1" == "-a" ]]; then
-        ALL_DECLARED=true
-        shift
-    fi
+    # pull the ListStore out of the completion
+    store     = completion.get_model()
+    candidate = store[tree_iter][0]
+    base      = candidate.removesuffix('.service')
+    return candidate.startswith(segment) or base.startswith(segment)
 
-    local CONFIG_FILE="$1"
-    shift
+def on_completion_selected(completion: Gtk.EntryCompletion,
+                           model: Gtk.TreeModel,
+                           tree_iter: Gtk.TreeIter,
+                           entry: Gtk.Entry) -> bool:
+    """
+    Handler when a completion is selected: replace only the current segment.
+    """
+    full_text = entry.get_text()
+    cursor_pos = entry.get_position()
+    comma_index = full_text[:cursor_pos].rfind(',') + 1
+    prefix = full_text[:comma_index]
+    suffix = full_text[cursor_pos:]
+    candidate = model[tree_iter][0]
+    new_text = prefix + candidate + suffix
+    entry.set_text(new_text)
+    entry.set_position(len(prefix) + len(candidate))
+    return True
 
-    if [[ ! "$CONFIG_FILE" ]]; then
-        error "No configuration file given."
-        exit 1
-    fi
-    if [[ ! -f "$CONFIG_FILE" ]]; then
-        error "$CONFIG_FILE is not a file!"
-        exit 1
-    fi
-    if [[ ! -r "$CONFIG_FILE" ]]; then
-        error "$CONFIG_FILE is not readable!"
-        exit 1
-    fi
+def on_toggle_password_visibility(toggle_button: Gtk.ToggleButton,
+                                  password_entry: Gtk.Entry):
+    """
+    Show or hide password and swap the eye icon.
+    """
+    is_visible = toggle_button.get_active()
+    password_entry.set_visibility(is_visible)
+    icon_name = ICON_EYE_CLOSED if is_visible else ICON_EYE_OPEN
+    icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
+    toggle_button.set_image(icon)
+    toggle_button.set_always_show_image(True)
 
-    local -a ARGS
-    if (($# > 0)); then
-        ARGS=("$@")
-    else
-        ARGS=($(grep -v '^#' "$CONFIG_FILE" | awk -F '=' '{print $1}'))
-    fi
+def apply_css_if_exists():
+    """
+    Load and apply CSS if the file exists.
+    """
+    provider = Gtk.CssProvider()
+    if os.path.exists(CSS_FILE_PATH):
+        provider.load_from_path(CSS_FILE_PATH)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
-    for ARG in "${ARGS[@]}"; do
-        local -n VAR="$ARG"
-        local NEW_VALUE ELEMENT
+# ──────────────────────────────────────────────────────────────────────────────
+# Main Configurator Window
+# ──────────────────────────────────────────────────────────────────────────────
+class ConfiguratorWindow(Gtk.ApplicationWindow):
+    def __init__(self, application: Gtk.Application, config_path: str):
+        super().__init__(application=application, title=_(APP_TITLE))
+        self.set_default_size(600, 450)
+        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_icon_name(ICON_WINDOW)
 
-        if ! $ALL_DECLARED && [[ -z "${VAR[@]}" ]]; then
-            continue
-        elif $ALL_DECLARED && [[ -z "${VAR+x}" ]]; then
-            continue
-        fi
+        # Internal state
+        self.config_file_path          = config_path
+        self.config_values             = {}
+        self.field_widgets             = {}
+        self.field_validity            = {}
+        self.previous_password_hashes  = {}
+        self.field_tab_index           = {}
 
-        case "$(declare -p "$ARG" 2>/dev/null)" in
-        "declare -a"*)
-            NEW_VALUE="$ARG=("
-            for ELEMENT in "${VAR[@]}"; do
-                NEW_VALUE+="\"$ELEMENT\""
-                [[ "$ELEMENT" != "${VAR[-1]}" ]] && NEW_VALUE+=" "
-            done
-            NEW_VALUE+=")"
-            ;;
-        *)
-            NEW_VALUE="$ARG=\"$VAR\""
-            ;;
-        esac
+        # Load config and track required password fields
+        self._load_config()
+        for field, encrypted_key in PASSWORD_FIELD_MAP.items():
+            self.previous_password_hashes[field] = self.config_values.get(encrypted_key, '')
+        self.required_passwords = {
+            field: (self.previous_password_hashes[field] == '')
+            for field in PASSWORD_FIELD_MAP
+        }
 
-        if grep -q "^$ARG=" "$CONFIG_FILE"; then
-            sed -i "s|^$ARG=.*|$NEW_VALUE|" "$CONFIG_FILE"
-        else
-            echo -e "\n$NEW_VALUE" >>"$CONFIG_FILE"
-        fi
-    done
-}
+        # Load system data
+        self.available_locales   = self._read_available_locales()
+        self.available_timezones = available_timezones()
+        self.available_services  = self._read_available_services()
 
-# Check if the script is running as root, if not, run with root privileges using pkexec
-check_root_permissions() {
-    if [[ "$EUID" -ne 0 ]]; then
-        pkexec "$0" "$@"
-        exit 0
-    fi
-}
+        # Apply CSS if available
+        apply_css_if_exists()
 
-validate_username() {
-    if [[ ${#1} -gt 32 || "$1" =~ ^[-+~] || "$1" =~ ^[0-9]+$ || "$1" =~ [^a-zA-Z0-9_\$] || "$1" =~ \. || "$1" =~ "[:/, ]" ]]; then
-        return 1
-    else
+        # Build the UI
+        self._build_header_bar()
+        self._build_main_layout()
+
+        # Run initial validation
+        self._validate_all_fields()
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # UI construction
+    # ──────────────────────────────────────────────────────────────────────────
+    def _build_header_bar(self):
+        header = Gtk.HeaderBar(show_close_button=True)
+        header.props.title = _(APP_TITLE)
+        self.set_titlebar(header)
+
+    def _build_main_layout(self):
+        container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        for m in ('set_margin_top','set_margin_bottom','set_margin_start','set_margin_end'):
+            getattr(container, m)(10)
+        self.add(container)
+
+        self._add_warning_label(container)
+        self.notebook = Gtk.Notebook()
+        container.pack_start(self.notebook, True, True, 0)
+        self._populate_tabs()
+        self._add_save_button(container)
+
+    def _add_warning_label(self, parent: Gtk.Box):
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        box.set_halign(Gtk.Align.START)
+        icon = Gtk.Image.new_from_icon_name(ICON_WARNING, Gtk.IconSize.DIALOG)
+        label = Gtk.Label()
+        label.set_text(
+            _('If you are unsure about a field, do not change it. '
+              'Incorrect settings may prevent the system from booting.')
+        )
+        label.set_line_wrap(True)
+        label.set_max_width_chars(80)
+        label.set_xalign(0)
+        box.pack_start(icon, False, False, 0)
+        box.pack_start(label, True, True, 0)
+        parent.pack_start(box, False, False, 0)
+
+    def _populate_tabs(self):
+        for tab_index, (tab_label, fields) in enumerate(TAB_DEFINITIONS.items()):
+            grid = Gtk.Grid(column_spacing=10, row_spacing=10)
+            grid.set_column_homogeneous(False)
+            for m in ('set_margin_top','set_margin_bottom','set_margin_start','set_margin_end'):
+                getattr(grid, m)(10)
+
+            for row_index, (label_text, key, widget_cls, tooltip) in enumerate(fields):
+                self._add_field_row(grid, row_index, tab_index, label_text, key, widget_cls, tooltip)
+
+            scrolled = Gtk.ScrolledWindow()
+            scrolled.set_hexpand(True)
+            scrolled.set_vexpand(True)
+            scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+            scrolled.add(grid)
+            self.notebook.append_page(scrolled, Gtk.Label(label=tab_label))
+
+    def _add_field_row(self, grid, row, tab_index, label_text, key, widget_cls, tooltip):
+        label = Gtk.Label(label=label_text, xalign=0)
+        label.set_tooltip_text(tooltip)
+        if key in self.required_passwords and self.required_passwords[key]:
+            label.set_text(label.get_text() + " *")
+        grid.attach(label, 0, row, 1, 1)
+        self.field_tab_index[key] = tab_index
+
+        if widget_cls is Gtk.Entry and key in PASSWORD_FIELD_MAP:
+            self._add_password_entry(grid, row, key, tooltip)
+        elif widget_cls is Gtk.Entry:
+            self._add_text_entry(grid, row, key, tooltip)
+        elif widget_cls is Gtk.CheckButton:
+            self._add_check_button(grid, row, key, tooltip)
+        else:
+            self._add_combo_box(grid, row, key, tooltip)
+
+    def _add_password_entry(self, grid, row, key, tooltip):
+        entry = Gtk.Entry()
+        entry.set_visibility(False)
+        entry.set_hexpand(True)
+        entry.set_tooltip_text(tooltip)
+        toggle = Gtk.ToggleButton()
+        icon = Gtk.Image.new_from_icon_name(ICON_EYE_OPEN, Gtk.IconSize.BUTTON)
+        toggle.set_image(icon)
+        toggle.set_always_show_image(True)
+        toggle.connect('toggled', on_toggle_password_visibility, entry)
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        box.set_hexpand(True)
+        box.pack_start(entry, True, True, 0)
+        box.pack_start(toggle, False, False, 0)
+        self._register_widget(entry, key)
+        self.field_widgets[key] = entry
+        grid.attach(box, 1, row, 1, 1)
+
+    def _add_text_entry(self, grid, row, key, tooltip):
+        entry = Gtk.Entry()
+        entry.set_hexpand(True)
+        entry.set_text(self.config_values.get(key, ''))
+        entry.set_tooltip_text(tooltip)
+        if key in ('LIVE_LOCALES', 'LIVE_TIMEZONE', 'ENABLE_SERVICES', 'DISABLE_SERVICES'):
+            self._attach_inline_completion(entry, key)
+        self._register_widget(entry, key)
+        self.field_widgets[key] = entry
+        grid.attach(entry, 1, row, 1, 1)
+
+    def _add_check_button(self, grid, row, key, tooltip):
+        check = Gtk.CheckButton()
+        check.set_hexpand(True)
+        check.set_active(self.config_values.get(key, '').lower() == 'true')
+        check.set_tooltip_text(tooltip)
+        self.field_validity[key] = True
+        self.field_widgets[key] = check
+        grid.attach(check, 1, row, 1, 1)
+
+    def _add_combo_box(self, grid, row, key, tooltip):
+        combo = Gtk.ComboBoxText()
+        combo.set_hexpand(True)
+        options = ['simple', 'merged'] if key == 'MODULE_MODE' else ['graphical', 'multi-user', 'rescue']
+        for opt in options:
+            combo.append_text(opt)
+        current = self.config_values.get(key, '')
+        combo.set_active(options.index(current) if current in options else -1)
+        combo.set_tooltip_text(tooltip)
+        self._register_widget(combo, key, is_combo=True)
+        self.field_widgets[key] = combo
+        grid.attach(combo, 1, row, 1, 1)
+
+    def _attach_inline_completion(self, entry, key):
+        completion = Gtk.EntryCompletion()
+        store = Gtk.ListStore(str)
+        items = sorted({
+            'LIVE_LOCALES': self.available_locales,
+            'LIVE_TIMEZONE': self.available_timezones,
+            'ENABLE_SERVICES': self.available_services,
+            'DISABLE_SERVICES': self.available_services,
+        }[key])
+        for item in items:
+            store.append([item])
+        completion.set_model(store)
+        completion.set_text_column(0)
+        completion.set_inline_completion(True)
+        completion.set_match_func(match_completion_by_token, entry)
+        completion.connect('match-selected', on_completion_selected, entry)
+        entry.set_completion(completion)
+
+    def _add_save_button(self, parent):
+        self.save_button = Gtk.Button(label=_('Save'))
+        self.save_button.get_style_context().add_class('suggested-action')
+        icon = Gtk.Image.new_from_icon_name(ICON_SAVE, Gtk.IconSize.BUTTON)
+        self.save_button.set_image(icon)
+        self.save_button.set_always_show_image(True)
+        self.save_button.connect('clicked', self._on_save_clicked)
+        parent.pack_end(self.save_button, False, False, 0)
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # Config loading
+    # ──────────────────────────────────────────────────────────────────────────
+    def _load_config(self):
+        try:
+            with open(self.config_file_path, encoding='utf-8') as f:
+                for line in f:
+                    match = re.match(r"^([A-Z0-9_]+)=(?:'(.*)'|\"(.*)\"|(.*))", line)
+                    if match:
+                        key = match.group(1)
+                        val = match.group(2) or match.group(3) or match.group(4) or ''
+                        self.config_values[key] = val
+        except Exception as e:
+            self._show_error(_('Failed to load config: {}').format(e))
+
+    def _read_available_locales(self):
+        locales = set()
+        try:
+            with open('/usr/share/i18n/SUPPORTED', encoding='utf-8') as f:
+                for l in f:
+                    parts = l.split()
+                    if parts:
+                        locales.add(parts[0])
+        except Exception:
+            pass
+        return locales
+
+    def _read_available_services(self):
+        services = set()
+        try:
+            output = subprocess.check_output(
+                ['systemctl', 'list-unit-files', '--type=service', '--no-legend', '--no-pager'],
+                text=True
+            )
+            for l in output.splitlines():
+                services.add(l.split()[0])
+        except Exception:
+            pass
+        return services
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # Validation
+    # ──────────────────────────────────────────────────────────────────────────
+    def _register_widget(self, widget, key, is_combo=False):
+        widget.connect('changed', lambda w: self._on_field_changed(w, key, is_combo))
+        self.field_validity[key] = False
+
+    def _on_field_changed(self, widget, key, is_combo):
+        value = widget.get_active_text() if is_combo else widget.get_text()
+        valid = True
+
+        if key == 'LIVE_HOSTNAME':
+            valid = bool(re.match(r'^[a-zA-Z0-9-]+$', value))
+        elif key == 'LIVE_USERNAME':
+            valid = bool(value.strip())
+        elif key in PASSWORD_FIELD_MAP:
+            valid = not bool(re.search(r'\s', value))
+            if self.required_passwords.get(key, False) and not value:
+                valid = False
+        elif key == 'LIVE_LOCALES':
+            locales = [s.strip() for s in value.split(',') if s.strip()]
+            valid = bool(locales) and all(loc in self.available_locales for loc in locales)
+        elif key == 'LIVE_TIMEZONE':
+            valid = value in self.available_timezones
+        elif key in ('ENABLE_SERVICES', 'DISABLE_SERVICES'):
+            svcs = [s.strip() for s in value.split(',') if s.strip()]
+            for svc in svcs:
+                full = svc if svc.endswith('.service') else svc + '.service'
+                if full not in self.available_services:
+                    valid = False
+                    break
+
+        ctx = widget.get_style_context()
+        if valid:
+            ctx.remove_class('error')
+        else:
+            ctx.add_class('error')
+
+        self.field_validity[key] = valid
+        self._highlight_error_tab(self.field_tab_index[key])
+        self.save_button.set_sensitive(all(self.field_validity.values()))
+
+    def _highlight_error_tab(self, tab_index):
+        page = self.notebook.get_nth_page(tab_index)
+        label = self.notebook.get_tab_label(page)
+        keys = [k for k, idx in self.field_tab_index.items() if idx == tab_index]
+        has_error = any(not self.field_validity.get(k, True) for k in keys)
+        ctx = label.get_style_context()
+        if has_error:
+            ctx.add_class('error-tab')
+        else:
+            ctx.remove_class('error-tab')
+
+    def _validate_all_fields(self):
+        for key, widget in self.field_widgets.items():
+            if isinstance(widget, Gtk.CheckButton):
+                self.field_validity[key] = True
+            else:
+                is_combo = isinstance(widget, Gtk.ComboBoxText)
+                self._on_field_changed(widget, key, is_combo)
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # Saving
+    # ──────────────────────────────────────────────────────────────────────────
+    def _on_save_clicked(self, button):
+        updated = {}
+        for key, widget in self.field_widgets.items():
+            if isinstance(widget, Gtk.Entry):
+                txt = widget.get_text()
+                if key in ('ENABLE_SERVICES', 'DISABLE_SERVICES'):
+                    parts = [s.strip() for s in txt.split(',') if s.strip()]
+                    parts = [p if p.endswith('.service') else p + '.service' for p in parts]
+                    updated[key] = ','.join(parts)
+                else:
+                    updated[key] = txt
+            elif isinstance(widget, Gtk.CheckButton):
+                updated[key] = 'true' if widget.get_active() else 'false'
+            else:
+                updated[key] = widget.get_active_text() or ''
+
+        try:
+            orig = open(self.config_file_path, encoding='utf-8').read().splitlines()
+            out = []
+            seen = set()
+
+            for line in orig:
+                match = re.match(r"^([A-Z0-9_]+)=", line)
+                if not match:
+                    out.append(line)
+                    continue
+                k = match.group(1)
+                seen.add(k)
+
+                if k in PASSWORD_FIELD_MAP.values():
+                    fld = next(f for f, e in PASSWORD_FIELD_MAP.items() if e == k)
+                    pwd = updated.get(fld, '')
+                    if pwd:
+                        h = hash_system_password(pwd)
+                        out.append(f"{k}='{h}'")
+                    else:
+                        out.append(f"{k}='{self.config_values.get(k, '')}'")
+                elif k in updated:
+                    out.append(f"{k}='{updated[k]}'")
+                else:
+                    out.append(line)
+
+            for fld, enc in PASSWORD_FIELD_MAP.items():
+                if enc not in seen:
+                    pwd = updated.get(fld, '')
+                    h = hash_system_password(pwd) if pwd else self.config_values.get(enc, '')
+                    out.append(f"{enc}='{h}'")
+
+            for k, v in updated.items():
+                if k not in seen and k not in PASSWORD_FIELD_MAP:
+                    out.append(f"{k}='{v}'")
+
+            with open(self.config_file_path, 'w', encoding='utf-8') as f:
+                f.write("\n".join(out) + "\n")
+
+        except Exception as e:
+            self._show_error(_('Failed to update config: {}').format(e))
+            return
+
+    def _show_error(self, message: str):
+        dlg = Gtk.MessageDialog(
+            transient_for=self,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.OK,
+            text=message
+        )
+        dlg.run()
+        dlg.destroy()
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Application class and entry point
+# ──────────────────────────────────────────────────────────────────────────────
+class MiniOSConfiguratorApp(Gtk.Application):
+    def __init__(self):
+        super().__init__(
+            application_id=APPLICATION_ID,
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
+        )
+        self.main_window    = None
+        self.pending_config = None
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+
+    def do_command_line(self, command_line):
+        args = command_line.get_arguments()
+        self.pending_config = args[1] if len(args) > 1 else DEFAULT_CONFIG_FILE
+        self.activate()
         return 0
-    fi
-}
 
-validate_hostname() {
-    if [[ ${#1} -lt 2 || ${#1} -gt 63 || ! "$1" =~ ^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$ ]]; then
-        return 1
-    else
-        return 0
-    fi
-}
+    def do_activate(self):
+        if self.main_window:
+            self.main_window.present()
+        else:
+            cfg = self.pending_config or DEFAULT_CONFIG_FILE
+            self.main_window = ConfiguratorWindow(self, cfg)
+            self.main_window.show_all()
+            self.main_window.present()
 
-validate_password() {
-    if [[ "$1" =~ [[:space:]\'] ]]; then
-        return 1
-    else
-        return 0
-    fi
-}
+def main():
+    app = MiniOSConfiguratorApp()
+    return app.run(sys.argv)
 
-# Call the function to check root permissions
-check_root_permissions "$@"
-
-CONFIG_FILE="${1:-/etc/minios/minios.conf}"
-KEYS=('USER_NAME' 'USER_PASSWORD' 'ROOT_PASSWORD' 'HOST_NAME' 'DEFAULT_TARGET' 'ENABLE_SERVICES' 'DISABLE_SERVICES' 'SSH_KEY' 'SCRIPTS' 'HIDE_CREDENTIALS' 'AUTOLOGIN' 'ELEVATION_PASSWORD_REQUIRED' 'SYSTEM_TYPE' 'EXPORT_LOGS' 'LINK_USER_DIRS' 'LOCALES' 'TIMEZONE' 'KEYBOARD_LAYOUTS' 'KEYBOARD_MODEL' 'KEYBOARD_OPTIONS' 'KEYBOARD_VARIANTS')
-
-read_config "$CONFIG_FILE" "${KEYS[@]}"
-
-DEFAULT_TARGETS=('graphical' 'multi-user' 'rescue')
-DEFAULT_TARGET="${DEFAULT_TARGET%.target}"
-DEFAULT_TARGET_FIELD="$DEFAULT_TARGET!$(printf "%s\n" "${DEFAULT_TARGETS[@]/$DEFAULT_TARGET/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
-
-SYSTEM_TYPES=('classic' 'puzzle')
-SYSTEM_TYPE_FIELD="$SYSTEM_TYPE!$(printf "%s\n" "${SYSTEM_TYPES[@]/$SYSTEM_TYPE/}" | grep -v '^$' | tr '\n' '!' | sed 's/!$//')"
-
-while true; do
-    FORM_OUTPUT=$(
-        yad --form --columns 2 --center --title="$(gettext "MiniOS Configurator")" \
-            --borders=10 \
-            --window-icon="preferences-system" \
-            --width=500 \
-            --text="<span>$(gettext 'You can read more about the parameters in man minios-configurator')\n\n</span><span font-size=\"large\">$(gettext 'Select configuration options for MiniOS')\n</span>" \
-            --text-align="center" \
-            --field="$(gettext "Username")" "$USER_NAME" \
-            --field="$(gettext "User password")" "$USER_PASSWORD" \
-            --field="$(gettext "Root password")" "$ROOT_PASSWORD" \
-            --field="$(gettext "Hostname")" "$HOST_NAME" \
-            --field="$(gettext "System type"):CB" "$SYSTEM_TYPE_FIELD" \
-            --field="$(gettext "Default SystemD target"):CB" "$DEFAULT_TARGET_FIELD" \
-            --field="$(gettext "Enable services (delimiter ,)")" "$ENABLE_SERVICES" \
-            --field="$(gettext "Disable services (delimiter ,)")" "$DISABLE_SERVICES" \
-            --field="$(gettext "SSH key name on flash drive")" "$SSH_KEY" \
-            --field="$(gettext "Locales (delimiter ,)")" "$LOCALES" \
-            --field="$(gettext "Timezone")" "$TIMEZONE" \
-            --field="$(gettext "Keyboard layouts (delimiter ,)")" "$KEYBOARD_LAYOUTS" \
-            --field="$(gettext "Keyboard model")" "$KEYBOARD_MODEL" \
-            --field="$(gettext "Keyboard options")" "$KEYBOARD_OPTIONS" \
-            --field="$(gettext "Keyboard variants")" "$KEYBOARD_VARIANTS" \
-            --field="$(gettext "Executing scripts on boot"):CHK" "$SCRIPTS" \
-            --field="$(gettext "Hide credentials"):CHK" "$HIDE_CREDENTIALS" \
-            --field="$(gettext "Autologin"):CHK" "$AUTOLOGIN" \
-            --field="$(gettext "Require password for sudo/pkexec"):CHK" "$ELEVATION_PASSWORD_REQUIRED" \
-            --field="$(gettext "Link user directories to storage"):CHK" "$LINK_USER_DIRS" \
-            --field="$(gettext "Export logs to flash drive"):CHK" "$EXPORT_LOGS"
-    )
-
-    if [ "$?" = 252 ] || [ -z "$FORM_OUTPUT" ]; then
-        exit 1
-    fi
-
-    IFS='|' read -r FORM_USER_NAME FORM_USER_PASSWORD FORM_ROOT_PASSWORD FORM_HOST_NAME FORM_SYSTEM_TYPE FORM_DEFAULT_TARGET FORM_ENABLE_SERVICES FORM_DISABLE_SERVICES FORM_SSH_KEY FORM_LOCALES FORM_TIMEZONE FORM_KEYBOARD_LAYOUTS FORM_KEYBOARD_MODEL FORM_KEYBOARD_OPTIONS FORM_KEYBOARD_VARIANTS FORM_SCRIPTS FORM_HIDE_CREDENTIALS FORM_AUTOLOGIN FORM_ELEVATION_PASSWORD_REQUIRED FORM_LINK_USER_DIRS FORM_EXPORT_LOGS <<<"$FORM_OUTPUT"
-
-    # Convert boolean values to lowercase
-    FORM_SCRIPTS=$(echo "$FORM_SCRIPTS" | tr '[:upper:]' '[:lower:]')
-    FORM_HIDE_CREDENTIALS=$(echo "$FORM_HIDE_CREDENTIALS" | tr '[:upper:]' '[:lower:]')
-    FORM_AUTOLOGIN=$(echo "$FORM_AUTOLOGIN" | tr '[:upper:]' '[:lower:]')
-    FORM_ELEVATION_PASSWORD_REQUIRED=$(echo "$FORM_ELEVATION_PASSWORD_REQUIRED" | tr '[:upper:]' '[:lower:]')
-    FORM_LINK_USER_DIRS=$(echo "$FORM_LINK_USER_DIRS" | tr '[:upper:]' '[:lower:]')
-    FORM_EXPORT_LOGS=$(echo "$FORM_EXPORT_LOGS" | tr '[:upper:]' '[:lower:]')
-
-    if validate_username "$FORM_USER_NAME" && validate_hostname "$FORM_HOST_NAME" && validate_password "$FORM_USER_PASSWORD" && validate_password "$FORM_ROOT_PASSWORD"; then
-        USER_NAME="$FORM_USER_NAME"
-        USER_PASSWORD="$FORM_USER_PASSWORD"
-        ROOT_PASSWORD="$FORM_ROOT_PASSWORD"
-        HOST_NAME="$FORM_HOST_NAME"
-        ENABLE_SERVICES="$FORM_ENABLE_SERVICES"
-        DISABLE_SERVICES="$FORM_DISABLE_SERVICES"
-        SSH_KEY="$FORM_SSH_KEY"
-        DEFAULT_TARGET="$FORM_DEFAULT_TARGET"
-        SYSTEM_TYPE="$FORM_SYSTEM_TYPE"
-        SCRIPTS="$FORM_SCRIPTS"
-        HIDE_CREDENTIALS="$FORM_HIDE_CREDENTIALS"
-        AUTOLOGIN="$FORM_AUTOLOGIN"
-        ELEVATION_PASSWORD_REQUIRED="$FORM_ELEVATION_PASSWORD_REQUIRED"
-        LINK_USER_DIRS="$FORM_LINK_USER_DIRS"
-        EXPORT_LOGS="$FORM_EXPORT_LOGS"
-        LOCALES="$FORM_LOCALES"
-        TIMEZONE="$FORM_TIMEZONE"
-        KEYBOARD_LAYOUTS="$FORM_KEYBOARD_LAYOUTS"
-        KEYBOARD_MODEL="$FORM_KEYBOARD_MODEL"
-        KEYBOARD_OPTIONS="$FORM_KEYBOARD_OPTIONS"
-        KEYBOARD_VARIANTS="$FORM_KEYBOARD_VARIANTS"
-        break
-    else
-        if ! validate_username "$FORM_USER_NAME"; then
-            error "$(gettext "Invalid username. Read 'man useradd' for more information.")" "Invalid Username"
-        fi
-        if ! validate_hostname "$FORM_HOST_NAME"; then
-            error "$(gettext "Hostname must contain only letters (a-z, A-Z), digits (0-9), or dashes, start and end with a letter or number, and be between 2 to 63 characters long.")" "Invalid Hostname"
-        fi
-        if ! validate_password "$FORM_USER_PASSWORD"; then
-            error "$(gettext "User password should not contain spaces or single quotes.")" "Invalid Password"
-        fi
-        if ! validate_password "$FORM_ROOT_PASSWORD"; then
-            error "$(gettext "Root password should not contain spaces or single quotes.")" "Invalid Password"
-        fi
-    fi
-done
-
-update_config -a "$CONFIG_FILE" "${KEYS[@]}"
-
-if [ "$CONFIG_FILE" = "/etc/minios/minios.conf" ]; then
-    yad --form --center \
-        --borders=10 \
-        --window-icon="preferences-system" \
-        --title="$(gettext 'Reminder')" \
-        --text="<span>\n\n\n$(gettext 'You will need to reboot your system to apply the settings.')</span>" \
-        --text-align="center" \
-        --width=400 \
-        --buttons-layout="center" \
-        --on-top \
-        --form \
-        --button=Ok:0
-fi
+if __name__ == '__main__':
+    sys.exit(main())

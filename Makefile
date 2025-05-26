@@ -1,35 +1,20 @@
 EXECUTABLES = minios-configurator
 APPLICATIONS = minios-configurator.desktop
 POLICIES = dev.minios.configurator.policy
+STYLES = style.css
 
 BINDIR = usr/bin
 APPLICATIONSDIR = usr/share/applications
 POLKITACTIONSDIR = usr/share/polkit-1/actions
 LOCALEDIR = usr/share/locale
+SHAREDIR = usr/share/minios-configurator
 
-DOC_FILES = $(shell find doc -name "*.md")
-MAN_FILES = $(patsubst doc/%.md, man/%.1, $(DOC_FILES))
+PO_FILES = $(shell find po -name "*.po" -maxdepth 1)
+MO_FILES = $(patsubst %.po,%.mo,$(PO_FILES))
 
-PO_FILES  = $(shell find locale -name "*.po")
-MO_FILES  = $(patsubst %.po,%.mo,$(PO_FILES))
+build: mo
 
-# Build rules
-ifeq (,$(findstring nodoc,$(DEB_BUILD_PROFILES)))
-ifeq (,$(findstring nodoc,$(DEB_BUILD_OPTIONS)))
-build: man
-endif
-endif
-build: locale
-
-# Compilation rules
-man: $(MAN_FILES)
-
-man/%.1: doc/%.md
-	@echo "Generating man file for $<"
-	mkdir -p $(@D)
-	pandoc -s -t man $< -o $@
-
-locale: $(MO_FILES)
+mo: $(MO_FILES)
 
 %.mo: %.po
 	@echo "Generating mo file for $<"
@@ -49,6 +34,7 @@ install: build
 	cp $(EXECUTABLES) $(DESTDIR)/$(BINDIR)
 	cp $(APPLICATIONS) $(DESTDIR)/$(APPLICATIONSDIR)
 	cp $(POLICIES) $(DESTDIR)/$(POLKITACTIONSDIR)
+	cp $(STYLES) $(DESTDIR)/$(SHAREDIR)
 
 	for MO_FILE in $(MO_FILES); do \
 		LOCALE=$$(basename $$MO_FILE .mo); \

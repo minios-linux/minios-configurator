@@ -8,8 +8,7 @@ Homepage: https://minios.dev
 
 Package: minios-configurator
 Architecture: all
-Depends: ${misc:Depends}, bash (>= 4.4), util-linux (>= 2.31), gettext-base, polkitd | policykit-1, pkexec | policykit-1, sudo, yad
-Recommends: libminioslive (>=4.0)
+Depends: ${misc:Depends}, python3, python3-gi, python3-gi-cairo, python3-gettext, python3-zoneinfo, gir1.2-gtk-3.0, gir1.2-gdkpixbuf-2.0, gir1.2-glib-2.0, util-linux (>= 2.31), gettext-base, polkitd | policykit-1, pkexec | policykit-1, sudo, whois, openssl
 Description: MiniOS Linux configuration utility.
  MiniOS Installer is a utility specially designed for quick and easy
  configure MiniOS.
