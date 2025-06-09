@@ -9,6 +9,8 @@ Homepage: https://minios.dev
 Package: minios-configurator
 Architecture: all
 Depends: ${misc:Depends},
+         policykit-1 | polkitd,
+         policykit-1 | pkexec,
          python3 (>= 3.8),
          python3-gi,
          gir1.2-gtk-3.0,
@@ -16,7 +18,7 @@ Depends: ${misc:Depends},
          gir1.2-gio-2.0,
          whois,
          openssl,
-         minios-live-config (== 11.0.5)
+         minios-live-config
 Description: MiniOS Linux configuration utility.
  MiniOS Configurator is a utility specially designed for quick and easy
  configure MiniOS.
