@@ -133,7 +133,7 @@ TAB_DEFINITIONS = {
            "See: man 7 live-config (search 'keyboard-variants')")),
     ],
     _('Advanced'): [
-        (_("Module mode"), 'MODULE_MODE', Gtk.ComboBoxText,
+        (_("Module mode"), 'LIVE_MODULE_MODE', Gtk.ComboBoxText,
          _("Choose how system modules are loaded:\n"
            "• 'simple' – load modules as-is.\n"
            "• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; updates caches.\n\n"
@@ -155,15 +155,15 @@ TAB_DEFINITIONS = {
            "• Example: 'bluetooth, ModemManager'.\n"
            "• Use service names with or without '.service'.\n\n"
            "See: man systemctl (search 'disable')")),
-        (_("Link user directories to storage"), 'LINK_USER_DIRS', Gtk.CheckButton,
+        (_("Link user directories to storage"), 'LIVE_LINK_USER_DIRS', Gtk.CheckButton,
          _("If enabled, user home directories will be symlinked to persistent storage.\n\n"
            "• Helps retain user data across reboots.\n\n"
            "See: https://github.com/minios-linux/minios-live/wiki")),
-        (_("Bind user directories to storage"), 'BIND_USER_DIRS', Gtk.CheckButton,
+        (_("Bind user directories to storage"), 'LIVE_BIND_USER_DIRS', Gtk.CheckButton,
          _("If enabled, user home directories will be bind-mounted to persistent storage.\n\n"
            "• Provides transparent persistent data access.\n\n"
            "See: https://github.com/minios-linux/minios-live/wiki")),
-        (_("User directories path on storage"), 'USER_DIRS_PATH', Gtk.Entry,
+        (_("User directories path on storage"), 'LIVE_USER_DIRS_PATH', Gtk.Entry,
          _("Set the base path on persistent storage for user directories.\n\n"
            "• Example: '/minios/userdirs'.\n\n"
            "See: https://github.com/minios-linux/minios-live/wiki")),
@@ -414,7 +414,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     def _add_combo_box(self, grid, row, key, tooltip):
         combo = Gtk.ComboBoxText()
         combo.set_hexpand(True)
-        options = ['simple', 'merged'] if key == 'MODULE_MODE' else ['graphical', 'multi-user', 'rescue']
+        options = ['simple', 'merged'] if key == 'LIVE_MODULE_MODE' else ['graphical', 'multi-user', 'rescue']
         for opt in options:
             combo.append_text(opt)
         current = self.config_values.get(key, '')
