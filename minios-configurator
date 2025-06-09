@@ -59,37 +59,7 @@ _ = gettext.gettext
 # Tab and field definitions
 # ──────────────────────────────────────────────────────────────────────────────
 TAB_DEFINITIONS = {
-    _('General'): [
-        (_("live-config command line"), 'LIVE_CONFIG_CMDLINE', Gtk.Entry,
-         _("Additional boot parameters for live-config (separated by spaces).\n\n"
-           "• Passed at startup to control various session aspects.\n"
-           "• Example: 'boot=live live-config.debug'\n\n"
-           "See: man 7 live-config (search 'cmdline')")),
-        (_("No-root mode"), 'LIVE_CONFIG_NOROOT', Gtk.CheckButton,
-         _("If enabled, disables the root account, enhancing security.\n\n"
-           "• Prevents root login and administrator access.\n"
-           "• Ideal for live sessions.\n\n"
-           "See: man 7 live-config (search 'noroot')")),
-        (_("Debug mode"), 'LIVE_CONFIG_DEBUG', Gtk.CheckButton,
-         _("Activate to enable detailed debug output during boot.\n\n"
-           "• Useful for troubleshooting configuration issues.\n\n"
-           "See: man 7 live-config (search 'debug')")),
-        (_("Locales"), 'LIVE_LOCALES', Gtk.Entry,
-         _("Set system language(s) and regional settings.\n\n"
-           "• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
-           "• The first locale is treated as default.\n\n"
-           "See: man 7 live-config (search 'locales')")),
-        (_("Timezone"), 'LIVE_TIMEZONE', Gtk.Entry,
-         _("Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n\n"
-           "• Affects system clock and displayed times.\n\n"
-           "See: man 7 live-config (search 'timezone')")),
-    ],
     _('User'): [
-        (_("Hostname"), 'LIVE_HOSTNAME', Gtk.Entry,
-         _("Set the computer's network name (hostname).\n\n"
-           "• Allowed characters: letters, numbers, hyphens.\n"
-           "• Example: 'minios-pc'.\n\n"
-           "See: man 7 live-config (search 'hostname')")),
         (_("Username"), 'LIVE_USERNAME', Gtk.Entry,
          _("Set the default username for the live session.\n\n"
            "• This user is created automatically at boot.\n\n"
@@ -106,12 +76,61 @@ TAB_DEFINITIONS = {
          _("Set the initial password for the default user.\n\n"
            "• Leave blank to keep the existing password.\n"
            "• Spaces are not allowed.\n\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
+           "See: man 7 live-config (search 'user-password')")),
         (_("Root password"), 'ROOT_PASSWORD', Gtk.Entry,
          _("Set the initial password for the root (administrator) account.\n\n"
            "• Leave blank to keep the existing password.\n"
            "• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
+           "See: man 7 live-config (search 'root-password')")),
+        (_("Link user directories to storage"), 'LIVE_LINK_USER_DIRS', Gtk.CheckButton,
+         _("If enabled, user home directories will be symlinked to persistent storage.\n\n"
+           "• Helps retain user data across reboots.\n\n"
+           "See: man 7 live-config (search 'link-user-dirs')")),
+        (_("Bind user directories to storage"), 'LIVE_BIND_USER_DIRS', Gtk.CheckButton,
+         _("If enabled, user home directories will be bind-mounted to persistent storage.\n\n"
+           "• Provides transparent persistent data access.\n\n"
+           "See: man 7 live-config (search 'bind-user-dirs')")),
+        (_("User directories path on storage"), 'LIVE_USER_DIRS_PATH', Gtk.Entry,
+         _("Set the base path on persistent storage for user directories.\n\n"
+           "• Example: '/minios/userdirs'.\n\n"
+           "See: man 7 live-config (search 'user-dirs-path')")),
+    ],
+    _('System'): [
+        (_("No-root mode"), 'LIVE_CONFIG_NOROOT', Gtk.CheckButton,
+         _("If enabled, disables the root account, enhancing security.\n\n"
+           "• Prevents root login and administrator access.\n"
+           "• Ideal for live sessions.\n\n"
+           "See: man 7 live-config (search 'noroot')")),
+        (_("Hostname"), 'LIVE_HOSTNAME', Gtk.Entry,
+         _("Set the computer's network name (hostname).\n\n"
+           "• Allowed characters: letters, numbers, hyphens.\n"
+           "• Example: 'minios-pc'.\n\n"
+           "See: man 7 live-config (search 'hostname')")),
+        (_("Locales"), 'LIVE_LOCALES', Gtk.Entry,
+         _("Set system language(s) and regional settings.\n\n"
+           "• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
+           "• The first locale is treated as default.\n\n"
+           "See: man 7 live-config (search 'locales')")),
+        (_("Timezone"), 'LIVE_TIMEZONE', Gtk.Entry,
+         _("Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n\n"
+           "• Affects system clock and displayed times.\n\n"
+           "See: man 7 live-config (search 'timezone')")),
+        (_("Default systemd target"), 'DEFAULT_TARGET', Gtk.ComboBoxText,
+         _("Set the default boot target for systemd:\n"
+           "• 'graphical' – start with a desktop.\n"
+           "• 'multi-user' – console mode.\n"
+           "• 'rescue' – minimal rescue mode.\n\n"
+           "See: man systemd.special (search for 'target')")),
+        (_("Enable services"), 'ENABLE_SERVICES', Gtk.Entry,
+         _("List systemd services to enable at boot, separated by commas.\n\n"
+           "• Example: 'ssh, NetworkManager'.\n"
+           "• Use service names with or without '.service'.\n\n"
+           "See: man systemctl (search 'enable')")),
+        (_("Disable services"), 'DISABLE_SERVICES', Gtk.Entry,
+         _("List systemd services to disable at boot, separated by commas.\n\n"
+           "• Example: 'bluetooth, ModemManager'.\n"
+           "• Use service names with or without '.service'.\n\n"
+           "See: man systemctl (search 'disable')")),
     ],
     _('Keyboard'): [
         (_("Keyboard model"), 'LIVE_KEYBOARD_MODEL', Gtk.Entry,
@@ -138,35 +157,16 @@ TAB_DEFINITIONS = {
            "• 'simple' – load modules as-is.\n"
            "• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; updates caches.\n\n"
            "Usually not required unless modules are built independently.\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
-        (_("Default systemd target"), 'DEFAULT_TARGET', Gtk.ComboBoxText,
-         _("Set the default boot target for systemd:\n"
-           "• 'graphical' – start with a desktop.\n"
-           "• 'multi-user' – console mode.\n"
-           "• 'rescue' – minimal rescue mode.\n\n"
-           "See: man systemd.special (search for 'target')")),
-        (_("Enable services"), 'ENABLE_SERVICES', Gtk.Entry,
-         _("List systemd services to enable at boot, separated by commas.\n\n"
-           "• Example: 'ssh, NetworkManager'.\n"
-           "• Use service names with or without '.service'.\n\n"
-           "See: man systemctl (search 'enable')")),
-        (_("Disable services"), 'DISABLE_SERVICES', Gtk.Entry,
-         _("List systemd services to disable at boot, separated by commas.\n\n"
-           "• Example: 'bluetooth, ModemManager'.\n"
-           "• Use service names with or without '.service'.\n\n"
-           "See: man systemctl (search 'disable')")),
-        (_("Link user directories to storage"), 'LIVE_LINK_USER_DIRS', Gtk.CheckButton,
-         _("If enabled, user home directories will be symlinked to persistent storage.\n\n"
-           "• Helps retain user data across reboots.\n\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
-        (_("Bind user directories to storage"), 'LIVE_BIND_USER_DIRS', Gtk.CheckButton,
-         _("If enabled, user home directories will be bind-mounted to persistent storage.\n\n"
-           "• Provides transparent persistent data access.\n\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
-        (_("User directories path on storage"), 'LIVE_USER_DIRS_PATH', Gtk.Entry,
-         _("Set the base path on persistent storage for user directories.\n\n"
-           "• Example: '/minios/userdirs'.\n\n"
-           "See: https://github.com/minios-linux/minios-live/wiki")),
+           "See: man 7 live-config (search 'module-mode')")),
+        (_("live-config command line"), 'LIVE_CONFIG_CMDLINE', Gtk.Entry,
+         _("Additional boot parameters for live-config (separated by spaces).\n\n"
+           "• Passed at startup to control various session aspects.\n"
+           "• Example: 'boot=live live-config.debug'\n\n"
+           "See: man 7 live-config (search 'cmdline')")),
+        (_("Debug mode"), 'LIVE_CONFIG_DEBUG', Gtk.CheckButton,
+         _("Activate to enable detailed debug output during boot.\n\n"
+           "• Useful for troubleshooting configuration issues.\n\n"
+           "See: man 7 live-config (search 'debug')")),
         (_("Export logs to flash drive"), 'EXPORT_LOGS', Gtk.CheckButton,
          _("If enabled, system logs will be copied to a connected flash drive at shutdown.\n\n"
            "• Useful for diagnostics and troubleshooting.\n\n"
