@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-26 23:11+0300\n"
+"POT-Creation-Date: 2025-06-13 01:18+0300\n"
 "PO-Revision-Date: 2025-05-26 19:44+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -18,28 +18,181 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: minios-configurator:62
-msgid "General"
-msgstr "Général"
+msgid "User"
+msgstr "Utilisateur"
 
 #: minios-configurator:63
-msgid "live-config command line"
-msgstr "Ligne de commande live-config"
+msgid "Username"
+msgstr "Nom d'utilisateur"
 
 #: minios-configurator:64
 msgid ""
-"Additional boot parameters for live-config (separated by spaces).\n"
+"Set the default username for the live session.\n"
 "\n"
-"• Passed at startup to control various session aspects.\n"
-"• Example: 'boot=live live-config.debug'\n"
+"• This user is created automatically at boot.\n"
 "\n"
-"See: man 7 live-config (search 'cmdline')"
+"See: man 7 live-config (search 'username')"
 msgstr ""
+"Définir le nom d'utilisateur par défaut pour la session live.\n"
+"\n"
+"• Cet utilisateur est créé automatiquement au démarrage.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'username')"
+
+#: minios-configurator:67
+msgid "Full name"
+msgstr "Nom complet"
 
 #: minios-configurator:68
+msgid ""
+"Enter the full name for the default user.\n"
+"\n"
+"• Used for display purposes (e.g., on login screens).\n"
+"\n"
+"See: man 7 live-config (search 'user-fullname')"
+msgstr ""
+"Entrez le nom complet de l'utilisateur par défaut.\n"
+"\n"
+"• Utilisé à des fins d'affichage (par exemple, sur les écrans de connexion).\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'user-fullname')"
+
+#: minios-configurator:71
+msgid "User groups"
+msgstr "Groupes d'utilisateurs"
+
+#: minios-configurator:72
+msgid ""
+"Specify additional groups for the user, separated by commas or spaces.\n"
+"\n"
+"• Grants access to devices and features (e.g., 'audio, video, plugdev').\n"
+"\n"
+"See: man 7 live-config (search 'user-default-groups')"
+msgstr ""
+"Spécifiez des groupes supplémentaires pour l'utilisateur, séparés par des "
+"virgules ou des espaces.\n"
+"\n"
+"• Accorde l'accès aux périphériques et aux fonctionnalités (par exemple, "
+"'audio, video, plugdev').\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'user-default-groups')"
+
+#: minios-configurator:75
+msgid "User password"
+msgstr "Mot de passe utilisateur"
+
+#: minios-configurator:76
+msgid ""
+"Set the initial password for the default user.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed.\n"
+"\n"
+"See: man 7 live-config (search 'user-password')"
+msgstr ""
+"Définir le mot de passe initial pour l'utilisateur par défaut.\n"
+"\n"
+"• Laisser vide pour conserver le mot de passe existant.\n"
+"• Les espaces ne sont pas autorisés.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'user-password')"
+
+#: minios-configurator:80
+msgid "Root password"
+msgstr "Mot de passe root"
+
+#: minios-configurator:81
+msgid ""
+"Set the initial password for the root (administrator) account.\n"
+"\n"
+"• Leave blank to keep the existing password.\n"
+"• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n"
+"\n"
+"See: man 7 live-config (search 'root-password')"
+msgstr ""
+"Définir le mot de passe initial pour le compte root (administrateur).\n"
+"\n"
+"• Laisser vide pour conserver le mot de passe existant.\n"
+"• Les espaces ne sont pas autorisés ; ignoré si le 'Mode sans root' est "
+"activé.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'root-password')"
+
+#: minios-configurator:85
+msgid "Link user directories to storage"
+msgstr "Lier les dossiers utilisateur au stockage"
+
+#: minios-configurator:86
+msgid ""
+"If enabled, user home directories will be symlinked to persistent storage.\n"
+"\n"
+"• Helps retain user data across reboots.\n"
+"\n"
+"• FAT, NTFS only.\n"
+"\n"
+"See: man 7 live-config (search 'link-user-dirs')"
+msgstr ""
+"Si activé, les répertoires personnels des utilisateurs seront liés par des liens "
+"symboliques au stockage persistant.\n"
+"\n"
+"• Aide à conserver les données utilisateur lors des redémarrages.\n"
+"\n"
+"• FAT, NTFS uniquement.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'link-user-dirs')"
+
+#: minios-configurator:90
+msgid "Bind user directories to storage"
+msgstr "Monter les dossiers utilisateur sur le stockage"
+
+#: minios-configurator:91
+msgid ""
+"If enabled, user home directories will be bind-mounted to persistent "
+"storage.\n"
+"\n"
+"• Helps retain user data across reboots.\n"
+"\n"
+"• FAT, NTFS only.\n"
+"\n"
+"See: man 7 live-config (search 'bind-user-dirs')"
+msgstr ""
+"Si activé, les répertoires personnels des utilisateurs seront montés sur le "
+"stockage persistant.\n"
+"\n"
+"• Aide à conserver les données utilisateur lors des redémarrages.\n"
+"\n"
+"• FAT, NTFS uniquement.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'bind-user-dirs')"
+
+#: minios-configurator:95
+msgid "User directories path on storage"
+msgstr "Chemin des dossiers utilisateur sur le stockage"
+
+#: minios-configurator:96
+msgid ""
+"Set the base path on persistent storage for user directories.\n"
+"\n"
+"• Example: '/minios/userdirs'.\n"
+"\n"
+"See: man 7 live-config (search 'user-dirs-path')"
+msgstr ""
+"Définir le chemin de base sur le stockage persistant pour les répertoires "
+"utilisateur.\n"
+"\n"
+"• Exemple : '/minios/userdirs'.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'user-dirs-path')"
+
+#: minios-configurator:100
+msgid "System"
+msgstr "Système"
+
+#: minios-configurator:101
 msgid "No-root mode"
 msgstr "Mode sans root"
 
-#: minios-configurator:69
+#: minios-configurator:102
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -48,56 +201,18 @@ msgid ""
 "\n"
 "See: man 7 live-config (search 'noroot')"
 msgstr ""
-
-#: minios-configurator:73
-msgid "Debug mode"
-msgstr "Mode débogage"
-
-#: minios-configurator:74
-msgid ""
-"Activate to enable detailed debug output during boot.\n"
+"Si activé, désactive le compte root, améliorant la sécurité.\n"
 "\n"
-"• Useful for troubleshooting configuration issues.\n"
+"• Empêche la connexion root et l'accès administrateur.\n"
+"• Idéal pour les sessions live.\n"
 "\n"
-"See: man 7 live-config (search 'debug')"
-msgstr ""
+"Voir : man 7 live-config (rechercher 'noroot')"
 
-#: minios-configurator:77
-msgid "Locales"
-msgstr "Langues"
-
-#: minios-configurator:78
-msgid ""
-"Set system language(s) and regional settings.\n"
-"\n"
-"• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
-"• The first locale is treated as default.\n"
-"\n"
-"See: man 7 live-config (search 'locales')"
-msgstr ""
-
-#: minios-configurator:82
-msgid "Timezone"
-msgstr "Fuseau horaire"
-
-#: minios-configurator:83
-msgid ""
-"Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
-"\n"
-"• Affects system clock and displayed times.\n"
-"\n"
-"See: man 7 live-config (search 'timezone')"
-msgstr ""
-
-#: minios-configurator:87
-msgid "User"
-msgstr "Utilisateur"
-
-#: minios-configurator:88
+#: minios-configurator:106
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
-#: minios-configurator:89
+#: minios-configurator:107
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -106,155 +221,58 @@ msgid ""
 "\n"
 "See: man 7 live-config (search 'hostname')"
 msgstr ""
-
-#: minios-configurator:93
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: minios-configurator:94
-msgid ""
-"Set the default username for the live session.\n"
+"Définir le nom de réseau de l'ordinateur (nom d'hôte).\n"
 "\n"
-"• This user is created automatically at boot.\n"
+"• Caractères autorisés : lettres, chiffres, tirets.\n"
+"• Exemple : 'minios-pc'.\n"
 "\n"
-"See: man 7 live-config (search 'username')"
-msgstr ""
-
-#: minios-configurator:97
-msgid "Full name"
-msgstr "Nom complet"
-
-#: minios-configurator:98
-msgid ""
-"Enter the full name for the default user.\n"
-"\n"
-"• Used for display purposes (e.g., on login screens).\n"
-"\n"
-"See: man 7 live-config (search 'user-fullname')"
-msgstr ""
-
-#: minios-configurator:101
-msgid "User groups"
-msgstr "Groupes d'utilisateurs"
-
-#: minios-configurator:102
-msgid ""
-"Specify additional groups for the user, separated by commas or spaces.\n"
-"\n"
-"• Grants access to devices and features (e.g., 'audio, video, plugdev').\n"
-"\n"
-"See: man 7 live-config (search 'user-default-groups')"
-msgstr ""
-
-#: minios-configurator:105
-msgid "User password"
-msgstr "Mot de passe utilisateur"
-
-#: minios-configurator:106
-msgid ""
-"Set the initial password for the default user.\n"
-"\n"
-"• Leave blank to keep the existing password.\n"
-"• Spaces are not allowed.\n"
-"\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
-msgstr ""
-
-#: minios-configurator:110
-msgid "Root password"
-msgstr "Mot de passe root"
+"Voir : man 7 live-config (rechercher 'hostname')"
 
 #: minios-configurator:111
+msgid "Locales"
+msgstr "Langues"
+
+#: minios-configurator:112
 msgid ""
-"Set the initial password for the root (administrator) account.\n"
+"Set system language(s) and regional settings.\n"
 "\n"
-"• Leave blank to keep the existing password.\n"
-"• Spaces are not allowed; ignored if 'No-root mode' is enabled.\n"
+"• Enter locale codes separated by commas (e.g. 'de_DE.UTF-8, en_US.UTF-8').\n"
+"• The first locale is treated as default.\n"
 "\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
+"See: man 7 live-config (search 'locales')"
 msgstr ""
+"Définir la ou les langues du système et les paramètres régionaux.\n"
+"\n"
+"• Entrez les codes de paramètres régionaux séparés par des virgules (par "
+"exemple, 'de_DE.UTF-8, en_US.UTF-8').\n"
+"• Le premier paramètre régional est considéré comme le paramètre par défaut.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'locales')"
 
 #: minios-configurator:116
-msgid "Keyboard"
-msgstr "Clavier"
+msgid "Timezone"
+msgstr "Fuseau horaire"
 
 #: minios-configurator:117
-msgid "Keyboard model"
-msgstr "Modèle de clavier"
-
-#: minios-configurator:118
 msgid ""
-"Specify the keyboard hardware model (e.g., 'pc105').\n"
+"Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
-"• Leave blank for automatic detection.\n"
+"• Affects system clock and displayed times.\n"
 "\n"
-"See: man 7 live-config (search 'keyboard-model')"
+"See: man 7 live-config (search 'timezone')"
 msgstr ""
-
-#: minios-configurator:121
-msgid "Keyboard layouts"
-msgstr "Agencements de clavier"
-
-#: minios-configurator:122
-msgid ""
-"List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
+"Définir le fuseau horaire du système (par exemple, 'Europe/Berlin', "
+"'America/New_York').\n"
 "\n"
-"• Controls which layouts are available in the session.\n"
+"• Affecte l'horloge système et les heures affichées.\n"
 "\n"
-"See: man 7 live-config (search 'keyboard-layouts')"
-msgstr ""
+"Voir : man 7 live-config (rechercher 'timezone')"
 
-#: minios-configurator:125
-msgid "Keyboard options"
-msgstr "Options du clavier"
-
-#: minios-configurator:126
-msgid ""
-"Set additional keyboard options (XKB).\n"
-"\n"
-"• Example: 'grp:alt_shift_toggle' to switch layouts with Alt+Shift.\n"
-"\n"
-"See: man 7 live-config (search 'keyboard-options')"
-msgstr ""
-
-#: minios-configurator:129
-msgid "Keyboard variants"
-msgstr "Variantes de clavier"
-
-#: minios-configurator:130
-msgid ""
-"Specify keyboard variants for chosen layouts, separated by commas.\n"
-"\n"
-"• Customize layout (e.g., 'dvorak' for US).\n"
-"• Leave blank if not needed.\n"
-"\n"
-"See: man 7 live-config (search 'keyboard-variants')"
-msgstr ""
-
-#: minios-configurator:135
-msgid "Advanced"
-msgstr "Avancé"
-
-#: minios-configurator:136
-msgid "Module mode"
-msgstr "Mode module"
-
-#: minios-configurator:137
-msgid ""
-"Choose how system modules are loaded:\n"
-"• 'simple' – load modules as-is.\n"
-"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; "
-"updates caches.\n"
-"\n"
-"Usually not required unless modules are built independently.\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
-msgstr ""
-
-#: minios-configurator:142
+#: minios-configurator:120
 msgid "Default systemd target"
 msgstr "Cible systemd par défaut"
 
-#: minios-configurator:143
+#: minios-configurator:121
 msgid ""
 "Set the default boot target for systemd:\n"
 "• 'graphical' – start with a desktop.\n"
@@ -263,12 +281,18 @@ msgid ""
 "\n"
 "See: man systemd.special (search for 'target')"
 msgstr ""
+"Définir la cible de démarrage par défaut pour systemd :\n"
+"• 'graphical' – démarrer avec un bureau.\n"
+"• 'multi-user' – mode console.\n"
+"• 'rescue' – mode de secours minimal.\n"
+"\n"
+"Voir : man systemd.special (rechercher 'target')"
 
-#: minios-configurator:148
+#: minios-configurator:126
 msgid "Enable services"
 msgstr "Activer les services"
 
-#: minios-configurator:149
+#: minios-configurator:127
 msgid ""
 "List systemd services to enable at boot, separated by commas.\n"
 "\n"
@@ -277,12 +301,19 @@ msgid ""
 "\n"
 "See: man systemctl (search 'enable')"
 msgstr ""
+"Répertorier les services systemd à activer au démarrage, séparés par des "
+"virgules.\n"
+"\n"
+"• Exemple : 'ssh, NetworkManager'.\n"
+"• Utilisez les noms de service avec ou sans '.service'.\n"
+"\n"
+"Voir : man systemctl (rechercher 'enable')"
 
-#: minios-configurator:153
+#: minios-configurator:131
 msgid "Disable services"
 msgstr "Désactiver les services"
 
-#: minios-configurator:154
+#: minios-configurator:132
 msgid ""
 "List systemd services to disable at boot, separated by commas.\n"
 "\n"
@@ -291,52 +322,166 @@ msgid ""
 "\n"
 "See: man systemctl (search 'disable')"
 msgstr ""
+"Répertorier les services systemd à désactiver au démarrage, séparés par des "
+"virgules.\n"
+"\n"
+"• Exemple : 'bluetooth, ModemManager'.\n"
+"• Utilisez les noms de service avec ou sans '.service'.\n"
+"\n"
+"Voir : man systemctl (rechercher 'disable')"
+
+#: minios-configurator:137
+msgid "Keyboard"
+msgstr "Clavier"
+
+#: minios-configurator:138
+msgid "Keyboard model"
+msgstr "Modèle de clavier"
+
+#: minios-configurator:139
+msgid ""
+"Specify the keyboard hardware model (e.g., 'pc105').\n"
+"\n"
+"• Leave blank for automatic detection.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-model')"
+msgstr ""
+"Spécifiez le modèle de matériel de clavier (par exemple, 'pc105').\n"
+"\n"
+"• Laisser vide pour une détection automatique.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'keyboard-model')"
+
+#: minios-configurator:142
+msgid "Keyboard layouts"
+msgstr "Agencements de clavier"
+
+#: minios-configurator:143
+msgid ""
+"List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
+"\n"
+"• Controls which layouts are available in the session.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-layouts')"
+msgstr ""
+"Répertorier un ou plusieurs agencements de clavier, séparés par des virgules "
+"(par exemple, 'us, ru').\n"
+"\n"
+"• Contrôle les agencements disponibles dans la session.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'keyboard-layouts')"
+
+#: minios-configurator:146
+msgid "Keyboard options"
+msgstr "Options du clavier"
+
+#: minios-configurator:147
+msgid ""
+"Set additional keyboard options (XKB).\n"
+"\n"
+"• Example: 'grp:alt_shift_toggle' to switch layouts with Alt+Shift.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-options')"
+msgstr ""
+"Définir des options de clavier supplémentaires (XKB).\n"
+"\n"
+"• Exemple : 'grp:alt_shift_toggle' pour basculer les agencements avec "
+"Alt+Shift.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'keyboard-options')"
+
+#: minios-configurator:150
+msgid "Keyboard variants"
+msgstr "Variantes de clavier"
+
+#: minios-configurator:151
+msgid ""
+"Specify keyboard variants for chosen layouts, separated by commas.\n"
+"\n"
+"• Customize layout (e.g., 'dvorak' for US).\n"
+"• Leave blank if not needed.\n"
+"\n"
+"See: man 7 live-config (search 'keyboard-variants')"
+msgstr ""
+"Spécifiez les variantes de clavier pour les agencements choisis, séparées par "
+"des virgules.\n"
+"\n"
+"• Personnaliser l'agencement (par exemple, 'dvorak' pour US).\n"
+"• Laisser vide si ce n'est pas nécessaire.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'keyboard-variants')"
+
+#: minios-configurator:156
+msgid "Advanced"
+msgstr "Avancé"
+
+#: minios-configurator:157
+msgid "Module mode"
+msgstr "Mode module"
 
 #: minios-configurator:158
-msgid "Link user directories to storage"
-msgstr "Lier les dossiers utilisateur au stockage"
-
-#: minios-configurator:159
 msgid ""
-"If enabled, user home directories will be symlinked to persistent storage.\n"
+"Choose how system modules are loaded:\n"
+"• 'simple' – load modules as-is.\n"
+"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; "
+"updates caches.\n"
 "\n"
-"• Helps retain user data across reboots.\n"
-"\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
+"Usually not required unless modules are built independently.\n"
+"See: man 7 live-config (search 'module-mode')"
 msgstr ""
-
-#: minios-configurator:162
-msgid "Bind user directories to storage"
-msgstr "Monter les dossiers utilisateur sur le stockage"
+"Choisissez comment les modules système sont chargés :\n"
+"• 'simple' – charger les modules tels quels.\n"
+"• 'merged' – consolide les bases de données dpkg, passwd, shadow et groups ; "
+"met à jour les caches.\n"
+"\n"
+"Généralement pas nécessaire, sauf si les modules sont construits "
+"indépendamment.\n"
+"Voir : man 7 live-config (rechercher 'module-mode')"
 
 #: minios-configurator:163
+msgid "live-config command line"
+msgstr "Ligne de commande live-config"
+
+#: minios-configurator:164
 msgid ""
-"If enabled, user home directories will be bind-mounted to persistent "
-"storage.\n"
+"Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
-"• Provides transparent persistent data access.\n"
+"• Passed at startup to control various session aspects.\n"
+"• Example: 'boot=live live-config.debug'\n"
 "\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
+"See: man 7 live-config (search 'cmdline')"
 msgstr ""
+"Paramètres de démarrage supplémentaires pour live-config (séparés par des "
+"espaces).\n"
+"\n"
+"• Transmis au démarrage pour contrôler divers aspects de la session.\n"
+"• Exemple : 'boot=live live-config.debug'\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'cmdline')"
 
-#: minios-configurator:166
-msgid "User directories path on storage"
-msgstr "Chemin des dossiers utilisateur sur le stockage"
+#: minios-configurator:168
+msgid "Debug mode"
+msgstr "Mode débogage"
 
-#: minios-configurator:167
+#: minios-configurator:169
 msgid ""
-"Set the base path on persistent storage for user directories.\n"
+"Activate to enable detailed debug output during boot.\n"
 "\n"
-"• Example: '/minios/userdirs'.\n"
+"• Useful for troubleshooting configuration issues.\n"
 "\n"
-"See: https://github.com/minios-linux/minios-live/wiki"
+"See: man 7 live-config (search 'debug')"
 msgstr ""
+"Activer pour activer la sortie de débogage détaillée pendant le démarrage.\n"
+"\n"
+"• Utile pour résoudre les problèmes de configuration.\n"
+"\n"
+"Voir : man 7 live-config (rechercher 'debug')"
 
-#: minios-configurator:170
+#: minios-configurator:172
 msgid "Export logs to flash drive"
 msgstr "Exporter les journaux sur une clé USB"
 
-#: minios-configurator:171
+#: minios-configurator:173
 msgid ""
 "If enabled, system logs will be copied to a connected flash drive at "
 "shutdown.\n"
@@ -345,8 +490,14 @@ msgid ""
 "\n"
 "See: https://github.com/minios-linux/minios-live/wiki"
 msgstr ""
+"Si activé, les journaux système seront copiés sur une clé USB connectée à "
+"l'arrêt.\n"
+"\n"
+"• Utile pour le diagnostic et le dépannage.\n"
+"\n"
+"Voir : https://github.com/minios-linux/minios-live/wiki"
 
-#: minios-configurator:332
+#: minios-configurator:334
 msgid ""
 "If you are unsure about a field, do not change it. Incorrect settings may "
 "prevent the system from booting."
@@ -354,86 +505,14 @@ msgstr ""
 "Si vous n'êtes pas sûr d'un champ, ne le modifiez pas. Des paramètres "
 "incorrects peuvent empêcher le démarrage du système."
 
-#: minios-configurator:446
+#: minios-configurator:448
 msgid "Save"
 msgstr "Enregistrer"
 
-#: minios-configurator:467
+#: minios-configurator:469
 msgid "Failed to load config: {}"
 msgstr "Échec du chargement de la configuration : {}"
 
-#: minios-configurator:614
+#: minios-configurator:616
 msgid "Failed to update config: {}"
 msgstr "Échec de la mise à jour de la configuration : {}"
-
-#~ msgid "Kernel command-line parameters for live-config"
-#~ msgstr "Paramètres de ligne de commande du noyau pour live-config"
-
-#~ msgid "Disable root account for live session"
-#~ msgstr "Désactiver le compte root pour la session live"
-
-#~ msgid "Enable verbose debug output"
-#~ msgstr "Activer la sortie de débogage détaillée"
-
-#~ msgid "Comma-separated list of locales, e.g. en_US, ru_RU"
-#~ msgstr "Liste de langues séparées par des virgules, ex. : en_US, ru_RU"
-
-#~ msgid "System timezone, e.g. UTC or Europe/Moscow"
-#~ msgstr "Fuseau horaire du système, ex. : UTC ou Europe/Moscou"
-
-#~ msgid "Network hostname for the live system"
-#~ msgstr "Nom d'hôte réseau pour le système live"
-
-#~ msgid "Default non-root username"
-#~ msgstr "Nom d'utilisateur par défaut (non root)"
-
-#~ msgid "User's full name"
-#~ msgstr "Nom complet de l'utilisateur"
-
-#~ msgid "Additional groups, comma-separated or space-separated"
-#~ msgstr "Groupes supplémentaires, séparés par des virgules ou des espaces"
-
-#~ msgid "Initial user password"
-#~ msgstr "Mot de passe initial de l'utilisateur"
-
-#~ msgid "Initial root password"
-#~ msgstr "Mot de passe root initial"
-
-#~ msgid "XKB keyboard model, e.g. pc105"
-#~ msgstr "Modèle de clavier XKB, ex. : pc105"
-
-#~ msgid "Comma-separated layouts, e.g. us, ru"
-#~ msgstr "Agencements séparés par des virgules, ex. : fr, us"
-
-#~ msgid "Additional XKB options"
-#~ msgstr "Options XKB supplémentaires"
-
-#~ msgid "XKB variants, comma-separated"
-#~ msgstr "Variantes XKB, séparées par des virgules"
-
-#~ msgid "Choose module loading mode: simple or merged"
-#~ msgstr "Choisir le mode de chargement des modules : simple ou fusionné"
-
-#~ msgid "Set default boot target for systemd"
-#~ msgstr "Définir la cible de démarrage par défaut pour systemd"
-
-#~ msgid "Services to start, comma-separated"
-#~ msgstr "Services à démarrer, séparés par des virgules"
-
-#~ msgid "Services to disable, comma-separated"
-#~ msgstr "Services à désactiver, séparés par des virgules"
-
-#~ msgid "Symlink home dirs to persistent storage"
-#~ msgstr "Lier les dossiers personnels au stockage persistant"
-
-#~ msgid "Bind mount home dirs to storage"
-#~ msgstr "Monter les dossiers personnels sur le stockage"
-
-#~ msgid "Base path on storage for user dirs"
-#~ msgstr "Chemin de base sur le stockage pour les dossiers utilisateur"
-
-#~ msgid "Copy system logs to a flash drive"
-#~ msgstr "Copier les journaux système sur une clé USB"
-
-#~ msgid "You will need to reboot your system to apply the settings."
-#~ msgstr "Vous devrez redémarrer votre système pour appliquer les paramètres."
