@@ -85,10 +85,12 @@ TAB_DEFINITIONS = {
         (_("Link user directories to storage"), 'LIVE_LINK_USER_DIRS', Gtk.CheckButton,
          _("If enabled, user home directories will be symlinked to persistent storage.\n\n"
            "• Helps retain user data across reboots.\n\n"
+           "• FAT, NTFS only.\n\n"
            "See: man 7 live-config (search 'link-user-dirs')")),
         (_("Bind user directories to storage"), 'LIVE_BIND_USER_DIRS', Gtk.CheckButton,
          _("If enabled, user home directories will be bind-mounted to persistent storage.\n\n"
-           "• Provides transparent persistent data access.\n\n"
+           "• Helps retain user data across reboots.\n\n"
+           "• FAT, NTFS only.\n\n"
            "See: man 7 live-config (search 'bind-user-dirs')")),
         (_("User directories path on storage"), 'LIVE_USER_DIRS_PATH', Gtk.Entry,
          _("Set the base path on persistent storage for user directories.\n\n"
