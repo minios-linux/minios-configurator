@@ -1,6 +1,12 @@
-minios-configurator (2.0) UNRELEASED; urgency=medium
+minios-configurator (2.1) unstable; urgency=medium
 
-  * 
+  * Add support for Python 3.7 for compatibility with Debian 10.
+
+ -- crims0n <crims0n@minios.dev>  Sun, 06 Jul 2025 13:50:12 +0300
+
+minios-configurator (2.0) unstable; urgency=medium
+
+  * Rewrite minios-configurator to Python 3 with GTK3 support.
 
  -- crims0n <crims0n@minios.dev>  Sun, 25 May 2025 21:28:52 +0300
 

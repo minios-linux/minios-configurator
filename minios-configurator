@@ -20,7 +20,17 @@ import sys
 import gi
 import gettext
 import subprocess
-from zoneinfo import available_timezones
+try:
+    from zoneinfo import available_timezones
+except ImportError:
+    def available_timezones():
+        tzdir = '/usr/share/zoneinfo'
+        zones = set()
+        for root, dirs, files in os.walk(tzdir):
+            for file in files:
+                rel = os.path.relpath(os.path.join(root, file), tzdir)
+                zones.add(rel)
+        return zones
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gio', '2.0')
@@ -217,7 +227,7 @@ def match_completion_by_token(
     # pull the ListStore out of the completion
     store     = completion.get_model()
     candidate = store[tree_iter][0]
-    base      = candidate.removesuffix('.service')
+    base      = candidate[:-8] if candidate.endswith('.service') else candidate
     return candidate.startswith(segment) or base.startswith(segment)
 
 def on_completion_selected(completion: Gtk.EntryCompletion,
