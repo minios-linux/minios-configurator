@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# MiniOS Configurator Launcher
+# This script launches the main configurator Python application
+#
+
+set -e
+
+TERM=xterm
+
+DIR=/usr/lib/minios-configurator
+
+"$DIR/main_configurator.py" "$@"

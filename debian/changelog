@@ -1,3 +1,13 @@
+minios-configurator (2.2) unstable; urgency=medium
+
+  * Split minios-configurator into libraries to improve code structure.
+  * Restructure project to match minios-installer architecture.
+  * Separate functionality into modular libraries.
+  * Update Makefile to support new library structure.
+  * Improve code organization and maintainability.
+
+ -- crims0n <crims0n@minios.dev>  Tue, 08 Jul 2025 16:48:39 +0300
+
 minios-configurator (2.1) unstable; urgency=medium
 
   * Add support for Python 3.7 for compatibility with Debian 10.
@@ -12,7 +22,8 @@ minios-configurator (2.0) unstable; urgency=medium
 
 minios-configurator (1.1.1) unstable; urgency=medium
 
-  * Fixed a bug in minios-configurator that caused incorrect mapping of fields to variables in the config.
+  * Fixed a bug in minios-configurator that caused incorrect mapping of fields
+    to variables in the config.
   * Updated the help called by the `man minios-configurator` command.
 
  -- crims0n <crims0n@minios.dev>  Sun, 09 Feb 2025 01:26:51 +0300

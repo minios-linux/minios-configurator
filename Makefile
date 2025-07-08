@@ -1,9 +1,11 @@
-EXECUTABLES = minios-configurator
-APPLICATIONS = minios-configurator.desktop
-POLICIES = dev.minios.configurator.policy
-STYLES = style.css
+EXECUTABLES = bin/minios-configurator
+LIBRARIES = lib/*.py
+APPLICATIONS = share/applications/minios-configurator.desktop
+POLICIES = share/polkit/org.minios.configurator.policy
+STYLES = share/styles/style.css
 
 BINDIR = usr/bin
+LIBDIR = usr/lib/minios-configurator
 APPLICATIONSDIR = usr/share/applications
 POLKITACTIONSDIR = usr/share/polkit-1/actions
 LOCALEDIR = usr/share/locale
@@ -27,12 +29,15 @@ clean:
 
 install: build
 	install -d $(DESTDIR)/$(BINDIR) \
+				$(DESTDIR)/$(LIBDIR) \
 				$(DESTDIR)/$(APPLICATIONSDIR) \
 				$(DESTDIR)/$(POLKITACTIONSDIR) \
 				$(DESTDIR)/$(LOCALEDIR) \
 				$(DESTDIR)/$(SHAREDIR)
 
-	cp $(EXECUTABLES) $(DESTDIR)/$(BINDIR)
+	cp $(EXECUTABLES) $(DESTDIR)/$(BINDIR)/minios-configurator
+	cp $(LIBRARIES) $(DESTDIR)/$(LIBDIR)/
+	chmod +x $(DESTDIR)/$(LIBDIR)/main_configurator.py
 	cp $(APPLICATIONS) $(DESTDIR)/$(APPLICATIONSDIR)
 	cp $(POLICIES) $(DESTDIR)/$(POLKITACTIONSDIR)
 	cp $(STYLES) $(DESTDIR)/$(SHAREDIR)

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 01:18+0300\n"
+"Report-Msgid-Bugs-To: support@minios.dev\n"
+"POT-Creation-Date: 2025-07-08 18:08+0000\n"
 "PO-Revision-Date: 2025-05-26 19:45+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -17,15 +17,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: minios-configurator:62
+#: lib/config_utils.py:42
+msgid "Failed to load config: {}"
+msgstr "Impossibile caricare la configurazione: {}"
+
+#: lib/config_utils.py:95
+msgid "Failed to update config: {}"
+msgstr "Impossibile aggiornare la configurazione: {}"
+
+#: lib/main_configurator.py:59
 msgid "User"
 msgstr "Utente"
 
-#: minios-configurator:63
+#: lib/main_configurator.py:60
 msgid "Username"
 msgstr "Nome utente"
 
-#: minios-configurator:64
+#: lib/main_configurator.py:61
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -39,11 +47,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'username')"
 
-#: minios-configurator:67
+#: lib/main_configurator.py:64
 msgid "Full name"
 msgstr "Nome completo"
 
-#: minios-configurator:68
+#: lib/main_configurator.py:65
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -58,11 +66,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'user-fullname')"
 
-#: minios-configurator:71
+#: lib/main_configurator.py:68
 msgid "User groups"
 msgstr "Gruppi utente"
 
-#: minios-configurator:72
+#: lib/main_configurator.py:69
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -77,11 +85,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'user-default-groups')"
 
-#: minios-configurator:75
+#: lib/main_configurator.py:72
 msgid "User password"
 msgstr "Password utente"
 
-#: minios-configurator:76
+#: lib/main_configurator.py:73
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -97,11 +105,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'user-password')"
 
-#: minios-configurator:80
+#: lib/main_configurator.py:77
 msgid "Root password"
 msgstr "Password root"
 
-#: minios-configurator:81
+#: lib/main_configurator.py:78
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -118,11 +126,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'root-password')"
 
-#: minios-configurator:85
+#: lib/main_configurator.py:82
 msgid "Link user directories to storage"
 msgstr "Collega le directory utente allo storage"
 
-#: minios-configurator:86
+#: lib/main_configurator.py:83
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
@@ -141,11 +149,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'link-user-dirs')"
 
-#: minios-configurator:90
+#: lib/main_configurator.py:87
 msgid "Bind user directories to storage"
 msgstr "Monta le directory utente su storage"
 
-#: minios-configurator:91
+#: lib/main_configurator.py:88
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent "
 "storage.\n"
@@ -165,11 +173,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'bind-user-dirs')"
 
-#: minios-configurator:95
+#: lib/main_configurator.py:92
 msgid "User directories path on storage"
 msgstr "Percorso directory utente su storage"
 
-#: minios-configurator:96
+#: lib/main_configurator.py:93
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
@@ -183,15 +191,15 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'user-dirs-path')"
 
-#: minios-configurator:100
+#: lib/main_configurator.py:97
 msgid "System"
 msgstr "Sistema"
 
-#: minios-configurator:101
+#: lib/main_configurator.py:98
 msgid "No-root mode"
 msgstr "Modalità senza root"
 
-#: minios-configurator:102
+#: lib/main_configurator.py:99
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -207,11 +215,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'noroot')"
 
-#: minios-configurator:106
+#: lib/main_configurator.py:103
 msgid "Hostname"
 msgstr "Nome host"
 
-#: minios-configurator:107
+#: lib/main_configurator.py:104
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -227,11 +235,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'hostname')"
 
-#: minios-configurator:111
+#: lib/main_configurator.py:108
 msgid "Locales"
 msgstr "Lingue"
 
-#: minios-configurator:112
+#: lib/main_configurator.py:109
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -242,17 +250,17 @@ msgid ""
 msgstr ""
 "Imposta la/le lingua/e del sistema e le impostazioni regionali.\n"
 "\n"
-"• Inserisci i codici locali separati da virgole (es. 'de_DE.UTF-8, "
-"en_US.UTF-8').\n"
+"• Inserisci i codici locali separati da virgole (es. 'de_DE.UTF-8, en_US."
+"UTF-8').\n"
 "• La prima impostazione locale viene trattata come predefinita.\n"
 "\n"
 "Vedi: man 7 live-config (cerca 'locales')"
 
-#: minios-configurator:116
+#: lib/main_configurator.py:113
 msgid "Timezone"
 msgstr "Fuso orario"
 
-#: minios-configurator:117
+#: lib/main_configurator.py:114
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -260,18 +268,18 @@ msgid ""
 "\n"
 "See: man 7 live-config (search 'timezone')"
 msgstr ""
-"Imposta il fuso orario del sistema (es. 'Europe/Berlin', "
-"'America/New_York').\n"
+"Imposta il fuso orario del sistema (es. 'Europe/Berlin', 'America/"
+"New_York').\n"
 "\n"
 "• Influisce sull'orologio di sistema e sugli orari visualizzati.\n"
 "\n"
 "Vedi: man 7 live-config (cerca 'timezone')"
 
-#: minios-configurator:120
+#: lib/main_configurator.py:117
 msgid "Default systemd target"
 msgstr "Target systemd predefinito"
 
-#: minios-configurator:121
+#: lib/main_configurator.py:118
 msgid ""
 "Set the default boot target for systemd:\n"
 "• 'graphical' – start with a desktop.\n"
@@ -287,11 +295,11 @@ msgstr ""
 "\n"
 "Vedi: man systemd.special (cerca 'target')"
 
-#: minios-configurator:126
+#: lib/main_configurator.py:123
 msgid "Enable services"
 msgstr "Abilita servizi"
 
-#: minios-configurator:127
+#: lib/main_configurator.py:124
 msgid ""
 "List systemd services to enable at boot, separated by commas.\n"
 "\n"
@@ -307,11 +315,11 @@ msgstr ""
 "\n"
 "Vedi: man systemctl (cerca 'enable')"
 
-#: minios-configurator:131
+#: lib/main_configurator.py:128
 msgid "Disable services"
 msgstr "Disabilita servizi"
 
-#: minios-configurator:132
+#: lib/main_configurator.py:129
 msgid ""
 "List systemd services to disable at boot, separated by commas.\n"
 "\n"
@@ -327,15 +335,15 @@ msgstr ""
 "\n"
 "Vedi: man systemctl (cerca 'disable')"
 
-#: minios-configurator:137
+#: lib/main_configurator.py:134
 msgid "Keyboard"
 msgstr "Tastiera"
 
-#: minios-configurator:138
+#: lib/main_configurator.py:135
 msgid "Keyboard model"
 msgstr "Modello tastiera"
 
-#: minios-configurator:139
+#: lib/main_configurator.py:136
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -349,11 +357,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'keyboard-model')"
 
-#: minios-configurator:142
+#: lib/main_configurator.py:139
 msgid "Keyboard layouts"
 msgstr "Layout tastiera"
 
-#: minios-configurator:143
+#: lib/main_configurator.py:140
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -367,11 +375,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'keyboard-layouts')"
 
-#: minios-configurator:146
+#: lib/main_configurator.py:143
 msgid "Keyboard options"
 msgstr "Opzioni tastiera"
 
-#: minios-configurator:147
+#: lib/main_configurator.py:144
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -385,11 +393,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'keyboard-options')"
 
-#: minios-configurator:150
+#: lib/main_configurator.py:147
 msgid "Keyboard variants"
 msgstr "Varianti tastiera"
 
-#: minios-configurator:151
+#: lib/main_configurator.py:148
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -406,15 +414,15 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'keyboard-variants')"
 
-#: minios-configurator:156
+#: lib/main_configurator.py:153
 msgid "Advanced"
 msgstr "Avanzato"
 
-#: minios-configurator:157
+#: lib/main_configurator.py:154
 msgid "Module mode"
 msgstr "Modalità modulo"
 
-#: minios-configurator:158
+#: lib/main_configurator.py:155
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -426,19 +434,19 @@ msgid ""
 msgstr ""
 "Scegli come vengono caricati i moduli di sistema:\n"
 "• 'simple' – carica i moduli così come sono.\n"
-"• 'merged' – consolida i database dpkg, passwd, shadow e groups; aggiorna "
-"le cache.\n"
+"• 'merged' – consolida i database dpkg, passwd, shadow e groups; aggiorna le "
+"cache.\n"
 "\n"
 "Di solito non è necessario a meno che i moduli non siano costruiti "
 "indipendentemente.\n"
 "\n"
 "Vedi: man 7 live-config (cerca 'module-mode')"
 
-#: minios-configurator:163
+#: lib/main_configurator.py:160
 msgid "live-config command line"
 msgstr "Riga di comando live-config"
 
-#: minios-configurator:164
+#: lib/main_configurator.py:161
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -454,11 +462,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'cmdline')"
 
-#: minios-configurator:168
+#: lib/main_configurator.py:165
 msgid "Debug mode"
 msgstr "Modalità debug"
 
-#: minios-configurator:169
+#: lib/main_configurator.py:166
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -472,11 +480,11 @@ msgstr ""
 "\n"
 "Vedi: man 7 live-config (cerca 'debug')"
 
-#: minios-configurator:172
+#: lib/main_configurator.py:169
 msgid "Export logs to flash drive"
 msgstr "Esporta log su chiavetta USB"
 
-#: minios-configurator:173
+#: lib/main_configurator.py:170
 msgid ""
 "If enabled, system logs will be copied to a connected flash drive at "
 "shutdown.\n"
@@ -492,7 +500,7 @@ msgstr ""
 "\n"
 "Vedi: https://github.com/minios-linux/minios-live/wiki"
 
-#: minios-configurator:334
+#: lib/main_configurator.py:245
 msgid ""
 "If you are unsure about a field, do not change it. Incorrect settings may "
 "prevent the system from booting."
@@ -500,14 +508,6 @@ msgstr ""
 "Se non sei sicuro di un campo, non modificarlo. Impostazioni errate possono "
 "impedire l'avvio del sistema."
 
-#: minios-configurator:448
+#: lib/main_configurator.py:351
 msgid "Save"
 msgstr "Salva"
-
-#: minios-configurator:469
-msgid "Failed to load config: {}"
-msgstr "Impossibile caricare la configurazione: {}"
-
-#: minios-configurator:616
-msgid "Failed to update config: {}"
-msgstr "Impossibile aggiornare la configurazione: {}"

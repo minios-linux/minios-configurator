@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 01:18+0300\n"
+"Report-Msgid-Bugs-To: support@minios.dev\n"
+"POT-Creation-Date: 2025-07-08 18:08+0000\n"
 "PO-Revision-Date: 2025-05-26 23:16+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -16,15 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: minios-configurator:62
+#: lib/config_utils.py:42
+msgid "Failed to load config: {}"
+msgstr "Gagal memuat konfigurasi: {}"
+
+#: lib/config_utils.py:95
+msgid "Failed to update config: {}"
+msgstr "Gagal memperbarui konfigurasi: {}"
+
+#: lib/main_configurator.py:59
 msgid "User"
 msgstr "Pengguna"
 
-#: minios-configurator:63
+#: lib/main_configurator.py:60
 msgid "Username"
 msgstr "Nama pengguna"
 
-#: minios-configurator:64
+#: lib/main_configurator.py:61
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -38,11 +46,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'username')"
 
-#: minios-configurator:67
+#: lib/main_configurator.py:64
 msgid "Full name"
 msgstr "Nama lengkap"
 
-#: minios-configurator:68
+#: lib/main_configurator.py:65
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -56,11 +64,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-fullname')"
 
-#: minios-configurator:71
+#: lib/main_configurator.py:68
 msgid "User groups"
 msgstr "Grup pengguna"
 
-#: minios-configurator:72
+#: lib/main_configurator.py:69
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -74,11 +82,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-default-groups')"
 
-#: minios-configurator:75
+#: lib/main_configurator.py:72
 msgid "User password"
 msgstr "Kata sandi pengguna"
 
-#: minios-configurator:76
+#: lib/main_configurator.py:73
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -94,11 +102,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-password')"
 
-#: minios-configurator:80
+#: lib/main_configurator.py:77
 msgid "Root password"
 msgstr "Kata sandi root"
 
-#: minios-configurator:81
+#: lib/main_configurator.py:78
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -114,11 +122,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'root-password')"
 
-#: minios-configurator:85
+#: lib/main_configurator.py:82
 msgid "Link user directories to storage"
 msgstr "Tautkan direktori pengguna ke penyimpanan"
 
-#: minios-configurator:86
+#: lib/main_configurator.py:83
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
@@ -128,7 +136,8 @@ msgid ""
 "\n"
 "See: man 7 live-config (search 'link-user-dirs')"
 msgstr ""
-"Jika diaktifkan, direktori home pengguna akan disimbolikkan ke penyimpanan persisten.\n"
+"Jika diaktifkan, direktori home pengguna akan disimbolikkan ke penyimpanan "
+"persisten.\n"
 "\n"
 "• Membantu mempertahankan data pengguna saat reboot.\n"
 "\n"
@@ -136,11 +145,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'link-user-dirs')"
 
-#: minios-configurator:90
+#: lib/main_configurator.py:87
 msgid "Bind user directories to storage"
 msgstr "Bind direktori pengguna ke penyimpanan"
 
-#: minios-configurator:91
+#: lib/main_configurator.py:88
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent "
 "storage.\n"
@@ -151,7 +160,8 @@ msgid ""
 "\n"
 "See: man 7 live-config (search 'bind-user-dirs')"
 msgstr ""
-"Jika diaktifkan, direktori home pengguna akan dipasang bind ke penyimpanan persisten.\n"
+"Jika diaktifkan, direktori home pengguna akan dipasang bind ke penyimpanan "
+"persisten.\n"
 "\n"
 "• Membantu mempertahankan data pengguna saat reboot.\n"
 "\n"
@@ -159,11 +169,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'bind-user-dirs')"
 
-#: minios-configurator:95
+#: lib/main_configurator.py:92
 msgid "User directories path on storage"
 msgstr "Path direktori pengguna di penyimpanan"
 
-#: minios-configurator:96
+#: lib/main_configurator.py:93
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
@@ -177,15 +187,15 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-dirs-path')"
 
-#: minios-configurator:100
+#: lib/main_configurator.py:97
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
-#: minios-configurator:101
+#: lib/main_configurator.py:98
 msgid "No-root mode"
 msgstr "Mode tanpa root"
 
-#: minios-configurator:102
+#: lib/main_configurator.py:99
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -201,11 +211,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'noroot')"
 
-#: minios-configurator:106
+#: lib/main_configurator.py:103
 msgid "Hostname"
 msgstr "Nama host"
 
-#: minios-configurator:107
+#: lib/main_configurator.py:104
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -221,11 +231,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'hostname')"
 
-#: minios-configurator:111
+#: lib/main_configurator.py:108
 msgid "Locales"
 msgstr "Lokal"
 
-#: minios-configurator:112
+#: lib/main_configurator.py:109
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -241,11 +251,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'locales')"
 
-#: minios-configurator:116
+#: lib/main_configurator.py:113
 msgid "Timezone"
 msgstr "Zona waktu"
 
-#: minios-configurator:117
+#: lib/main_configurator.py:114
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -259,11 +269,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'timezone')"
 
-#: minios-configurator:120
+#: lib/main_configurator.py:117
 msgid "Default systemd target"
 msgstr "Target systemd default"
 
-#: minios-configurator:121
+#: lib/main_configurator.py:118
 msgid ""
 "Set the default boot target for systemd:\n"
 "• 'graphical' – start with a desktop.\n"
@@ -279,11 +289,11 @@ msgstr ""
 "\n"
 "Lihat: man systemd.special (cari 'target')"
 
-#: minios-configurator:126
+#: lib/main_configurator.py:123
 msgid "Enable services"
 msgstr "Aktifkan layanan"
 
-#: minios-configurator:127
+#: lib/main_configurator.py:124
 msgid ""
 "List systemd services to enable at boot, separated by commas.\n"
 "\n"
@@ -299,11 +309,11 @@ msgstr ""
 "\n"
 "Lihat: man systemctl (cari 'enable')"
 
-#: minios-configurator:131
+#: lib/main_configurator.py:128
 msgid "Disable services"
 msgstr "Nonaktifkan layanan"
 
-#: minios-configurator:132
+#: lib/main_configurator.py:129
 msgid ""
 "List systemd services to disable at boot, separated by commas.\n"
 "\n"
@@ -319,15 +329,15 @@ msgstr ""
 "\n"
 "Lihat: man systemctl (cari 'disable')"
 
-#: minios-configurator:137
+#: lib/main_configurator.py:134
 msgid "Keyboard"
 msgstr "Keyboard"
 
-#: minios-configurator:138
+#: lib/main_configurator.py:135
 msgid "Keyboard model"
 msgstr "Model keyboard"
 
-#: minios-configurator:139
+#: lib/main_configurator.py:136
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -341,11 +351,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-model')"
 
-#: minios-configurator:142
+#: lib/main_configurator.py:139
 msgid "Keyboard layouts"
 msgstr "Tata letak keyboard"
 
-#: minios-configurator:143
+#: lib/main_configurator.py:140
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -360,11 +370,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-layouts')"
 
-#: minios-configurator:146
+#: lib/main_configurator.py:143
 msgid "Keyboard options"
 msgstr "Opsi keyboard"
 
-#: minios-configurator:147
+#: lib/main_configurator.py:144
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -374,16 +384,16 @@ msgid ""
 msgstr ""
 "Tentukan opsi keyboard tambahan (XKB).\n"
 "\n"
-"• Contoh: 'grp:alt_shift_toggle' untuk mengganti tata letak dengan "
-"Alt+Shift.\n"
+"• Contoh: 'grp:alt_shift_toggle' untuk mengganti tata letak dengan Alt"
+"+Shift.\n"
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-options')"
 
-#: minios-configurator:150
+#: lib/main_configurator.py:147
 msgid "Keyboard variants"
 msgstr "Varian keyboard"
 
-#: minios-configurator:151
+#: lib/main_configurator.py:148
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -399,15 +409,15 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-variants')"
 
-#: minios-configurator:156
+#: lib/main_configurator.py:153
 msgid "Advanced"
 msgstr "Lanjutan"
 
-#: minios-configurator:157
+#: lib/main_configurator.py:154
 msgid "Module mode"
 msgstr "Mode modul"
 
-#: minios-configurator:158
+#: lib/main_configurator.py:155
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -419,16 +429,17 @@ msgid ""
 msgstr ""
 "Pilih bagaimana modul sistem dimuat:\n"
 "• 'simple' – muat modul apa adanya.\n"
-"• 'merged' – menggabungkan basis data dpkg, passwd, shadow, dan grup; memperbarui cache.\n"
+"• 'merged' – menggabungkan basis data dpkg, passwd, shadow, dan grup; "
+"memperbarui cache.\n"
 "\n"
 "Biasanya tidak diperlukan kecuali modul dibangun secara independen.\n"
 "Lihat: man 7 live-config (cari 'module-mode')"
 
-#: minios-configurator:163
+#: lib/main_configurator.py:160
 msgid "live-config command line"
 msgstr "Baris perintah live-config"
 
-#: minios-configurator:164
+#: lib/main_configurator.py:161
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -444,11 +455,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'cmdline')"
 
-#: minios-configurator:168
+#: lib/main_configurator.py:165
 msgid "Debug mode"
 msgstr "Mode debug"
 
-#: minios-configurator:169
+#: lib/main_configurator.py:166
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -462,11 +473,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'debug')"
 
-#: minios-configurator:172
+#: lib/main_configurator.py:169
 msgid "Export logs to flash drive"
 msgstr "Ekspor log ke flash drive"
 
-#: minios-configurator:173
+#: lib/main_configurator.py:170
 msgid ""
 "If enabled, system logs will be copied to a connected flash drive at "
 "shutdown.\n"
@@ -481,7 +492,7 @@ msgstr ""
 "\n"
 "Lihat: https://github.com/minios-linux/minios-live/wiki"
 
-#: minios-configurator:334
+#: lib/main_configurator.py:245
 msgid ""
 "If you are unsure about a field, do not change it. Incorrect settings may "
 "prevent the system from booting."
@@ -489,14 +500,6 @@ msgstr ""
 "Jika Anda ragu tentang suatu isian, jangan diubah. Pengaturan salah dapat "
 "membuat sistem gagal boot."
 
-#: minios-configurator:448
+#: lib/main_configurator.py:351
 msgid "Save"
 msgstr "Simpan"
-
-#: minios-configurator:469
-msgid "Failed to load config: {}"
-msgstr "Gagal memuat konfigurasi: {}"
-
-#: minios-configurator:616
-msgid "Failed to update config: {}"
-msgstr "Gagal memperbarui konfigurasi: {}"

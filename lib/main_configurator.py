@@ -6,7 +6,7 @@ A graphical tool for configuring MiniOS settings via GTK.
 Allows modifying parameters in /etc/live/config.conf.
 
 Usage:
-    minios-configurator [/path/to/config/file]
+    main_configurator.py [/path/to/config/file]
 
 If no config file path is provided, it defaults to /etc/live/config.conf.
 
@@ -15,22 +15,21 @@ Author: crims0n <crims0n@minios.dev>
 """
 
 import os
-import re
 import sys
 import gi
 import gettext
-import subprocess
-try:
-    from zoneinfo import available_timezones
-except ImportError:
-    def available_timezones():
-        tzdir = '/usr/share/zoneinfo'
-        zones = set()
-        for root, dirs, files in os.walk(tzdir):
-            for file in files:
-                rel = os.path.relpath(os.path.join(root, file), tzdir)
-                zones.add(rel)
-        return zones
+
+# Add lib directory to Python path
+sys.path.insert(0, '/usr/lib/minios-configurator')
+
+# Import our library modules
+from config_utils import load_config, save_config, process_services_field
+from system_utils import read_available_locales, read_available_services, get_available_timezones
+from validation_utils import validate_field
+from ui_utils import (apply_css_if_exists, show_error_dialog, create_completion, 
+                      on_toggle_password_visibility, ICON_WINDOW, ICON_WARNING, 
+                      ICON_SAVE, ICON_EYE_OPEN)
+from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gio', '2.0')
@@ -45,18 +44,6 @@ APP_TITLE               = 'MiniOS Configurator'
 LOCALE_DIRECTORY        = '/usr/share/locale'
 DEFAULT_CONFIG_FILE     = '/etc/live/config.conf'
 CSS_FILE_PATH           = '/usr/share/minios-configurator/style.css'
-
-# Icon names
-ICON_WINDOW             = 'preferences-system'
-ICON_WARNING            = 'dialog-warning'
-ICON_SAVE               = 'document-save-symbolic'
-ICON_EYE_OPEN           = 'eye-open-negative-filled-symbolic'
-ICON_EYE_CLOSED         = 'eye-not-looking-symbolic'
-
-PASSWORD_FIELD_MAP      = {
-    'USER_PASSWORD': 'LIVE_USER_PASSWORD_CRYPTED',
-    'ROOT_PASSWORD': 'LIVE_ROOT_PASSWORD_CRYPTED',
-}
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Internationalization
@@ -187,93 +174,6 @@ TAB_DEFINITIONS = {
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Helper functions
-# ──────────────────────────────────────────────────────────────────────────────
-def hash_system_password(plain_password: str) -> str:
-    """
-    Hash a password using mkpasswd if available, otherwise openssl SHA-512.
-    """
-    try:
-        output = subprocess.check_output(
-            ['mkpasswd', plain_password],
-            text=True,
-            stderr=subprocess.DEVNULL
-        )
-        return output.strip()
-    except (FileNotFoundError, subprocess.CalledProcessError):
-        salt = subprocess.check_output(
-            ['openssl', 'rand', '-base64', '12'],
-            text=True
-        ).strip()
-        hashed = subprocess.check_output(
-            ['openssl', 'passwd', '-6', '-salt', salt, plain_password],
-            text=True
-        )
-        return hashed.strip()
-
-def match_completion_by_token(
-        completion: Gtk.EntryCompletion,
-        key: str,
-        tree_iter: Gtk.TreeIter,
-        entry: Gtk.Entry
-    ) -> bool:
-    """
-    Custom match for inline completion: matches only the current comma-separated segment.
-    """
-    text       = entry.get_text()
-    cursor_pos = entry.get_position()
-    segment    = text[:cursor_pos].rpartition(',')[2].lstrip()
-
-    # pull the ListStore out of the completion
-    store     = completion.get_model()
-    candidate = store[tree_iter][0]
-    base      = candidate[:-8] if candidate.endswith('.service') else candidate
-    return candidate.startswith(segment) or base.startswith(segment)
-
-def on_completion_selected(completion: Gtk.EntryCompletion,
-                           model: Gtk.TreeModel,
-                           tree_iter: Gtk.TreeIter,
-                           entry: Gtk.Entry) -> bool:
-    """
-    Handler when a completion is selected: replace only the current segment.
-    """
-    full_text = entry.get_text()
-    cursor_pos = entry.get_position()
-    comma_index = full_text[:cursor_pos].rfind(',') + 1
-    prefix = full_text[:comma_index]
-    suffix = full_text[cursor_pos:]
-    candidate = model[tree_iter][0]
-    new_text = prefix + candidate + suffix
-    entry.set_text(new_text)
-    entry.set_position(len(prefix) + len(candidate))
-    return True
-
-def on_toggle_password_visibility(toggle_button: Gtk.ToggleButton,
-                                  password_entry: Gtk.Entry):
-    """
-    Show or hide password and swap the eye icon.
-    """
-    is_visible = toggle_button.get_active()
-    password_entry.set_visibility(is_visible)
-    icon_name = ICON_EYE_CLOSED if is_visible else ICON_EYE_OPEN
-    icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
-    toggle_button.set_image(icon)
-    toggle_button.set_always_show_image(True)
-
-def apply_css_if_exists():
-    """
-    Load and apply CSS if the file exists.
-    """
-    provider = Gtk.CssProvider()
-    if os.path.exists(CSS_FILE_PATH):
-        provider.load_from_path(CSS_FILE_PATH)
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
-
-# ──────────────────────────────────────────────────────────────────────────────
 # Main Configurator Window
 # ──────────────────────────────────────────────────────────────────────────────
 class ConfiguratorWindow(Gtk.ApplicationWindow):
@@ -284,29 +184,30 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self.set_icon_name(ICON_WINDOW)
 
         # Internal state
-        self.config_file_path          = config_path
-        self.config_values             = {}
-        self.field_widgets             = {}
-        self.field_validity            = {}
-        self.previous_password_hashes  = {}
-        self.field_tab_index           = {}
+        self.config_file_path = config_path
+        self.config_values = {}
+        self.field_widgets = {}
+        self.field_validity = {}
+        self.previous_password_hashes = {}
+        self.field_tab_index = {}
 
         # Load config and track required password fields
-        self._load_config()
-        for field, encrypted_key in PASSWORD_FIELD_MAP.items():
-            self.previous_password_hashes[field] = self.config_values.get(encrypted_key, '')
-        self.required_passwords = {
-            field: (self.previous_password_hashes[field] == '')
-            for field in PASSWORD_FIELD_MAP
-        }
+        try:
+            self.config_values = load_config(self.config_file_path)
+        except Exception as e:
+            show_error_dialog(self, str(e))
+            return
+
+        self.previous_password_hashes = get_previous_password_hashes(self.config_values)
+        self.required_passwords = get_required_passwords(self.config_values)
 
         # Load system data
-        self.available_locales   = self._read_available_locales()
-        self.available_timezones = available_timezones()
-        self.available_services  = self._read_available_services()
+        self.available_locales = read_available_locales()
+        self.available_timezones = get_available_timezones()
+        self.available_services = read_available_services()
 
         # Apply CSS if available
-        apply_css_if_exists()
+        apply_css_if_exists(CSS_FILE_PATH)
 
         # Build the UI
         self._build_header_bar()
@@ -325,7 +226,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
 
     def _build_main_layout(self):
         container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        for m in ('set_margin_top','set_margin_bottom','set_margin_start','set_margin_end'):
+        for m in ('set_margin_top', 'set_margin_bottom', 'set_margin_start', 'set_margin_end'):
             getattr(container, m)(10)
         self.add(container)
 
@@ -355,7 +256,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         for tab_index, (tab_label, fields) in enumerate(TAB_DEFINITIONS.items()):
             grid = Gtk.Grid(column_spacing=10, row_spacing=10)
             grid.set_column_homogeneous(False)
-            for m in ('set_margin_top','set_margin_bottom','set_margin_start','set_margin_end'):
+            for m in ('set_margin_top', 'set_margin_bottom', 'set_margin_start', 'set_margin_end'):
                 getattr(grid, m)(10)
 
             for row_index, (label_text, key, widget_cls, tooltip) in enumerate(fields):
@@ -437,21 +338,13 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         grid.attach(combo, 1, row, 1, 1)
 
     def _attach_inline_completion(self, entry, key):
-        completion = Gtk.EntryCompletion()
-        store = Gtk.ListStore(str)
-        items = sorted({
+        items = {
             'LIVE_LOCALES': self.available_locales,
             'LIVE_TIMEZONE': self.available_timezones,
             'ENABLE_SERVICES': self.available_services,
             'DISABLE_SERVICES': self.available_services,
-        }[key])
-        for item in items:
-            store.append([item])
-        completion.set_model(store)
-        completion.set_text_column(0)
-        completion.set_inline_completion(True)
-        completion.set_match_func(match_completion_by_token, entry)
-        completion.connect('match-selected', on_completion_selected, entry)
+        }[key]
+        completion = create_completion(items, entry)
         entry.set_completion(completion)
 
     def _add_save_button(self, parent):
@@ -464,46 +357,6 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         parent.pack_end(self.save_button, False, False, 0)
 
     # ──────────────────────────────────────────────────────────────────────────
-    # Config loading
-    # ──────────────────────────────────────────────────────────────────────────
-    def _load_config(self):
-        try:
-            with open(self.config_file_path, encoding='utf-8') as f:
-                for line in f:
-                    match = re.match(r"^([A-Z0-9_]+)=(?:'(.*)'|\"(.*)\"|(.*))", line)
-                    if match:
-                        key = match.group(1)
-                        val = match.group(2) or match.group(3) or match.group(4) or ''
-                        self.config_values[key] = val
-        except Exception as e:
-            self._show_error(_('Failed to load config: {}').format(e))
-
-    def _read_available_locales(self):
-        locales = set()
-        try:
-            with open('/usr/share/i18n/SUPPORTED', encoding='utf-8') as f:
-                for l in f:
-                    parts = l.split()
-                    if parts:
-                        locales.add(parts[0])
-        except Exception:
-            pass
-        return locales
-
-    def _read_available_services(self):
-        services = set()
-        try:
-            output = subprocess.check_output(
-                ['systemctl', 'list-unit-files', '--type=service', '--no-legend', '--no-pager'],
-                text=True
-            )
-            for l in output.splitlines():
-                services.add(l.split()[0])
-        except Exception:
-            pass
-        return services
-
-    # ──────────────────────────────────────────────────────────────────────────
     # Validation
     # ──────────────────────────────────────────────────────────────────────────
     def _register_widget(self, widget, key, is_combo=False):
@@ -512,28 +365,9 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
 
     def _on_field_changed(self, widget, key, is_combo):
         value = widget.get_active_text() if is_combo else widget.get_text()
-        valid = True
-
-        if key == 'LIVE_HOSTNAME':
-            valid = bool(re.match(r'^[a-zA-Z0-9-]+$', value))
-        elif key == 'LIVE_USERNAME':
-            valid = bool(value.strip())
-        elif key in PASSWORD_FIELD_MAP:
-            valid = not bool(re.search(r'\s', value))
-            if self.required_passwords.get(key, False) and not value:
-                valid = False
-        elif key == 'LIVE_LOCALES':
-            locales = [s.strip() for s in value.split(',') if s.strip()]
-            valid = bool(locales) and all(loc in self.available_locales for loc in locales)
-        elif key == 'LIVE_TIMEZONE':
-            valid = value in self.available_timezones
-        elif key in ('ENABLE_SERVICES', 'DISABLE_SERVICES'):
-            svcs = [s.strip() for s in value.split(',') if s.strip()]
-            for svc in svcs:
-                full = svc if svc.endswith('.service') else svc + '.service'
-                if full not in self.available_services:
-                    valid = False
-                    break
+        valid = validate_field(key, value, self.available_locales, 
+                              self.available_timezones, self.available_services,
+                              self.required_passwords)
 
         ctx = widget.get_style_context()
         if valid:
@@ -573,9 +407,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             if isinstance(widget, Gtk.Entry):
                 txt = widget.get_text()
                 if key in ('ENABLE_SERVICES', 'DISABLE_SERVICES'):
-                    parts = [s.strip() for s in txt.split(',') if s.strip()]
-                    parts = [p if p.endswith('.service') else p + '.service' for p in parts]
-                    updated[key] = ','.join(parts)
+                    updated[key] = process_services_field(txt)
                 else:
                     updated[key] = txt
             elif isinstance(widget, Gtk.CheckButton):
@@ -584,57 +416,9 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
                 updated[key] = widget.get_active_text() or ''
 
         try:
-            orig = open(self.config_file_path, encoding='utf-8').read().splitlines()
-            out = []
-            seen = set()
-
-            for line in orig:
-                match = re.match(r"^([A-Z0-9_]+)=", line)
-                if not match:
-                    out.append(line)
-                    continue
-                k = match.group(1)
-                seen.add(k)
-
-                if k in PASSWORD_FIELD_MAP.values():
-                    fld = next(f for f, e in PASSWORD_FIELD_MAP.items() if e == k)
-                    pwd = updated.get(fld, '')
-                    if pwd:
-                        h = hash_system_password(pwd)
-                        out.append(f"{k}='{h}'")
-                    else:
-                        out.append(f"{k}='{self.config_values.get(k, '')}'")
-                elif k in updated:
-                    out.append(f"{k}='{updated[k]}'")
-                else:
-                    out.append(line)
-
-            for fld, enc in PASSWORD_FIELD_MAP.items():
-                if enc not in seen:
-                    pwd = updated.get(fld, '')
-                    h = hash_system_password(pwd) if pwd else self.config_values.get(enc, '')
-                    out.append(f"{enc}='{h}'")
-
-            for k, v in updated.items():
-                if k not in seen and k not in PASSWORD_FIELD_MAP:
-                    out.append(f"{k}='{v}'")
-
-            with open(self.config_file_path, 'w', encoding='utf-8') as f:
-                f.write("\n".join(out) + "\n")
-
+            save_config(self.config_file_path, self.config_values, updated)
         except Exception as e:
-            self._show_error(_('Failed to update config: {}').format(e))
-            return
-
-    def _show_error(self, message: str):
-        dlg = Gtk.MessageDialog(
-            transient_for=self,
-            message_type=Gtk.MessageType.ERROR,
-            buttons=Gtk.ButtonsType.OK,
-            text=message
-        )
-        dlg.run()
-        dlg.destroy()
+            show_error_dialog(self, str(e))
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Application class and entry point
@@ -645,7 +429,7 @@ class MiniOSConfiguratorApp(Gtk.Application):
             application_id=APPLICATION_ID,
             flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
         )
-        self.main_window    = None
+        self.main_window = None
         self.pending_config = None
 
     def do_startup(self):

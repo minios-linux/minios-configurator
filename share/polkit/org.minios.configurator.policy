@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>MiniOS</vendor>
+  <vendor_url>https://minios.dev/</vendor_url>
+  <icon_name>preferences-system</icon_name>
+  <action id="org.minios.configurator.configure">
+    <description>Configure MiniOS</description>
+    <description xml:lang="de">MiniOS konfigurieren</description>
+    <description xml:lang="es">Configurar MiniOS</description>
+    <description xml:lang="fr">Configurer MiniOS</description>
+    <description xml:lang="id">Konfigurasi MiniOS</description>
+    <description xml:lang="it">Configura MiniOS</description>
+    <description xml:lang="pt">Configurar MiniOS</description>
+    <description xml:lang="pt_BR">Configurar MiniOS</description>
+    <description xml:lang="ru">Настроить MiniOS</description>
+    <message>Authentication is required to configure MiniOS</message>
+    <message xml:lang="de">Authentifizierung ist erforderlich, um MiniOS zu konfigurieren</message>
+    <message xml:lang="es">Se requiere autenticación para configurar MiniOS</message>
+    <message xml:lang="fr">L'authentification est requise pour configurer MiniOS</message>
+    <message xml:lang="id">Autentikasi diperlukan untuk mengkonfigurasi MiniOS</message>
+    <message xml:lang="it">È richiesta l'autenticazione per configurare MiniOS</message>
+    <message xml:lang="pt">Autenticação é necessária para configurar MiniOS</message>
+    <message xml:lang="pt_BR">Autenticação é necessária para configurar MiniOS</message>
+    <message xml:lang="ru">Для настройки MiniOS требуется аутентификация</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/minios-configurator</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+</policyconfig>
