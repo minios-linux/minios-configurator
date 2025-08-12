@@ -451,8 +451,11 @@ class MiniOSConfiguratorApp(Gtk.Application):
             self.main_window.present()
 
 def main():
-    app = MiniOSConfiguratorApp()
-    return app.run(sys.argv)
-
+    try:
+        app = MiniOSConfiguratorApp()
+        return app.run(sys.argv)
+    except KeyboardInterrupt:
+        return 130
+    
 if __name__ == '__main__':
     sys.exit(main())

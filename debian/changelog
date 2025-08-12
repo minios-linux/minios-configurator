@@ -1,3 +1,9 @@
+minios-configurator (2.3) unstable; urgency=medium
+
+  * Improve error handling in main configurator
+
+ -- crims0n <crims0n@minios.dev>  Tue, 12 Aug 2025 09:02:40 +0300
+
 minios-configurator (2.2) unstable; urgency=medium
 
   * Split minios-configurator into libraries to improve code structure.
