@@ -29,14 +29,14 @@ except ImportError:
 
 def read_available_locales() -> Set[str]:
     """
-    Read available locales from system.
+    Read available locales from system, filtered to show only UTF-8 locales.
     """
     locales = set()
     try:
         with open('/usr/share/i18n/SUPPORTED', encoding='utf-8') as f:
             for line in f:
                 parts = line.split()
-                if parts:
+                if parts and parts[0].endswith('.UTF-8'):
                     locales.add(parts[0])
     except Exception:
         pass
