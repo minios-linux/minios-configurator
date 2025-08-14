@@ -1,154 +1,53 @@
 .TH MINIOS-CONFIGURATOR 1 "August 2025" "MiniOS" "User Commands"
 .SH NAME
-minios-configurator \- Graphical configuration tool for MiniOS settings
+minios-configurator \- Configure MiniOS system settings
 .SH SYNOPSIS
 .B minios-configurator
 [\fIconfig-file\fR]
 .SH DESCRIPTION
 .B minios-configurator
-is a GTK3 graphical utility for configuring MiniOS system settings. It provides an intuitive interface for modifying live-config parameters that control system behavior during boot and runtime.
+is a GTK3 graphical utility for configuring MiniOS system settings. It provides an interface for modifying live-config parameters that control system behavior.
 .PP
-The application reads and writes configuration files in the live-config format, typically located at
+Reads and writes configuration files in live-config format, typically at
 .I /etc/live/config.conf
-or custom paths. It validates input data, provides auto-completion for supported values, and ensures configuration integrity.
+with validation and auto-completion.
 .PP
-All configuration changes require administrative privileges and use PolicyKit for authentication.
-.SH ARGUMENTS
+Requires administrative privileges via PolicyKit authentication.
+.SH USAGE
+1. Configure system identity (hostname, username)
+.PP
+2. Set localization (locale, timezone, keyboard)
+.PP
+3. Manage security (user/root passwords)
+.PP
+4. Control services (enable/disable systemd services)
+.SH CONFIGURATION OPTIONS
 .TP
-.I config-file
-Optional path to configuration file. If not specified, defaults to
-.IR /etc/live/config.conf .
-.SH CONFIGURATION FIELDS
+.B System
+Hostname, username
 .TP
-.B System Identity
-.RS
-.TP
-\fBHostname\fR
-System hostname (alphanumeric characters and hyphens only).
-.TP
-\fBUsername\fR
-Primary user account name (alphanumeric characters only).
-.RE
-.TP
-.B Localization
-.RS
-.TP
-\fBLocales\fR
-System locales (comma-separated, e.g., "en_US.UTF-8,de_DE.UTF-8").
-.TP
-\fBTimezone\fR
-System timezone (e.g., "Europe/Prague", "America/New_York").
-.TP
-\fBKeyboard Layout\fR
-Console and X11 keyboard layout configuration.
-.RE
+.B Locale
+System locales, timezone, keyboard layout
 .TP
 .B Security
-.RS
-.TP
-\fBUser Password\fR
-Password for the primary user account.
-.TP
-\fBRoot Password\fR
-Password for the root account.
-.TP
-\fBSudo Password\fR
-Password required for sudo operations.
-.RE
+User password, root password
 .TP
 .B Services
-.RS
-.TP
-\fBEnabled Services\fR
-Systemd services to enable at boot (comma-separated).
-.TP
-\fBDisabled Services\fR
-Systemd services to disable at boot (comma-separated).
-.RE
-.SH FEATURES
-.TP
-.B Auto-completion
-Provides intelligent auto-completion for locales, timezones, and service names based on system availability.
-.TP
-.B Input validation
-Validates all input fields in real-time with appropriate error messages and visual feedback.
-.TP
-.B Password management
-Secure password handling with visibility toggle and strength validation.
-.TP
-.B Service management
-Easy selection of systemd services with validation against available system services.
-.TP
-.B Configuration backup
-Automatically preserves original configuration with rollback capability.
+Enabled/disabled systemd services
 .SH FILES
-.TP
 .I /etc/live/config.conf
-Default MiniOS configuration file.
-.TP
-.I /etc/live/config.conf.d/*.conf
-Additional configuration files processed by live-config.
-.TP
+.br
 .I /usr/share/applications/minios-configurator.desktop
-Desktop entry file for application menu.
-.TP
+.br
 .I /usr/share/polkit-1/actions/org.minios.configurator.policy
-PolicyKit policy file for administrative operations.
-.TP
-.I /usr/share/minios-configurator/style.css
-Application stylesheet for custom GUI styling.
-.TP
+.br
 .I /usr/lib/minios-configurator/
-Installation directory containing Python modules and main application.
-.SH VALIDATION RULES
-.TP
-.B Hostname
-Must contain only alphanumeric characters and hyphens, cannot start or end with hyphen, maximum 253 characters.
-.TP
-.B Username
-Must contain only alphanumeric characters, cannot start with a number, maximum 32 characters.
-.TP
-.B Passwords
-Minimum 6 characters when specified (empty passwords are allowed for some fields).
-.TP
-.B Locales
-Must be valid system locales from /usr/share/i18n/SUPPORTED or currently available locales.
-.TP
-.B Timezone
-Must be valid timezone from /usr/share/zoneinfo database.
-.TP
-.B Services
-Must be existing systemd service units available on the system.
-.SH EXAMPLES
-.PP
-Launch with default configuration file:
-.RS
-.B minios-configurator
-.RE
-.PP
-Edit custom configuration file:
-.RS
-.B minios-configurator /path/to/custom.conf
-.RE
-.PP
-Edit configuration in live media:
-.RS
-.B minios-configurator /minios/config.conf
-.RE
 .SH NOTES
 .PP
-Configuration changes take effect after system reboot or live-config reconfiguration. Some changes may require specific boot parameters to be fully activated.
+Configuration changes take effect after reboot.
 .PP
-The application automatically detects available system resources (locales, timezones, services) and provides appropriate validation and auto-completion.
-.PP
-Password fields use secure handling with optional visibility toggle. Passwords are hashed using appropriate algorithms for system compatibility.
-.SH SEE ALSO
-.BR minios-installer (1),
-.BR live-config (7),
-.BR systemctl (1),
-.BR locale (1),
-.BR timedatectl (1)
+Provides auto-completion and input validation.
 .SH AUTHOR
 crims0n <crims0n@minios.dev>
-.SH REPORTING BUGS
-Report bugs to: https://github.com/minios-linux/minios-configurator/issues
+.SH BUGS
+https://github.com/minios-linux/minios-configurator/issues
