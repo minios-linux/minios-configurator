@@ -18,16 +18,18 @@ import os
 import sys
 import gi
 import gettext
+import argparse
 
 # Add lib directory to Python path
 sys.path.insert(0, '/usr/lib/minios-configurator')
 
 # Import our library modules
 from config_utils import load_config, save_config, process_services_field
-from system_utils import read_available_locales, read_available_services, get_available_timezones
+from system_utils import (read_available_locales, read_available_services,
+                          get_available_timezones, parse_cmdline_params)
 from validation_utils import validate_field
-from ui_utils import (apply_css_if_exists, show_error_dialog, create_completion, 
-                      on_toggle_password_visibility, ICON_WINDOW, ICON_WARNING, 
+from ui_utils import (apply_css_if_exists, show_error_dialog, create_completion,
+                      on_toggle_password_visibility, ICON_WINDOW, ICON_WARNING,
                       ICON_SAVE, ICON_EYE_OPEN)
 from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 
@@ -177,7 +179,7 @@ TAB_DEFINITIONS = {
 # Main Configurator Window
 # ──────────────────────────────────────────────────────────────────────────────
 class ConfiguratorWindow(Gtk.ApplicationWindow):
-    def __init__(self, application: Gtk.Application, config_path: str):
+    def __init__(self, application: Gtk.Application, config_path: str, inherit_cmdline: bool = False):
         super().__init__(application=application, title=_(APP_TITLE))
         self.set_default_size(600, 450)
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -197,6 +199,12 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         except Exception as e:
             show_error_dialog(self, str(e))
             return
+
+        # If inherit_cmdline flag is set, merge cmdline parameters
+        if inherit_cmdline:
+            cmdline_params = parse_cmdline_params()
+            # Cmdline parameters override config file values
+            self.config_values.update(cmdline_params)
 
         self.previous_password_hashes = get_previous_password_hashes(self.config_values)
         self.required_passwords = get_required_passwords(self.config_values)
@@ -431,13 +439,39 @@ class MiniOSConfiguratorApp(Gtk.Application):
         )
         self.main_window = None
         self.pending_config = None
+        self.inherit_cmdline = False
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
     def do_command_line(self, command_line):
         args = command_line.get_arguments()
-        self.pending_config = args[1] if len(args) > 1 else DEFAULT_CONFIG_FILE
+
+        # Parse command line arguments using argparse
+        parser = argparse.ArgumentParser(
+            prog=APP_NAME,
+            description=_('A graphical tool for configuring MiniOS settings')
+        )
+        parser.add_argument(
+            'config_file',
+            nargs='?',
+            default=DEFAULT_CONFIG_FILE,
+            help=_('Path to config file (default: /etc/live/config.conf)')
+        )
+        parser.add_argument(
+            '-i', '--inherit-cmdline',
+            action='store_true',
+            help=_('Inherit configuration parameters from kernel command line (/proc/cmdline)')
+        )
+
+        try:
+            parsed_args = parser.parse_args(args[1:])
+            self.pending_config = parsed_args.config_file
+            self.inherit_cmdline = parsed_args.inherit_cmdline
+        except SystemExit:
+            # argparse calls sys.exit on --help or errors
+            return 0
+
         self.activate()
         return 0
 
@@ -446,7 +480,7 @@ class MiniOSConfiguratorApp(Gtk.Application):
             self.main_window.present()
         else:
             cfg = self.pending_config or DEFAULT_CONFIG_FILE
-            self.main_window = ConfiguratorWindow(self, cfg)
+            self.main_window = ConfiguratorWindow(self, cfg, self.inherit_cmdline)
             self.main_window.show_all()
             self.main_window.present()
 
