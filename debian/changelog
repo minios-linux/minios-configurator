@@ -3,7 +3,8 @@ minios-configurator (2.4.0) unstable; urgency=medium
   * Add option -i to inherit settings from current boot parameters
   * Automatically detect and use settings from running live system
   * Support reading parameters from kernel command line
-  * Pre-fill configuration with current system settings when launched from installer
+  * Pre-fill configuration with current system settings when launched from
+    installer
 
  -- crims0n <crims0n@minios.dev>  Sun, 23 Nov 2025 00:45:15 +0300
 

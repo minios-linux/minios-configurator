@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2025-07-08 18:08+0000\n"
+"POT-Creation-Date: 2025-11-25 19:45+0300\n"
 "PO-Revision-Date: 2025-05-26 19:45+0300\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -25,15 +25,15 @@ msgstr "Falha ao carregar a configuração: {}"
 msgid "Failed to update config: {}"
 msgstr "Falha ao atualizar a configuração: {}"
 
-#: lib/main_configurator.py:59
+#: lib/main_configurator.py:61
 msgid "User"
 msgstr "Usuário"
 
-#: lib/main_configurator.py:60
+#: lib/main_configurator.py:62
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: lib/main_configurator.py:61
+#: lib/main_configurator.py:63
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -47,11 +47,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'username')"
 
-#: lib/main_configurator.py:64
+#: lib/main_configurator.py:66
 msgid "Full name"
 msgstr "Nome completo"
 
-#: lib/main_configurator.py:65
+#: lib/main_configurator.py:67
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -65,11 +65,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'user-fullname')"
 
-#: lib/main_configurator.py:68
+#: lib/main_configurator.py:70
 msgid "User groups"
 msgstr "Grupos de usuário"
 
-#: lib/main_configurator.py:69
+#: lib/main_configurator.py:71
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -85,11 +85,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'user-default-groups')"
 
-#: lib/main_configurator.py:72
+#: lib/main_configurator.py:74
 msgid "User password"
 msgstr "Senha do usuário"
 
-#: lib/main_configurator.py:73
+#: lib/main_configurator.py:75
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -105,11 +105,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'user-password')"
 
-#: lib/main_configurator.py:77
+#: lib/main_configurator.py:79
 msgid "Root password"
 msgstr "Senha do root"
 
-#: lib/main_configurator.py:78
+#: lib/main_configurator.py:80
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -126,11 +126,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'root-password')"
 
-#: lib/main_configurator.py:82
+#: lib/main_configurator.py:84
 msgid "Link user directories to storage"
 msgstr "Vincular diretórios de usuário ao armazenamento"
 
-#: lib/main_configurator.py:83
+#: lib/main_configurator.py:85
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
@@ -149,11 +149,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'link-user-dirs')"
 
-#: lib/main_configurator.py:87
+#: lib/main_configurator.py:89
 msgid "Bind user directories to storage"
 msgstr "Montar diretórios de usuário no armazenamento"
 
-#: lib/main_configurator.py:88
+#: lib/main_configurator.py:90
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent "
 "storage.\n"
@@ -173,11 +173,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'bind-user-dirs')"
 
-#: lib/main_configurator.py:92
+#: lib/main_configurator.py:94
 msgid "User directories path on storage"
 msgstr "Caminho dos diretórios de usuário no armazenamento"
 
-#: lib/main_configurator.py:93
+#: lib/main_configurator.py:95
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
@@ -192,15 +192,15 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'user-dirs-path')"
 
-#: lib/main_configurator.py:97
+#: lib/main_configurator.py:99
 msgid "System"
 msgstr "Sistema"
 
-#: lib/main_configurator.py:98
+#: lib/main_configurator.py:100
 msgid "No-root mode"
 msgstr "Modo sem root"
 
-#: lib/main_configurator.py:99
+#: lib/main_configurator.py:101
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -216,11 +216,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'noroot')"
 
-#: lib/main_configurator.py:103
+#: lib/main_configurator.py:105
 msgid "Hostname"
 msgstr "Nome do host"
 
-#: lib/main_configurator.py:104
+#: lib/main_configurator.py:106
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -236,11 +236,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'hostname')"
 
-#: lib/main_configurator.py:108
+#: lib/main_configurator.py:110
 msgid "Locales"
 msgstr "Idiomas"
 
-#: lib/main_configurator.py:109
+#: lib/main_configurator.py:111
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -257,11 +257,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'locales')"
 
-#: lib/main_configurator.py:113
+#: lib/main_configurator.py:115
 msgid "Timezone"
 msgstr "Fuso horário"
 
-#: lib/main_configurator.py:114
+#: lib/main_configurator.py:116
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -276,11 +276,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'timezone')"
 
-#: lib/main_configurator.py:117
+#: lib/main_configurator.py:119
 msgid "Default systemd target"
 msgstr "Target padrão do systemd"
 
-#: lib/main_configurator.py:118
+#: lib/main_configurator.py:120
 msgid ""
 "Set the default boot target for systemd:\n"
 "• 'graphical' – start with a desktop.\n"
@@ -296,11 +296,11 @@ msgstr ""
 "\n"
 "Ver: man systemd.special (procurar 'target')"
 
-#: lib/main_configurator.py:123
+#: lib/main_configurator.py:125
 msgid "Enable services"
 msgstr "Ativar serviços"
 
-#: lib/main_configurator.py:124
+#: lib/main_configurator.py:126
 msgid ""
 "List systemd services to enable at boot, separated by commas.\n"
 "\n"
@@ -317,11 +317,11 @@ msgstr ""
 "\n"
 "Ver: man systemctl (procurar 'enable')"
 
-#: lib/main_configurator.py:128
+#: lib/main_configurator.py:130
 msgid "Disable services"
 msgstr "Desativar serviços"
 
-#: lib/main_configurator.py:129
+#: lib/main_configurator.py:131
 msgid ""
 "List systemd services to disable at boot, separated by commas.\n"
 "\n"
@@ -338,15 +338,15 @@ msgstr ""
 "\n"
 "Ver: man systemctl (procurar 'disable')"
 
-#: lib/main_configurator.py:134
+#: lib/main_configurator.py:136
 msgid "Keyboard"
 msgstr "Teclado"
 
-#: lib/main_configurator.py:135
+#: lib/main_configurator.py:137
 msgid "Keyboard model"
 msgstr "Modelo de teclado"
 
-#: lib/main_configurator.py:136
+#: lib/main_configurator.py:138
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -360,11 +360,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'keyboard-model')"
 
-#: lib/main_configurator.py:139
+#: lib/main_configurator.py:141
 msgid "Keyboard layouts"
 msgstr "Layouts de teclado"
 
-#: lib/main_configurator.py:140
+#: lib/main_configurator.py:142
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -379,11 +379,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'keyboard-layouts')"
 
-#: lib/main_configurator.py:143
+#: lib/main_configurator.py:145
 msgid "Keyboard options"
 msgstr "Opções de teclado"
 
-#: lib/main_configurator.py:144
+#: lib/main_configurator.py:146
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -397,11 +397,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'keyboard-options')"
 
-#: lib/main_configurator.py:147
+#: lib/main_configurator.py:149
 msgid "Keyboard variants"
 msgstr "Variantes de teclado"
 
-#: lib/main_configurator.py:148
+#: lib/main_configurator.py:150
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -418,15 +418,15 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'keyboard-variants')"
 
-#: lib/main_configurator.py:153
+#: lib/main_configurator.py:155
 msgid "Advanced"
 msgstr "Avançado"
 
-#: lib/main_configurator.py:154
+#: lib/main_configurator.py:156
 msgid "Module mode"
 msgstr "Modo de módulo"
 
-#: lib/main_configurator.py:155
+#: lib/main_configurator.py:157
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -445,11 +445,11 @@ msgstr ""
 "independentemente.\n"
 "Ver: man 7 live-config (procurar 'module-mode')"
 
-#: lib/main_configurator.py:160
+#: lib/main_configurator.py:162
 msgid "live-config command line"
 msgstr "Linha de comando do live-config"
 
-#: lib/main_configurator.py:161
+#: lib/main_configurator.py:163
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -466,11 +466,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'cmdline')"
 
-#: lib/main_configurator.py:165
+#: lib/main_configurator.py:167
 msgid "Debug mode"
 msgstr "Modo de depuração"
 
-#: lib/main_configurator.py:166
+#: lib/main_configurator.py:168
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -485,11 +485,11 @@ msgstr ""
 "\n"
 "Ver: man 7 live-config (procurar 'debug')"
 
-#: lib/main_configurator.py:169
+#: lib/main_configurator.py:171
 msgid "Export logs to flash drive"
 msgstr "Exportar logs para pen drive"
 
-#: lib/main_configurator.py:170
+#: lib/main_configurator.py:172
 msgid ""
 "If enabled, system logs will be copied to a connected flash drive at "
 "shutdown.\n"
@@ -505,7 +505,7 @@ msgstr ""
 "\n"
 "Ver: https://github.com/minios-linux/minios-live/wiki"
 
-#: lib/main_configurator.py:245
+#: lib/main_configurator.py:253
 msgid ""
 "If you are unsure about a field, do not change it. Incorrect settings may "
 "prevent the system from booting."
@@ -513,6 +513,20 @@ msgstr ""
 "Se você não tiver certeza sobre um campo, não o altere. Configurações "
 "incorretas podem impedir o sistema de iniciar."
 
-#: lib/main_configurator.py:351
+#: lib/main_configurator.py:359
 msgid "Save"
 msgstr "Salvar"
+
+#: lib/main_configurator.py:453
+msgid "A graphical tool for configuring MiniOS settings"
+msgstr "Uma ferramenta gráfica para configurar as definições do MiniOS"
+
+#: lib/main_configurator.py:459
+msgid "Path to config file (default: /etc/live/config.conf)"
+msgstr "Caminho para o arquivo de configuração (padrão: /etc/live/config.conf)"
+
+#: lib/main_configurator.py:464
+msgid ""
+"Inherit configuration parameters from kernel command line (/proc/cmdline)"
+msgstr ""
+"Herdar parâmetros de configuração da linha de comando do kernel (/proc/cmdline)"
