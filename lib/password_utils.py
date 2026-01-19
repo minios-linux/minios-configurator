@@ -21,24 +21,71 @@ PASSWORD_FIELD_MAP = {
 def hash_system_password(plain_password: str) -> str:
     """
     Hash a password using mkpasswd if available, otherwise openssl SHA-512.
+    
+    Security note: Passwords are passed via stdin to avoid exposure in process list.
     """
+    if not plain_password:
+        return ''
+    
+    # Try mkpasswd first (uses stdin to avoid password in process list)
     try:
-        output = subprocess.check_output(
-            ['mkpasswd', plain_password],
-            text=True,
-            stderr=subprocess.DEVNULL
+        result = subprocess.run(
+            ['mkpasswd', '--stdin'],
+            input=plain_password,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            universal_newlines=True,
+            check=True,
+            timeout=30
         )
-        return output.strip()
-    except (FileNotFoundError, subprocess.CalledProcessError):
-        salt = subprocess.check_output(
+        return result.stdout.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        pass
+    
+    # Try mkpasswd without --stdin (some versions don't support it)
+    # In this case, we use the method= argument to specify algorithm
+    try:
+        result = subprocess.run(
+            ['mkpasswd', '-m', 'sha-512', '--stdin'],
+            input=plain_password,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            universal_newlines=True,
+            check=True,
+            timeout=30
+        )
+        return result.stdout.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        pass
+    
+    # Fallback to openssl (uses stdin for password via -stdin flag)
+    try:
+        # Generate salt
+        salt_result = subprocess.run(
             ['openssl', 'rand', '-base64', '12'],
-            text=True
-        ).strip()
-        hashed = subprocess.check_output(
-            ['openssl', 'passwd', '-6', '-salt', salt, plain_password],
-            text=True
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+            check=True,
+            timeout=10
         )
-        return hashed.strip()
+        salt = salt_result.stdout.strip()
+        
+        # Hash password using stdin (-stdin flag reads password from stdin)
+        hash_result = subprocess.run(
+            ['openssl', 'passwd', '-6', '-salt', salt, '-stdin'],
+            input=plain_password,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+            check=True,
+            timeout=30
+        )
+        return hash_result.stdout.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+        raise RuntimeError(
+            f"Cannot hash password: neither mkpasswd nor openssl available or working. Error: {e}"
+        )
 
 def validate_password(password: str) -> bool:
     """

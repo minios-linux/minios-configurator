@@ -50,7 +50,7 @@ def read_available_services() -> Set[str]:
     try:
         output = subprocess.check_output(
             ['systemctl', 'list-unit-files', '--type=service', '--no-legend', '--no-pager'],
-            text=True
+            universal_newlines=True
         )
         for line in output.splitlines():
             services.add(line.split()[0])
