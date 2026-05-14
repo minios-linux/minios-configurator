@@ -8,6 +8,27 @@ set -e
 
 TERM=xterm
 
-DIR=/usr/lib/minios-configurator
+case "${1:-}" in
+    -h|--help)
+        cat <<'EOF'
+Usage: minios-configurator [config-file]
 
-"$DIR/main_configurator.py" "$@"
+Launch the MiniOS Configurator graphical interface.
+
+If `config-file` is omitted, the application uses `/etc/live/config.conf`.
+
+For the manual page, run: man minios-configurator
+EOF
+        exit 0
+        ;;
+esac
+
+SCRIPT_DIR=$(dirname "$(readlink -f -- "$0")")
+
+if [ -f "$(dirname "$SCRIPT_DIR")/lib/main_configurator.py" ]; then
+    DIR="$(dirname "$SCRIPT_DIR")/lib"
+else
+    DIR="/usr/lib/minios-configurator"
+fi
+
+exec python3 -u "$DIR/main_configurator.py" "$@"

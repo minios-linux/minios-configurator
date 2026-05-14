@@ -1,3 +1,10 @@
+minios-configurator (2.4.2) unstable; urgency=medium
+
+  * Add help option to CLI and GUI launcher
+  * Update documentation
+
+ -- crims0n <crims0n@minios.dev>  Thu, 14 May 2026 15:41:59 +0300
+
 minios-configurator (2.4.1) unstable; urgency=medium
 
   * Security improvements and code quality:

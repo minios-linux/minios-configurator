@@ -3,7 +3,8 @@
 minios-configurator \- Configure MiniOS system settings
 .SH SYNOPSIS
 .B minios-configurator
-[\fIconfig-file\fR]
+.RI [ --help ]
+.RI [ config-file ]
 .SH DESCRIPTION
 .B minios-configurator
 is a GTK3 graphical utility for configuring MiniOS system settings. It provides an interface for modifying live-config parameters that control system behavior.
@@ -13,6 +14,14 @@ Reads and writes configuration files in live-config format, typically at
 with validation and auto-completion.
 .PP
 Requires administrative privileges via PolicyKit authentication.
+.SH OPTIONS
+.TP
+.B -h, --help
+Show a short usage message and exit.
+.TP
+.I config-file
+Use an alternate live-config file instead of the default
+.IR /etc/live/config.conf .
 .SH USAGE
 1. Configure system identity (hostname, username)
 .PP
