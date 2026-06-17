@@ -1,3 +1,9 @@
+minios-configurator (2.4.3) unstable; urgency=medium
+
+  * Improve translation coverage and update translations for all languages
+
+ -- crims0n <crims0n@minios.dev>  Thu, 18 Jun 2026 01:50:45 +0300
+
 minios-configurator (2.4.2) unstable; urgency=medium
 
   * Add help option to CLI and GUI launcher

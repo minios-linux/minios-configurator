@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR MiniOS Linux
-# This file is distributed under the same license as the minios-configurator package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: minios-configurator 2.4.0\n"
-"Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2025-11-25 19:47+0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-18 01:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -379,4 +379,16 @@ msgstr ""
 #: lib/main_configurator.py:464
 msgid ""
 "Inherit configuration parameters from kernel command line (/proc/cmdline)"
+msgstr ""
+
+#: share/applications/minios-configurator.desktop:4
+msgid "Configure MiniOS"
+msgstr ""
+
+#: share/applications/minios-configurator.desktop:13
+msgid "Configure settings for MiniOS"
+msgstr ""
+
+#: share/applications/minios-configurator.desktop:22
+msgid "configure;settings;"
 msgstr ""
