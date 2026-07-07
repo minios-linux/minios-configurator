@@ -2,12 +2,12 @@
 # Copyright (C) 2025 MiniOS Linux.
 # This file is distributed under the same license as the minios-configurator package.
 # crims0n <crims0n@minios.dev>, 2025.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-06-18 01:48+0300\n"
+"POT-Creation-Date: 2026-06-28 11:37+0300\n"
 "PO-Revision-Date: 2026-06-17 22:48+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -507,7 +507,7 @@ msgstr "Konfigurationsparameter von der Kernel-Befehlszeile (/proc/cmdline) übe
 
 #: share/applications/minios-configurator.desktop:4
 msgid "Configure MiniOS"
-msgstr "MiniOS konfigurieren"
+msgstr "Konfigurieren MiniOS"
 
 #: share/applications/minios-configurator.desktop:13
 msgid "Configure settings for MiniOS"

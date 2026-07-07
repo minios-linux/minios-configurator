@@ -1,3 +1,9 @@
+minios-configurator (2.4.3.1) unstable; urgency=medium
+
+  * Remove junk from translation files
+
+ -- crims0n <crims0n@minios.dev>  Tue, 07 Jul 2026 17:09:53 +0300
+
 minios-configurator (2.4.3) unstable; urgency=medium
 
   * Improve translation coverage and update translations for all languages

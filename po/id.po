@@ -2,12 +2,12 @@
 # Copyright (C) 2025 MiniOS Linux.
 # This file is distributed under the same license as the minios-configurator package.
 # crims0n <crims0n@minios.dev>, 2025.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-06-18 01:48+0300\n"
+"POT-Creation-Date: 2026-06-28 11:37+0300\n"
 "PO-Revision-Date: 2026-06-17 22:49+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -510,7 +510,7 @@ msgstr "Konfigurasi MiniOS"
 
 #: share/applications/minios-configurator.desktop:13
 msgid "Configure settings for MiniOS"
-msgstr "Atur pengaturan untuk MiniOS"
+msgstr "Konfigurasikan pengaturan untuk MiniOS"
 
 #: share/applications/minios-configurator.desktop:22
 msgid "configure;settings;"
