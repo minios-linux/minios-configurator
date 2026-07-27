@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-28 11:37+0300\n"
+"POT-Creation-Date: 2026-07-17 14:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/config_utils.py:42
+#: lib/config_state.py:60 lib/config_state.py:61
+msgid "Password unchanged"
+msgstr ""
+
+#: lib/config_state.py:61
+msgid "Password will be changed"
+msgstr ""
+
+#: lib/config_utils.py:43 lib/config_utils.py:70
+msgid "Config file must be a regular file."
+msgstr ""
+
+#: lib/config_utils.py:57
 msgid "Failed to load config: {}"
 msgstr ""
 
-#: lib/config_utils.py:95
+#: lib/config_utils.py:139
 msgid "Failed to update config: {}"
 msgstr ""
 
-#: lib/main_configurator.py:61
+#: lib/main_configurator.py:71
 msgid "User"
 msgstr ""
 
-#: lib/main_configurator.py:62
+#: lib/main_configurator.py:72
 msgid "Username"
 msgstr ""
 
-#: lib/main_configurator.py:63
+#: lib/main_configurator.py:73
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -42,11 +54,11 @@ msgid ""
 "See: man 7 live-config (search 'username')"
 msgstr ""
 
-#: lib/main_configurator.py:66
+#: lib/main_configurator.py:76
 msgid "Full name"
 msgstr ""
 
-#: lib/main_configurator.py:67
+#: lib/main_configurator.py:77
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -55,11 +67,11 @@ msgid ""
 "See: man 7 live-config (search 'user-fullname')"
 msgstr ""
 
-#: lib/main_configurator.py:70
+#: lib/main_configurator.py:80
 msgid "User groups"
 msgstr ""
 
-#: lib/main_configurator.py:71
+#: lib/main_configurator.py:81
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -68,11 +80,11 @@ msgid ""
 "See: man 7 live-config (search 'user-default-groups')"
 msgstr ""
 
-#: lib/main_configurator.py:74
+#: lib/main_configurator.py:84
 msgid "User password"
 msgstr ""
 
-#: lib/main_configurator.py:75
+#: lib/main_configurator.py:85
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -82,11 +94,11 @@ msgid ""
 "See: man 7 live-config (search 'user-password')"
 msgstr ""
 
-#: lib/main_configurator.py:79
+#: lib/main_configurator.py:89
 msgid "Root password"
 msgstr ""
 
-#: lib/main_configurator.py:80
+#: lib/main_configurator.py:90
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -96,59 +108,60 @@ msgid ""
 "See: man 7 live-config (search 'root-password')"
 msgstr ""
 
-#: lib/main_configurator.py:84
+#: lib/main_configurator.py:94
 msgid "Link user directories to storage"
 msgstr ""
 
-#: lib/main_configurator.py:85
+#: lib/main_configurator.py:95
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
-"• Helps retain user data across reboots.\n"
-"\n"
-"• FAT, NTFS only.\n"
+"• Uses the FAT32, exFAT, or NTFS MiniOS drive.\n"
+"• Unavailable with toram, toram=full, and toram=trim.\n"
+"• Conflicting non-empty folders are never merged automatically.\n"
 "\n"
 "See: man 7 live-config (search 'link-user-dirs')"
 msgstr ""
 
-#: lib/main_configurator.py:89
+#: lib/main_configurator.py:100
 msgid "Bind user directories to storage"
 msgstr ""
 
-#: lib/main_configurator.py:90
+#: lib/main_configurator.py:101
 msgid ""
-"If enabled, user home directories will be bind-mounted to persistent "
-"storage.\n"
+"If enabled, user home directories will be bind-mounted to persistent storage.\n"
 "\n"
-"• Helps retain user data across reboots.\n"
-"\n"
-"• FAT, NTFS only.\n"
+"• Uses the FAT32, exFAT, or NTFS MiniOS drive.\n"
+"• Unavailable with toram, toram=full, and toram=trim.\n"
+"• Conflicting non-empty folders are never merged automatically.\n"
 "\n"
 "See: man 7 live-config (search 'bind-user-dirs')"
 msgstr ""
 
-#: lib/main_configurator.py:94
+#: lib/main_configurator.py:106
 msgid "User directories path on storage"
 msgstr ""
 
-#: lib/main_configurator.py:95
+#: lib/main_configurator.py:107
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
 "• Example: '/minios/userdirs'.\n"
 "\n"
+"• The path must stay inside the MiniOS drive; '.', '..', and empty segments are not allowed.\n"
+"\n"
 "See: man 7 live-config (search 'user-dirs-path')"
 msgstr ""
 
-#: lib/main_configurator.py:99
+#: lib/main_configurator.py:112
 msgid "System"
 msgstr ""
 
-#: lib/main_configurator.py:100
+#: lib/main_configurator.py:113
 msgid "No-root mode"
 msgstr ""
 
-#: lib/main_configurator.py:101
+#: lib/main_configurator.py:114
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -158,11 +171,11 @@ msgid ""
 "See: man 7 live-config (search 'noroot')"
 msgstr ""
 
-#: lib/main_configurator.py:105
+#: lib/main_configurator.py:118
 msgid "Hostname"
 msgstr ""
 
-#: lib/main_configurator.py:106
+#: lib/main_configurator.py:119
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -172,11 +185,11 @@ msgid ""
 "See: man 7 live-config (search 'hostname')"
 msgstr ""
 
-#: lib/main_configurator.py:110
+#: lib/main_configurator.py:123
 msgid "Locales"
 msgstr ""
 
-#: lib/main_configurator.py:111
+#: lib/main_configurator.py:124
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -186,11 +199,11 @@ msgid ""
 "See: man 7 live-config (search 'locales')"
 msgstr ""
 
-#: lib/main_configurator.py:115
+#: lib/main_configurator.py:128
 msgid "Timezone"
 msgstr ""
 
-#: lib/main_configurator.py:116
+#: lib/main_configurator.py:129
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -199,57 +212,129 @@ msgid ""
 "See: man 7 live-config (search 'timezone')"
 msgstr ""
 
-#: lib/main_configurator.py:119
-msgid "Default systemd target"
+#: lib/main_configurator.py:132
+msgid "Default boot target"
 msgstr ""
 
-#: lib/main_configurator.py:120
+#: lib/main_configurator.py:133
 msgid ""
-"Set the default boot target for systemd:\n"
-"• 'graphical' – start with a desktop.\n"
-"• 'multi-user' – console mode.\n"
-"• 'rescue' – minimal rescue mode.\n"
+"Set the default boot target:\n"
+"• 'graphical.target' – start with a desktop.\n"
+"• 'multi-user.target' – console mode.\n"
+"• 'rescue.target' – minimal rescue mode.\n"
 "\n"
-"See: man systemd.special (search for 'target')"
-msgstr ""
-
-#: lib/main_configurator.py:125
-msgid "Enable services"
-msgstr ""
-
-#: lib/main_configurator.py:126
-msgid ""
-"List systemd services to enable at boot, separated by commas.\n"
-"\n"
-"• Example: 'ssh, NetworkManager'.\n"
-"• Use service names with or without '.service'.\n"
-"\n"
-"See: man systemctl (search 'enable')"
-msgstr ""
-
-#: lib/main_configurator.py:130
-msgid "Disable services"
-msgstr ""
-
-#: lib/main_configurator.py:131
-msgid ""
-"List systemd services to disable at boot, separated by commas.\n"
-"\n"
-"• Example: 'bluetooth, ModemManager'.\n"
-"• Use service names with or without '.service'.\n"
-"\n"
-"See: man systemctl (search 'disable')"
-msgstr ""
-
-#: lib/main_configurator.py:136
-msgid "Keyboard"
-msgstr ""
-
-#: lib/main_configurator.py:137
-msgid "Keyboard model"
+"Short aliases like 'graphical' and 'multi-user' are accepted."
 msgstr ""
 
 #: lib/main_configurator.py:138
+msgid "Enable services"
+msgstr ""
+
+#: lib/main_configurator.py:139
+msgid ""
+"List services to enable at boot, separated by commas.\n"
+"\n"
+"• Example: 'ssh, NetworkManager'.\n"
+"• systemd units and sysvinit script names are supported."
+msgstr ""
+
+#: lib/main_configurator.py:142
+msgid "Disable services"
+msgstr ""
+
+#: lib/main_configurator.py:143
+msgid ""
+"List services to disable at boot, separated by commas.\n"
+"\n"
+"• Example: 'bluetooth, ModemManager'.\n"
+"• systemd units and sysvinit script names are supported."
+msgstr ""
+
+#: lib/main_configurator.py:147
+msgid "Security"
+msgstr ""
+
+#: lib/main_configurator.py:148
+msgid "Security preset"
+msgstr ""
+
+#: lib/main_configurator.py:149
+msgid "Choose a preset to fill the settings below. You can customize any setting afterward. Only the individual settings are saved."
+msgstr ""
+
+#: lib/main_configurator.py:150
+msgid "Sudo mode"
+msgstr ""
+
+#: lib/main_configurator.py:151
+msgid "passwordless keeps historical MiniOS behavior; password requires the user password; disabled removes the MiniOS sudo grant."
+msgstr ""
+
+#: lib/main_configurator.py:152
+msgid "PolicyKit mode"
+msgstr ""
+
+#: lib/main_configurator.py:153
+msgid "passwordless keeps historical MiniOS GUI admin convenience; password/disabled remove that rule and use normal PolicyKit authentication."
+msgstr ""
+
+#: lib/main_configurator.py:154
+msgid "SSH root login"
+msgstr ""
+
+#: lib/main_configurator.py:155
+msgid "Allow or deny root login through OpenSSH."
+msgstr ""
+
+#: lib/main_configurator.py:156
+msgid "SSH password authentication"
+msgstr ""
+
+#: lib/main_configurator.py:157
+msgid "Allow or deny password authentication through OpenSSH."
+msgstr ""
+
+#: lib/main_configurator.py:158
+msgid "XRDP mode"
+msgstr ""
+
+#: lib/main_configurator.py:159
+msgid "relaxed keeps MiniOS defaults; hardened binds to localhost and disables root login; disabled disables common XRDP service links."
+msgstr ""
+
+#: lib/main_configurator.py:160
+msgid "X11 mode"
+msgstr ""
+
+#: lib/main_configurator.py:161
+msgid "relaxed keeps compatibility; hardened removes the permissive -ac launch option and tightens Xwrapper where present."
+msgstr ""
+
+#: lib/main_configurator.py:162
+msgid "Show password hints"
+msgstr ""
+
+#: lib/main_configurator.py:163
+msgid "Show default root/live password hints in /etc/issue."
+msgstr ""
+
+#: lib/main_configurator.py:164
+msgid "Lockscreen mode"
+msgstr ""
+
+#: lib/main_configurator.py:165
+msgid "relaxed keeps live-session convenience; hardened preserves/enables screen locking where supported."
+msgstr ""
+
+#: lib/main_configurator.py:167
+msgid "Keyboard"
+msgstr ""
+
+#: lib/main_configurator.py:168
+msgid "Keyboard model"
+msgstr ""
+
+#: lib/main_configurator.py:169
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -258,11 +343,11 @@ msgid ""
 "See: man 7 live-config (search 'keyboard-model')"
 msgstr ""
 
-#: lib/main_configurator.py:141
+#: lib/main_configurator.py:172
 msgid "Keyboard layouts"
 msgstr ""
 
-#: lib/main_configurator.py:142
+#: lib/main_configurator.py:173
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -271,11 +356,11 @@ msgid ""
 "See: man 7 live-config (search 'keyboard-layouts')"
 msgstr ""
 
-#: lib/main_configurator.py:145
+#: lib/main_configurator.py:176
 msgid "Keyboard options"
 msgstr ""
 
-#: lib/main_configurator.py:146
+#: lib/main_configurator.py:177
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -284,11 +369,11 @@ msgid ""
 "See: man 7 live-config (search 'keyboard-options')"
 msgstr ""
 
-#: lib/main_configurator.py:149
+#: lib/main_configurator.py:180
 msgid "Keyboard variants"
 msgstr ""
 
-#: lib/main_configurator.py:150
+#: lib/main_configurator.py:181
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -298,30 +383,29 @@ msgid ""
 "See: man 7 live-config (search 'keyboard-variants')"
 msgstr ""
 
-#: lib/main_configurator.py:155
+#: lib/main_configurator.py:186
 msgid "Advanced"
 msgstr ""
 
-#: lib/main_configurator.py:156
+#: lib/main_configurator.py:187
 msgid "Module mode"
 msgstr ""
 
-#: lib/main_configurator.py:157
+#: lib/main_configurator.py:188
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
-"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; "
-"updates caches.\n"
+"• 'merged' – consolidates dpkg databases, passwd, shadow, and groups; updates caches.\n"
 "\n"
 "Usually not required unless modules are built independently.\n"
 "See: man 7 live-config (search 'module-mode')"
 msgstr ""
 
-#: lib/main_configurator.py:162
+#: lib/main_configurator.py:193
 msgid "live-config command line"
 msgstr ""
 
-#: lib/main_configurator.py:163
+#: lib/main_configurator.py:194
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -331,11 +415,11 @@ msgid ""
 "See: man 7 live-config (search 'cmdline')"
 msgstr ""
 
-#: lib/main_configurator.py:167
+#: lib/main_configurator.py:198
 msgid "Debug mode"
 msgstr ""
 
-#: lib/main_configurator.py:168
+#: lib/main_configurator.py:199
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -344,41 +428,204 @@ msgid ""
 "See: man 7 live-config (search 'debug')"
 msgstr ""
 
-#: lib/main_configurator.py:171
+#: lib/main_configurator.py:202
 msgid "Export logs to flash drive"
 msgstr ""
 
-#: lib/main_configurator.py:172
+#: lib/main_configurator.py:203
 msgid ""
-"If enabled, system logs will be copied to a connected flash drive at "
-"shutdown.\n"
+"If enabled, MiniOS and live-config logs are copied to the writable MiniOS drive during every boot.\n"
 "\n"
+"• Each boot creates a timestamped directory under /minios/log.\n"
 "• Useful for diagnostics and troubleshooting.\n"
 "\n"
 "See: https://github.com/minios-linux/minios-live/wiki"
 msgstr ""
 
-#: lib/main_configurator.py:253
-msgid ""
-"If you are unsure about a field, do not change it. Incorrect settings may "
-"prevent the system from booting."
+#: lib/main_configurator.py:328
+msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr ""
 
-#: lib/main_configurator.py:359
-msgid "Save"
+#: lib/main_configurator.py:333
+msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
 msgstr ""
 
-#: lib/main_configurator.py:453
+#: lib/main_configurator.py:338
+msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
+msgstr ""
+
+#: lib/main_configurator.py:397
+msgid "Detect current hostname, locale, timezone, and boot target."
+msgstr ""
+
+#: lib/main_configurator.py:398
+msgid "Detect current system settings"
+msgstr ""
+
+#: lib/main_configurator.py:400
+msgid "Detect the keyboard settings used by the current session."
+msgstr ""
+
+#: lib/main_configurator.py:401
+msgid "Detect current keyboard"
+msgstr ""
+
+#: lib/main_configurator.py:430
+msgid "Preset only; individual settings are saved"
+msgstr ""
+
+#: lib/main_configurator.py:433
+msgid "Applies after reboot"
+msgstr ""
+
+#: lib/main_configurator.py:434
+msgid "Only when creating a new session"
+msgstr ""
+
+#: lib/main_configurator.py:487 lib/main_configurator.py:490
+#: lib/main_configurator.py:491
+msgid "Automatic"
+msgstr ""
+
+#: lib/main_configurator.py:488 lib/main_configurator.py:489
+msgid "Use system default"
+msgstr ""
+
+#: lib/main_configurator.py:492 lib/main_configurator.py:493
+#: lib/main_configurator.py:494 lib/main_configurator.py:495
+#: lib/main_configurator.py:496
+msgid "None"
+msgstr ""
+
+#: lib/main_configurator.py:517
+msgid "Enabled"
+msgstr ""
+
+#: lib/main_configurator.py:518
+msgid "Disabled"
+msgstr ""
+
+#: lib/main_configurator.py:557
+msgid "Custom"
+msgstr ""
+
+#: lib/main_configurator.py:582
+msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
+msgstr ""
+
+#: lib/main_configurator.py:607
+msgid "Reset"
+msgstr ""
+
+#: lib/main_configurator.py:610 lib/main_configurator.py:967
+msgid "Review changes"
+msgstr ""
+
+#: lib/main_configurator.py:613
+msgid "Save changes"
+msgstr ""
+
+#: lib/main_configurator.py:715
+msgid "This value is not valid."
+msgstr ""
+
+#: lib/main_configurator.py:730
+msgid "No unsaved changes"
+msgstr ""
+
+#: lib/main_configurator.py:732
+msgid "1 unsaved change"
+msgstr ""
+
+#: lib/main_configurator.py:734
+#, python-brace-format
+msgid "{count} unsaved changes"
+msgstr ""
+
+#: lib/main_configurator.py:829
+msgid "Detecting current system settings..."
+msgstr ""
+
+#: lib/main_configurator.py:855
+msgid "Automatic detection failed: {}"
+msgstr ""
+
+#: lib/main_configurator.py:867
+msgid "No system settings could be detected."
+msgstr ""
+
+#: lib/main_configurator.py:871
+msgid "1 setting updated. Changed fields are highlighted."
+msgstr ""
+
+#: lib/main_configurator.py:873
+#, python-brace-format
+msgid "{count} settings updated. Changed fields are highlighted."
+msgstr ""
+
+#: lib/main_configurator.py:877
+msgid "Detected settings already match the values shown."
+msgstr ""
+
+#: lib/main_configurator.py:891
+msgid "Fix invalid fields before saving changes."
+msgstr ""
+
+#: lib/main_configurator.py:922
+msgid "Settings could not be saved: {}"
+msgstr ""
+
+#: lib/main_configurator.py:926
+msgid "Settings saved. They will be used on the next boot."
+msgstr ""
+
+#: lib/main_configurator.py:968
+msgid "Close"
+msgstr ""
+
+#: lib/main_configurator.py:979
+msgid "1 setting will change"
+msgstr ""
+
+#: lib/main_configurator.py:981
+#, python-brace-format
+msgid "{count} settings will change"
+msgstr ""
+
+#: lib/main_configurator.py:985
+msgid "Review the current and new values before saving. Empty values use the MiniOS default."
+msgstr ""
+
+#: lib/main_configurator.py:1011 lib/main_configurator.py:1012
+msgid "Not set (use default)"
+msgstr ""
+
+#: lib/main_configurator.py:1057
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr ""
 
-#: lib/main_configurator.py:459
+#: lib/main_configurator.py:1063
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr ""
 
-#: lib/main_configurator.py:464
-msgid ""
-"Inherit configuration parameters from kernel command line (/proc/cmdline)"
+#: lib/main_configurator.py:1068
+msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
+msgstr ""
+
+#: lib/validation_utils.py:65
+msgid "A service cannot be both enabled and disabled: {}"
+msgstr ""
+
+#: lib/validation_utils.py:69
+msgid "Choose either linked or bind-mounted user directories, not both."
+msgstr ""
+
+#: lib/validation_utils.py:74
+msgid "Enter a safe path inside the MiniOS drive, for example /minios/userdata."
+msgstr ""
+
+#: lib/validation_utils.py:76
+msgid "SSH root login cannot be enabled while no-root mode is enabled."
 msgstr ""
 
 #: share/applications/minios-configurator.desktop:4

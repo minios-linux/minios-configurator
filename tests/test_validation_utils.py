@@ -95,3 +95,35 @@ class TestValidateTimezone:
     def test_empty_timezone_allowed(self):
         """Test that empty timezone is allowed."""
         assert validation_utils.validate_timezone('') is True
+
+
+def test_empty_combo_value_none_is_valid():
+    assert validation_utils.validate_field(
+        'DEFAULT_TARGET', None, set(), set(), set(), {}
+    ) is True
+
+
+@pytest.mark.parametrize('path', ['/minios/userdata', 'minios/userdata', 'userdata'])
+def test_valid_user_dirs_path(path):
+    assert validation_utils.validate_user_dirs_path(path)
+
+
+@pytest.mark.parametrize('path', ['', '/', '../data', '/minios/../data', '/minios//data', '/minios/./data', 'bad\npath'])
+def test_invalid_user_dirs_path(path):
+    assert not validation_utils.validate_user_dirs_path(path)
+
+
+def test_user_dirs_path_required_when_mode_enabled():
+    errors = validation_utils.validate_config({'LIVE_LINK_USER_DIRS': 'true', 'LIVE_USER_DIRS_PATH': ''})
+    assert 'LIVE_USER_DIRS_PATH' in errors
+
+
+@pytest.mark.parametrize('mode', ['native', 'dynfilefs', 'raw'])
+def test_existing_perch_modes_are_valid(mode):
+    assert validation_utils.validate_perchmode(mode)
+
+
+def test_luks_perch_mode_requires_initrd_crypto_capability():
+    assert not validation_utils.validate_perchmode('luks')
+    assert validation_utils.validate_perchmode('luks', initrd_crypto_available=True)
+    assert not validation_utils.validate_perchmode('unsupported', initrd_crypto_available=True)

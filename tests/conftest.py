@@ -8,6 +8,7 @@ import tempfile
 
 # Add lib directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'lib'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'python3-minios-security'))
 
 
 @pytest.fixture

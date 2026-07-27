@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-06-28 11:37+0300\n"
-"PO-Revision-Date: 2026-06-17 22:49+0000\n"
+"POT-Creation-Date: 2026-07-17 14:32+0300\n"
+"PO-Revision-Date: 2026-07-17 11:32+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
 "Language: ru\n"
@@ -17,23 +17,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/config_utils.py:42
+#: lib/config_state.py:60 lib/config_state.py:61
+msgid "Password unchanged"
+msgstr "Пароль не изменён"
+
+#: lib/config_state.py:61
+msgid "Password will be changed"
+msgstr "Пароль будет изменён"
+
+#: lib/config_utils.py:43 lib/config_utils.py:70
+msgid "Config file must be a regular file."
+msgstr "Файл конфигурации должен быть обычным файлом."
+
+#: lib/config_utils.py:57
 msgid "Failed to load config: {}"
 msgstr "Не удалось загрузить конфигурацию: {}"
 
-#: lib/config_utils.py:95
+#: lib/config_utils.py:139
 msgid "Failed to update config: {}"
 msgstr "Не удалось обновить конфигурацию: {}"
 
-#: lib/main_configurator.py:61
+#: lib/main_configurator.py:71
 msgid "User"
 msgstr "Пользователь"
 
-#: lib/main_configurator.py:62
+#: lib/main_configurator.py:72
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: lib/main_configurator.py:63
+#: lib/main_configurator.py:73
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -47,11 +59,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'username')"
 
-#: lib/main_configurator.py:66
+#: lib/main_configurator.py:76
 msgid "Full name"
 msgstr "Полное имя"
 
-#: lib/main_configurator.py:67
+#: lib/main_configurator.py:77
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -65,11 +77,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'user-fullname')"
 
-#: lib/main_configurator.py:70
+#: lib/main_configurator.py:80
 msgid "User groups"
 msgstr "Группы пользователя"
 
-#: lib/main_configurator.py:71
+#: lib/main_configurator.py:81
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -83,11 +95,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'user-default-groups')"
 
-#: lib/main_configurator.py:74
+#: lib/main_configurator.py:84
 msgid "User password"
 msgstr "Пароль пользователя"
 
-#: lib/main_configurator.py:75
+#: lib/main_configurator.py:85
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -103,11 +115,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'user-password')"
 
-#: lib/main_configurator.py:79
+#: lib/main_configurator.py:89
 msgid "Root password"
 msgstr "Пароль root"
 
-#: lib/main_configurator.py:80
+#: lib/main_configurator.py:90
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -123,77 +135,81 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'root-password')"
 
-#: lib/main_configurator.py:84
+#: lib/main_configurator.py:94
 msgid "Link user directories to storage"
 msgstr "Связать каталоги пользователей с хранилищем"
 
-#: lib/main_configurator.py:85
+#: lib/main_configurator.py:95
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
-"• Helps retain user data across reboots.\n"
-"\n"
-"• FAT, NTFS only.\n"
+"• Uses the FAT32, exFAT, or NTFS MiniOS drive.\n"
+"• Unavailable with toram, toram=full, and toram=trim.\n"
+"• Conflicting non-empty folders are never merged automatically.\n"
 "\n"
 "See: man 7 live-config (search 'link-user-dirs')"
 msgstr ""
-"Если включено, домашние каталоги пользователей будут симлинкованы с постоянным хранилищем.\n"
+"Если включено, домашние каталоги пользователей будут симлинкованы на постоянное хранилище.\n"
 "\n"
-"• Помогает сохранить пользовательские данные при перезагрузках.\n"
-"\n"
-"• Только FAT, NTFS.\n"
+"• Используется диск MiniOS с файловой системой FAT32, exFAT или NTFS.\n"
+"• Недоступно с параметрами toram, toram=full и toram=trim.\n"
+"• Конфликтующие непустые папки никогда не объединяются автоматически.\n"
 "\n"
 "См.: man 7 live-config (поиск 'link-user-dirs')"
 
-#: lib/main_configurator.py:89
+#: lib/main_configurator.py:100
 msgid "Bind user directories to storage"
 msgstr "Монтировать каталоги пользователей в хранилище"
 
-#: lib/main_configurator.py:90
+#: lib/main_configurator.py:101
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent storage.\n"
 "\n"
-"• Helps retain user data across reboots.\n"
-"\n"
-"• FAT, NTFS only.\n"
+"• Uses the FAT32, exFAT, or NTFS MiniOS drive.\n"
+"• Unavailable with toram, toram=full, and toram=trim.\n"
+"• Conflicting non-empty folders are never merged automatically.\n"
 "\n"
 "See: man 7 live-config (search 'bind-user-dirs')"
 msgstr ""
-"Если включено, домашние каталоги пользователей будут монтироваться в постоянное хранилище.\n"
+"Если включено, домашние каталоги пользователей будут примонтированы через bind к постоянному хранилищу.\n"
 "\n"
-"• Помогает сохранить пользовательские данные при перезагрузках.\n"
-"\n"
-"• Только FAT, NTFS.\n"
+"• Используется диск MiniOS с файловой системой FAT32, exFAT или NTFS.\n"
+"• Недоступно с параметрами toram, toram=full и toram=trim.\n"
+"• Конфликтующие непустые папки никогда не объединяются автоматически.\n"
 "\n"
 "См.: man 7 live-config (поиск 'bind-user-dirs')"
 
-#: lib/main_configurator.py:94
+#: lib/main_configurator.py:106
 msgid "User directories path on storage"
 msgstr "Путь к каталогам пользователей в хранилище"
 
-#: lib/main_configurator.py:95
+#: lib/main_configurator.py:107
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
 "• Example: '/minios/userdirs'.\n"
 "\n"
+"• The path must stay inside the MiniOS drive; '.', '..', and empty segments are not allowed.\n"
+"\n"
 "See: man 7 live-config (search 'user-dirs-path')"
 msgstr ""
-"Установите базовый путь на постоянном хранилище для каталогов пользователей.\n"
+"Укажите базовый путь на постоянном хранилище для пользовательских каталогов.\n"
 "\n"
 "• Пример: '/minios/userdirs'.\n"
 "\n"
+"• Путь должен находиться внутри диска MiniOS; '.', '..' и пустые сегменты не допускаются.\n"
+"\n"
 "См.: man 7 live-config (поиск 'user-dirs-path')"
 
-#: lib/main_configurator.py:99
+#: lib/main_configurator.py:112
 msgid "System"
 msgstr "Система"
 
-#: lib/main_configurator.py:100
+#: lib/main_configurator.py:113
 msgid "No-root mode"
 msgstr "Режим без root"
 
-#: lib/main_configurator.py:101
+#: lib/main_configurator.py:114
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -209,11 +225,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'noroot')"
 
-#: lib/main_configurator.py:105
+#: lib/main_configurator.py:118
 msgid "Hostname"
 msgstr "Имя хоста"
 
-#: lib/main_configurator.py:106
+#: lib/main_configurator.py:119
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -229,11 +245,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'hostname')"
 
-#: lib/main_configurator.py:110
+#: lib/main_configurator.py:123
 msgid "Locales"
 msgstr "Языки"
 
-#: lib/main_configurator.py:111
+#: lib/main_configurator.py:124
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -249,11 +265,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'locales')"
 
-#: lib/main_configurator.py:115
+#: lib/main_configurator.py:128
 msgid "Timezone"
 msgstr "Часовой пояс"
 
-#: lib/main_configurator.py:116
+#: lib/main_configurator.py:129
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -267,75 +283,143 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'timezone')"
 
-#: lib/main_configurator.py:119
-msgid "Default systemd target"
-msgstr "Цель systemd по умолчанию"
+#: lib/main_configurator.py:132
+msgid "Default boot target"
+msgstr "Целевой режим загрузки по умолчанию"
 
-#: lib/main_configurator.py:120
+#: lib/main_configurator.py:133
 msgid ""
-"Set the default boot target for systemd:\n"
-"• 'graphical' – start with a desktop.\n"
-"• 'multi-user' – console mode.\n"
-"• 'rescue' – minimal rescue mode.\n"
+"Set the default boot target:\n"
+"• 'graphical.target' – start with a desktop.\n"
+"• 'multi-user.target' – console mode.\n"
+"• 'rescue.target' – minimal rescue mode.\n"
 "\n"
-"See: man systemd.special (search for 'target')"
+"Short aliases like 'graphical' and 'multi-user' are accepted."
 msgstr ""
-"Установите цель загрузки по умолчанию для systemd:\n"
-"• 'graphical' – запуск с рабочим столом.\n"
-"• 'multi-user' – консольный режим.\n"
-"• 'rescue' – минимальный режим восстановления.\n"
+"Установите целевой режим загрузки по умолчанию:\n"
+"• 'graphical.target' — запуск с графическим интерфейсом.\n"
+"• 'multi-user.target' — консольный режим.\n"
+"• 'rescue.target' — минимальный режим восстановления.\n"
 "\n"
-"См.: man systemd.special (поиск 'target')"
+"Допускаются короткие алиасы, такие как 'graphical' и 'multi-user'."
 
-#: lib/main_configurator.py:125
+#: lib/main_configurator.py:138
 msgid "Enable services"
 msgstr "Включить сервисы"
 
-#: lib/main_configurator.py:126
+#: lib/main_configurator.py:139
 msgid ""
-"List systemd services to enable at boot, separated by commas.\n"
+"List services to enable at boot, separated by commas.\n"
 "\n"
 "• Example: 'ssh, NetworkManager'.\n"
-"• Use service names with or without '.service'.\n"
-"\n"
-"See: man systemctl (search 'enable')"
+"• systemd units and sysvinit script names are supported."
 msgstr ""
-"Перечислите сервисы systemd, которые необходимо включить при загрузке, разделяя их запятыми.\n"
+"Укажите службы для автозапуска через запятую.\n"
 "\n"
 "• Пример: 'ssh, NetworkManager'.\n"
-"• Используйте имена сервисов с '.service' или без.\n"
-"\n"
-"См.: man systemctl (поиск 'enable')"
+"• Поддерживаются имена юнитов systemd и скриптов sysvinit."
 
-#: lib/main_configurator.py:130
+#: lib/main_configurator.py:142
 msgid "Disable services"
 msgstr "Отключить сервисы"
 
-#: lib/main_configurator.py:131
+#: lib/main_configurator.py:143
 msgid ""
-"List systemd services to disable at boot, separated by commas.\n"
+"List services to disable at boot, separated by commas.\n"
 "\n"
 "• Example: 'bluetooth, ModemManager'.\n"
-"• Use service names with or without '.service'.\n"
-"\n"
-"See: man systemctl (search 'disable')"
+"• systemd units and sysvinit script names are supported."
 msgstr ""
-"Перечислите сервисы systemd, которые необходимо отключить при загрузке, разделяя их запятыми.\n"
+"Укажите службы для отключения при загрузке через запятую.\n"
 "\n"
 "• Пример: 'bluetooth, ModemManager'.\n"
-"• Используйте имена сервисов с '.service' или без.\n"
-"\n"
-"См.: man systemctl (поиск 'disable')"
+"• Поддерживаются имена юнитов systemd и скриптов sysvinit."
 
-#: lib/main_configurator.py:136
+#: lib/main_configurator.py:147
+msgid "Security"
+msgstr "Безопасность"
+
+#: lib/main_configurator.py:148
+msgid "Security preset"
+msgstr "Профиль безопасности"
+
+#: lib/main_configurator.py:149
+msgid "Choose a preset to fill the settings below. You can customize any setting afterward. Only the individual settings are saved."
+msgstr "Выберите профиль для заполнения настроек ниже. После этого вы можете изменить любые параметры вручную. Сохраняются только отдельные настройки."
+
+#: lib/main_configurator.py:150
+msgid "Sudo mode"
+msgstr "Режим sudo"
+
+#: lib/main_configurator.py:151
+msgid "passwordless keeps historical MiniOS behavior; password requires the user password; disabled removes the MiniOS sudo grant."
+msgstr "passwordless сохраняет прежнее поведение MiniOS; password требует пароль пользователя; disabled отключает выдачу sudo в MiniOS."
+
+#: lib/main_configurator.py:152
+msgid "PolicyKit mode"
+msgstr "Режим PolicyKit"
+
+#: lib/main_configurator.py:153
+msgid "passwordless keeps historical MiniOS GUI admin convenience; password/disabled remove that rule and use normal PolicyKit authentication."
+msgstr "passwordless сохраняет прежнее удобство MiniOS в GUI; password/disabled отключают это правило и используют стандартную аутентификацию PolicyKit."
+
+#: lib/main_configurator.py:154
+msgid "SSH root login"
+msgstr "Вход root по SSH"
+
+#: lib/main_configurator.py:155
+msgid "Allow or deny root login through OpenSSH."
+msgstr "Разрешить или запретить вход root через OpenSSH."
+
+#: lib/main_configurator.py:156
+msgid "SSH password authentication"
+msgstr "Аутентификация по паролю в SSH"
+
+#: lib/main_configurator.py:157
+msgid "Allow or deny password authentication through OpenSSH."
+msgstr "Разрешить или запретить аутентификацию по паролю через OpenSSH."
+
+#: lib/main_configurator.py:158
+msgid "XRDP mode"
+msgstr "Режим XRDP"
+
+#: lib/main_configurator.py:159
+msgid "relaxed keeps MiniOS defaults; hardened binds to localhost and disables root login; disabled disables common XRDP service links."
+msgstr "relaxed сохраняет настройки MiniOS по умолчанию; hardened привязывает к localhost и запрещает вход root; disabled отключает основные ссылки на сервис XRDP."
+
+#: lib/main_configurator.py:160
+msgid "X11 mode"
+msgstr "Режим X11"
+
+#: lib/main_configurator.py:161
+msgid "relaxed keeps compatibility; hardened removes the permissive -ac launch option and tightens Xwrapper where present."
+msgstr "relaxed сохраняет совместимость; hardened убирает разрешающий параметр -ac при запуске и ужесточает настройки Xwrapper, если доступно."
+
+#: lib/main_configurator.py:162
+msgid "Show password hints"
+msgstr "Показывать подсказки к паролю"
+
+#: lib/main_configurator.py:163
+msgid "Show default root/live password hints in /etc/issue."
+msgstr "Показывать стандартные подсказки для root/live пароля в /etc/issue."
+
+#: lib/main_configurator.py:164
+msgid "Lockscreen mode"
+msgstr "Режим блокировки экрана"
+
+#: lib/main_configurator.py:165
+msgid "relaxed keeps live-session convenience; hardened preserves/enables screen locking where supported."
+msgstr "relaxed сохраняет удобство live-сессии; hardened включает/сохраняет блокировку экрана, если поддерживается."
+
+#: lib/main_configurator.py:167
 msgid "Keyboard"
 msgstr "Клавиатура"
 
-#: lib/main_configurator.py:137
+#: lib/main_configurator.py:168
 msgid "Keyboard model"
 msgstr "Модель клавиатуры"
 
-#: lib/main_configurator.py:138
+#: lib/main_configurator.py:169
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -349,11 +433,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'keyboard-model')"
 
-#: lib/main_configurator.py:141
+#: lib/main_configurator.py:172
 msgid "Keyboard layouts"
 msgstr "Раскладки клавиатуры"
 
-#: lib/main_configurator.py:142
+#: lib/main_configurator.py:173
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -367,11 +451,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'keyboard-layouts')"
 
-#: lib/main_configurator.py:145
+#: lib/main_configurator.py:176
 msgid "Keyboard options"
 msgstr "Параметры клавиатуры"
 
-#: lib/main_configurator.py:146
+#: lib/main_configurator.py:177
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -385,11 +469,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'keyboard-options')"
 
-#: lib/main_configurator.py:149
+#: lib/main_configurator.py:180
 msgid "Keyboard variants"
 msgstr "Варианты клавиатуры"
 
-#: lib/main_configurator.py:150
+#: lib/main_configurator.py:181
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -405,15 +489,15 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'keyboard-variants')"
 
-#: lib/main_configurator.py:155
+#: lib/main_configurator.py:186
 msgid "Advanced"
 msgstr "Дополнительно"
 
-#: lib/main_configurator.py:156
+#: lib/main_configurator.py:187
 msgid "Module mode"
 msgstr "Режим модулей"
 
-#: lib/main_configurator.py:157
+#: lib/main_configurator.py:188
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -429,11 +513,11 @@ msgstr ""
 "Обычно не требуется, если модули не собраны независимо.\n"
 "См.: man 7 live-config (поиск 'module-mode')"
 
-#: lib/main_configurator.py:162
+#: lib/main_configurator.py:193
 msgid "live-config command line"
 msgstr "Параметры live-config"
 
-#: lib/main_configurator.py:163
+#: lib/main_configurator.py:194
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -449,11 +533,11 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'cmdline')"
 
-#: lib/main_configurator.py:167
+#: lib/main_configurator.py:198
 msgid "Debug mode"
 msgstr "Режим отладки"
 
-#: lib/main_configurator.py:168
+#: lib/main_configurator.py:199
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -467,43 +551,211 @@ msgstr ""
 "\n"
 "См.: man 7 live-config (поиск 'debug')"
 
-#: lib/main_configurator.py:171
+#: lib/main_configurator.py:202
 msgid "Export logs to flash drive"
 msgstr "Экспортировать логи на флешку"
 
-#: lib/main_configurator.py:172
+#: lib/main_configurator.py:203
 msgid ""
-"If enabled, system logs will be copied to a connected flash drive at shutdown.\n"
+"If enabled, MiniOS and live-config logs are copied to the writable MiniOS drive during every boot.\n"
 "\n"
+"• Each boot creates a timestamped directory under /minios/log.\n"
 "• Useful for diagnostics and troubleshooting.\n"
 "\n"
 "See: https://github.com/minios-linux/minios-live/wiki"
 msgstr ""
-"Если включено, системные логи будут скопированы на подключенную флешку при выключении.\n"
+"Если включено, журналы MiniOS и live-config копируются на доступный для записи диск MiniOS при каждой загрузке.\n"
 "\n"
-"• Полезно для диагностики и устранения неисправностей.\n"
+"• Для каждой загрузки создаётся папка с отметкой времени в /minios/log.\n"
+"• Полезно для диагностики и устранения неполадок.\n"
 "\n"
-"См.: https://github.com/minios-linux/minios-live/wiki"
+"Подробнее: https://github.com/minios-linux/minios-live/wiki"
 
-#: lib/main_configurator.py:253
+#: lib/main_configurator.py:328
 msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr "Если вы не уверены в каком-либо поле, не изменяйте его. Неверные настройки могут помешать загрузке системы."
 
-#: lib/main_configurator.py:359
-msgid "Save"
-msgstr "Сохранить"
+#: lib/main_configurator.py:333
+msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
+msgstr "LUKS-постоянство было запрошено при загрузке. Поддержка шифрования обеспечивается initrd; этот конфигуратор не открывает контейнеры и не запрашивает пароли."
 
-#: lib/main_configurator.py:453
+#: lib/main_configurator.py:338
+msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
+msgstr "LUKS-постоянство было запрошено при загрузке, но этот initrd не поддерживает шифрование. Активация невозможна, пока initrd с поддержкой шифрования не предоставит /run/initramfs/etc/minios-initramfs-crypt."
+
+#: lib/main_configurator.py:397
+msgid "Detect current hostname, locale, timezone, and boot target."
+msgstr "Определить текущие имя хоста, локаль, часовой пояс и целевой режим загрузки."
+
+#: lib/main_configurator.py:398
+msgid "Detect current system settings"
+msgstr "Определить текущие системные настройки"
+
+#: lib/main_configurator.py:400
+msgid "Detect the keyboard settings used by the current session."
+msgstr "Определить настройки клавиатуры, используемые в текущей сессии."
+
+#: lib/main_configurator.py:401
+msgid "Detect current keyboard"
+msgstr "Определить текущую клавиатуру"
+
+#: lib/main_configurator.py:430
+msgid "Preset only; individual settings are saved"
+msgstr "Только профиль; сохраняются отдельные настройки"
+
+#: lib/main_configurator.py:433
+msgid "Applies after reboot"
+msgstr "Применяется после перезагрузки"
+
+#: lib/main_configurator.py:434
+msgid "Only when creating a new session"
+msgstr "Только при создании новой сессии"
+
+#: lib/main_configurator.py:487 lib/main_configurator.py:490
+#: lib/main_configurator.py:491
+msgid "Automatic"
+msgstr "Автоматически"
+
+#: lib/main_configurator.py:488 lib/main_configurator.py:489
+msgid "Use system default"
+msgstr "Использовать системные настройки"
+
+#: lib/main_configurator.py:492 lib/main_configurator.py:493
+#: lib/main_configurator.py:494 lib/main_configurator.py:495
+#: lib/main_configurator.py:496
+msgid "None"
+msgstr "Нет"
+
+#: lib/main_configurator.py:517
+msgid "Enabled"
+msgstr "Включено"
+
+#: lib/main_configurator.py:518
+msgid "Disabled"
+msgstr "Отключено"
+
+#: lib/main_configurator.py:557
+msgid "Custom"
+msgstr "Пользовательский"
+
+#: lib/main_configurator.py:582
+msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
+msgstr "XRDP не установлен. Этот параметр будет сохранён и применён, если XRDP будет установлен позже."
+
+#: lib/main_configurator.py:607
+msgid "Reset"
+msgstr "Сбросить"
+
+#: lib/main_configurator.py:610 lib/main_configurator.py:967
+msgid "Review changes"
+msgstr "Просмотреть изменения"
+
+#: lib/main_configurator.py:613
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: lib/main_configurator.py:715
+msgid "This value is not valid."
+msgstr "Недопустимое значение."
+
+#: lib/main_configurator.py:730
+msgid "No unsaved changes"
+msgstr "Нет несохранённых изменений"
+
+#: lib/main_configurator.py:732
+msgid "1 unsaved change"
+msgstr "1 несохранённое изменение"
+
+#: lib/main_configurator.py:734
+#, python-brace-format
+msgid "{count} unsaved changes"
+msgstr "{count} несохранённых изменений"
+
+#: lib/main_configurator.py:829
+msgid "Detecting current system settings..."
+msgstr "Определение текущих системных настроек..."
+
+#: lib/main_configurator.py:855
+msgid "Automatic detection failed: {}"
+msgstr "Автоматическое определение не удалось: {}"
+
+#: lib/main_configurator.py:867
+msgid "No system settings could be detected."
+msgstr "Не удалось обнаружить системные настройки."
+
+#: lib/main_configurator.py:871
+msgid "1 setting updated. Changed fields are highlighted."
+msgstr "1 параметр обновлён. Изменённые поля выделены."
+
+#: lib/main_configurator.py:873
+#, python-brace-format
+msgid "{count} settings updated. Changed fields are highlighted."
+msgstr "{count} параметров обновлено. Изменённые поля выделены."
+
+#: lib/main_configurator.py:877
+msgid "Detected settings already match the values shown."
+msgstr "Обнаруженные параметры уже соответствуют отображаемым значениям."
+
+#: lib/main_configurator.py:891
+msgid "Fix invalid fields before saving changes."
+msgstr "Исправьте некорректные поля перед сохранением изменений."
+
+#: lib/main_configurator.py:922
+msgid "Settings could not be saved: {}"
+msgstr "Не удалось сохранить настройки: {}"
+
+#: lib/main_configurator.py:926
+msgid "Settings saved. They will be used on the next boot."
+msgstr "Настройки сохранены. Они будут применены при следующем запуске."
+
+#: lib/main_configurator.py:968
+msgid "Close"
+msgstr "Закрыть"
+
+#: lib/main_configurator.py:979
+msgid "1 setting will change"
+msgstr "1 параметр будет изменён"
+
+#: lib/main_configurator.py:981
+#, python-brace-format
+msgid "{count} settings will change"
+msgstr "{count} параметров будет изменено"
+
+#: lib/main_configurator.py:985
+msgid "Review the current and new values before saving. Empty values use the MiniOS default."
+msgstr "Проверьте текущие и новые значения перед сохранением. Пустые значения используют значение по умолчанию MiniOS."
+
+#: lib/main_configurator.py:1011 lib/main_configurator.py:1012
+msgid "Not set (use default)"
+msgstr "Не задано (использовать по умолчанию)"
+
+#: lib/main_configurator.py:1057
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Графический инструмент для настройки параметров MiniOS"
 
-#: lib/main_configurator.py:459
+#: lib/main_configurator.py:1063
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Путь к файлу конфигурации (по умолчанию: /etc/live/config.conf)"
 
-#: lib/main_configurator.py:464
+#: lib/main_configurator.py:1068
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Наследовать параметры конфигурации из командной строки ядра (/proc/cmdline)"
+
+#: lib/validation_utils.py:65
+msgid "A service cannot be both enabled and disabled: {}"
+msgstr "Служба не может быть одновременно включена и отключена: {}"
+
+#: lib/validation_utils.py:69
+msgid "Choose either linked or bind-mounted user directories, not both."
+msgstr "Выберите либо связанные, либо примонтированные каталоги пользователя, но не оба варианта одновременно."
+
+#: lib/validation_utils.py:74
+msgid "Enter a safe path inside the MiniOS drive, for example /minios/userdata."
+msgstr "Укажите безопасный путь внутри диска MiniOS, например /minios/userdata."
+
+#: lib/validation_utils.py:76
+msgid "SSH root login cannot be enabled while no-root mode is enabled."
+msgstr "Вход по SSH под root невозможен при включённом режиме без root."
 
 #: share/applications/minios-configurator.desktop:4
 msgid "Configure MiniOS"

@@ -1,9 +1,10 @@
-.TH MINIOS-CONFIGURATOR 1 "August 2025" "MiniOS" "User Commands"
+.TH MINIOS-CONFIGURATOR 1 "July 2026" "MiniOS Configurator 3.0.0" "User Commands"
 .SH NAME
 minios-configurator \- Configure MiniOS system settings
 .SH SYNOPSIS
 .B minios-configurator
 .RI [ --help ]
+.RI [ --inherit-cmdline ]
 .RI [ config-file ]
 .SH DESCRIPTION
 .B minios-configurator
@@ -13,36 +14,65 @@ Reads and writes configuration files in live-config format, typically at
 .I /etc/live/config.conf
 with validation and auto-completion.
 .PP
+Categories are directly selectable; this application is not a wizard. A fixed action
+bar reports unsaved changes and provides Reset, Review changes, and Save changes.
+Review output redacts passwords. Saved settings are applied
+by live-config on the next boot.
+.PP
 Requires administrative privileges via PolicyKit authentication.
 .SH OPTIONS
 .TP
 .B -h, --help
 Show a short usage message and exit.
 .TP
+.B -i, --inherit-cmdline
+Overlay supported values from /proc/cmdline. The alternate configuration path remains
+the persistence target.
+.TP
 .I config-file
 Use an alternate live-config file instead of the default
 .IR /etc/live/config.conf .
-.SH USAGE
-1. Configure system identity (hostname, username)
-.PP
-2. Set localization (locale, timezone, keyboard)
-.PP
-3. Manage security (user/root passwords)
-.PP
-4. Control services (enable/disable systemd services)
-.SH CONFIGURATION OPTIONS
+.SH CONFIGURATION
+.TP
+.B User
+Username, full name, supplementary groups, encrypted user and root passwords,
+and media-backed user-directory link or bind mode.
 .TP
 .B System
-Hostname, username
-.TP
-.B Locale
-System locales, timezone, keyboard layout
+No-root mode, hostname, locales, timezone, boot target, and systemd units or
+SysV services to enable or disable.
 .TP
 .B Security
-User password, root password
+Security profiles and editable sudo, PolicyKit, OpenSSH, XRDP, X11, password
+hint, and screen-lock posture controls. Profile names are not saved as runtime
+configuration keys.
 .TP
-.B Services
-Enabled/disabled systemd services
+.B Keyboard
+Model, layouts, variants, and options.
+.TP
+.B Advanced
+Module mode, additional live-config command line, debug output, and boot-log
+export.
+.SH VALUES
+.PP
+\fBDEFAULT_TARGET\fR accepts graphical.target, multi-user.target, and
+rescue.target. Short graphical, multi-user, and rescue aliases are normalized.
+.PP
+\fBLIVE_MODULE_MODE\fR accepts simple or merged. Sudo and PolicyKit modes accept
+passwordless, password, or disabled. XRDP accepts relaxed, hardened, or
+disabled. X11 and screen-lock modes accept relaxed or hardened. Boolean fields
+accept true or false.
+.SH VALIDATION
+.PP
+The application validates host and user names, installed UTF-8 locales,
+timezones, keyboard values, systemd units and SysV scripts, conflicting service
+lists, and cross-field security rules. User-directory link and bind modes are
+mutually exclusive and require a safe path inside writable MiniOS media.
+.SH APPLICABILITY
+.PP
+Hostname, locale, timezone, services, keyboard, boot controls, user-media, and
+log export apply after reboot. Account creation, passwords, no-root mode, and
+security posture are one-shot settings used only when a new session is created.
 .SH FILES
 .I /etc/live/config.conf
 .br
@@ -53,9 +83,18 @@ Enabled/disabled systemd services
 .I /usr/lib/minios-configurator/
 .SH NOTES
 .PP
-Configuration changes take effect after reboot.
+Only explicitly changed fields are saved. Atomic replacement preserves comments,
+ordering, unknown keys, ownership, permissions, and extended attributes. Symlink
+and non-regular configuration files are rejected. The configurator does not
+mutate the running system.
 .PP
-Provides auto-completion and input validation.
+Passwords are redacted during review and saved only as encrypted values.
+.PP
+Persistence parameters perchmode and perchsize are not configuration fields.
+For a boot request using perchmode=luks, the application only reports the
+runtime capability marker at
+.IR /run/initramfs/etc/minios-initramfs-crypt ;
+it never creates, opens, resizes, or unlocks a container.
 .SH AUTHOR
 crims0n <crims0n@minios.dev>
 .SH BUGS

@@ -11,11 +11,12 @@ TERM=xterm
 case "${1:-}" in
     -h|--help)
         cat <<'EOF'
-Usage: minios-configurator [config-file]
+Usage: minios-configurator [--inherit-cmdline] [config-file]
 
 Launch the MiniOS Configurator graphical interface.
 
 If `config-file` is omitted, the application uses `/etc/live/config.conf`.
+Use `--inherit-cmdline` (or `-i`) to overlay supported kernel parameters.
 
 For the manual page, run: man minios-configurator
 EOF

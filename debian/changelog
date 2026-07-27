@@ -1,3 +1,36 @@
+minios-configurator (3.0.0) unstable; urgency=medium
+
+  * Redesign the configurator as a non-linear, category-based application with
+    change tracking, reset, and a password-redacted review before saving.
+  * Add security profiles for common security postures.
+  * Distinguish inherited values, effective defaults, and explicit edits so
+    unchanged defaults are not written to the configuration.
+  * Detect current system and keyboard settings without blocking the interface
+    or saving detected values automatically.
+  * Add inline and cross-field validation for account, service, security, and
+    user-media settings.
+  * Show whether settings apply after reboot or only when creating a new
+    session, and document user-media, migration, toram, and log-export behavior.
+  * Preserve configuration comments, ordering, unknown keys, ownership,
+    permissions, and extended attributes while rejecting symlinks and
+    non-regular files and saving atomically.
+  * Recognize SysV services and canonical systemd boot targets, and report LUKS
+    persistence availability from the running initrd capability marker.
+  * Adopt the compact MiniOS application style, add visible per-setting help,
+    and update documentation and translations.
+
+ -- crims0n <crims0n@minios.dev>  Sun, 12 Jul 2026 15:00:00 +0300
+
+minios-configurator (2.4.4) unstable; urgency=medium
+
+  * Add a Security tab for MiniOS security profiles and posture keys.
+  * Add Apply now: save posture configuration first, then apply the selected
+    profile to the running system through python3-minios-security.
+  * Add validation and kernel command-line inheritance for security posture
+    keys.
+
+ -- crims0n <crims0n@minios.dev>  Sat, 11 Jul 2026 02:10:00 +0300
+
 minios-configurator (2.4.3.1) unstable; urgency=medium
 
   * Remove junk from translation files
