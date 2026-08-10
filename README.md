@@ -1,8 +1,8 @@
-# MiniOS Configurator 3.0.0
+# MiniOS Configurator 3.0.1
 
 GTK3 application for editing MiniOS `live-config` settings. It uses a
-category-based interface with change tracking, validation, reset, and a
-password-redacted review before saving.
+category-based interface with change tracking, validation, confirmation before
+discarding, and a password-redacted review before saving.
 
 ## Features
 
@@ -83,7 +83,7 @@ sudo make install
 ```
 
 Runtime requirements are defined in `debian/control`, including Python 3.6+,
-GTK3/PyGObject, PolicyKit, `minios-live-config`, and
+GTK3/PyGObject, PolicyKit, `minios-live-config`, `python3-minios-gui`, and
 `python3-minios-security`.
 
 ## License

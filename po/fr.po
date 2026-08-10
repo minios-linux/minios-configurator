@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-07-17 14:32+0300\n"
-"PO-Revision-Date: 2026-07-17 11:32+0000\n"
+"POT-Creation-Date: 2026-08-10 01:41+0300\n"
+"PO-Revision-Date: 2026-08-04 22:37+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -37,15 +37,15 @@ msgstr "Échec du chargement de la configuration : {}"
 msgid "Failed to update config: {}"
 msgstr "Échec de la mise à jour de la configuration : {}"
 
-#: lib/main_configurator.py:71
+#: lib/main_configurator.py:72
 msgid "User"
 msgstr "Utilisateur"
 
-#: lib/main_configurator.py:72
+#: lib/main_configurator.py:73
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: lib/main_configurator.py:73
+#: lib/main_configurator.py:74
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -59,11 +59,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'username')"
 
-#: lib/main_configurator.py:76
+#: lib/main_configurator.py:77
 msgid "Full name"
 msgstr "Nom complet"
 
-#: lib/main_configurator.py:77
+#: lib/main_configurator.py:78
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -77,11 +77,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'user-fullname')"
 
-#: lib/main_configurator.py:80
+#: lib/main_configurator.py:81
 msgid "User groups"
 msgstr "Groupes d'utilisateurs"
 
-#: lib/main_configurator.py:81
+#: lib/main_configurator.py:82
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -95,11 +95,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'user-default-groups')"
 
-#: lib/main_configurator.py:84
+#: lib/main_configurator.py:85
 msgid "User password"
 msgstr "Mot de passe utilisateur"
 
-#: lib/main_configurator.py:85
+#: lib/main_configurator.py:86
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -115,11 +115,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'user-password')"
 
-#: lib/main_configurator.py:89
+#: lib/main_configurator.py:90
 msgid "Root password"
 msgstr "Mot de passe root"
 
-#: lib/main_configurator.py:90
+#: lib/main_configurator.py:91
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -135,11 +135,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'root-password')"
 
-#: lib/main_configurator.py:94
+#: lib/main_configurator.py:95
 msgid "Link user directories to storage"
 msgstr "Lier les dossiers utilisateur au stockage"
 
-#: lib/main_configurator.py:95
+#: lib/main_configurator.py:96
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
@@ -157,11 +157,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'link-user-dirs')"
 
-#: lib/main_configurator.py:100
+#: lib/main_configurator.py:101
 msgid "Bind user directories to storage"
 msgstr "Monter les dossiers utilisateur sur le stockage"
 
-#: lib/main_configurator.py:101
+#: lib/main_configurator.py:102
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent storage.\n"
 "\n"
@@ -179,11 +179,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'bind-user-dirs')"
 
-#: lib/main_configurator.py:106
+#: lib/main_configurator.py:107
 msgid "User directories path on storage"
 msgstr "Chemin des dossiers utilisateur sur le stockage"
 
-#: lib/main_configurator.py:107
+#: lib/main_configurator.py:108
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
@@ -201,15 +201,15 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'user-dirs-path')"
 
-#: lib/main_configurator.py:112
+#: lib/main_configurator.py:113
 msgid "System"
 msgstr "Système"
 
-#: lib/main_configurator.py:113
+#: lib/main_configurator.py:114
 msgid "No-root mode"
 msgstr "Mode sans root"
 
-#: lib/main_configurator.py:114
+#: lib/main_configurator.py:115
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -225,11 +225,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'noroot')"
 
-#: lib/main_configurator.py:118
+#: lib/main_configurator.py:119
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
-#: lib/main_configurator.py:119
+#: lib/main_configurator.py:120
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -245,11 +245,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'hostname')"
 
-#: lib/main_configurator.py:123
+#: lib/main_configurator.py:124
 msgid "Locales"
 msgstr "Langues"
 
-#: lib/main_configurator.py:124
+#: lib/main_configurator.py:125
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -265,11 +265,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'locales')"
 
-#: lib/main_configurator.py:128
+#: lib/main_configurator.py:129
 msgid "Timezone"
 msgstr "Fuseau horaire"
 
-#: lib/main_configurator.py:129
+#: lib/main_configurator.py:130
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -283,11 +283,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'timezone')"
 
-#: lib/main_configurator.py:132
+#: lib/main_configurator.py:133
 msgid "Default boot target"
 msgstr "Cible de démarrage par défaut"
 
-#: lib/main_configurator.py:133
+#: lib/main_configurator.py:134
 msgid ""
 "Set the default boot target:\n"
 "• 'graphical.target' – start with a desktop.\n"
@@ -303,11 +303,11 @@ msgstr ""
 "\n"
 "Les alias courts comme 'graphical' et 'multi-user' sont acceptés."
 
-#: lib/main_configurator.py:138
+#: lib/main_configurator.py:139
 msgid "Enable services"
 msgstr "Activer les services"
 
-#: lib/main_configurator.py:139
+#: lib/main_configurator.py:140
 msgid ""
 "List services to enable at boot, separated by commas.\n"
 "\n"
@@ -319,11 +319,11 @@ msgstr ""
 "• Exemple : 'ssh, NetworkManager'.\n"
 "• Les unités systemd et les noms de scripts sysvinit sont pris en charge."
 
-#: lib/main_configurator.py:142
+#: lib/main_configurator.py:143
 msgid "Disable services"
 msgstr "Désactiver les services"
 
-#: lib/main_configurator.py:143
+#: lib/main_configurator.py:144
 msgid ""
 "List services to disable at boot, separated by commas.\n"
 "\n"
@@ -335,91 +335,91 @@ msgstr ""
 "• Exemple : 'bluetooth, ModemManager'.\n"
 "• Les unités systemd et les noms de scripts sysvinit sont pris en charge."
 
-#: lib/main_configurator.py:147
+#: lib/main_configurator.py:148
 msgid "Security"
 msgstr "Sécurité"
 
-#: lib/main_configurator.py:148
+#: lib/main_configurator.py:149
 msgid "Security preset"
 msgstr "Préréglage de sécurité"
 
-#: lib/main_configurator.py:149
+#: lib/main_configurator.py:150
 msgid "Choose a preset to fill the settings below. You can customize any setting afterward. Only the individual settings are saved."
 msgstr "Choisissez un préréglage pour remplir les paramètres ci-dessous. Vous pouvez ensuite personnaliser chaque option. Seuls les paramètres individuels sont enregistrés."
 
-#: lib/main_configurator.py:150
+#: lib/main_configurator.py:151
 msgid "Sudo mode"
 msgstr "Mode Sudo"
 
-#: lib/main_configurator.py:151
+#: lib/main_configurator.py:152
 msgid "passwordless keeps historical MiniOS behavior; password requires the user password; disabled removes the MiniOS sudo grant."
 msgstr "‘passwordless’ conserve le comportement historique de MiniOS ; ‘password’ requiert le mot de passe utilisateur ; ‘disabled’ supprime l’autorisation sudo de MiniOS."
 
-#: lib/main_configurator.py:152
+#: lib/main_configurator.py:153
 msgid "PolicyKit mode"
 msgstr "Mode PolicyKit"
 
-#: lib/main_configurator.py:153
+#: lib/main_configurator.py:154
 msgid "passwordless keeps historical MiniOS GUI admin convenience; password/disabled remove that rule and use normal PolicyKit authentication."
 msgstr "‘passwordless’ conserve la commodité d’administration graphique historique de MiniOS ; ‘password’/‘disabled’ suppriment cette règle et utilisent l’authentification PolicyKit normale."
 
-#: lib/main_configurator.py:154
+#: lib/main_configurator.py:155
 msgid "SSH root login"
 msgstr "Connexion root SSH"
 
-#: lib/main_configurator.py:155
+#: lib/main_configurator.py:156
 msgid "Allow or deny root login through OpenSSH."
 msgstr "Autoriser ou interdire la connexion root via OpenSSH."
 
-#: lib/main_configurator.py:156
+#: lib/main_configurator.py:157
 msgid "SSH password authentication"
 msgstr "Authentification par mot de passe SSH"
 
-#: lib/main_configurator.py:157
+#: lib/main_configurator.py:158
 msgid "Allow or deny password authentication through OpenSSH."
 msgstr "Autoriser ou interdire l’authentification par mot de passe via OpenSSH."
 
-#: lib/main_configurator.py:158
+#: lib/main_configurator.py:159
 msgid "XRDP mode"
 msgstr "Mode XRDP"
 
-#: lib/main_configurator.py:159
+#: lib/main_configurator.py:160
 msgid "relaxed keeps MiniOS defaults; hardened binds to localhost and disables root login; disabled disables common XRDP service links."
 msgstr "‘relaxed’ conserve les paramètres par défaut de MiniOS ; ‘hardened’ lie à localhost et désactive la connexion root ; ‘disabled’ désactive les liens de service XRDP courants."
 
-#: lib/main_configurator.py:160
+#: lib/main_configurator.py:161
 msgid "X11 mode"
 msgstr "Mode X11"
 
-#: lib/main_configurator.py:161
+#: lib/main_configurator.py:162
 msgid "relaxed keeps compatibility; hardened removes the permissive -ac launch option and tightens Xwrapper where present."
 msgstr "‘relaxed’ conserve la compatibilité ; ‘hardened’ retire l’option de lancement permissive -ac et renforce Xwrapper si disponible."
 
-#: lib/main_configurator.py:162
+#: lib/main_configurator.py:163
 msgid "Show password hints"
 msgstr "Afficher les indices de mot de passe"
 
-#: lib/main_configurator.py:163
+#: lib/main_configurator.py:164
 msgid "Show default root/live password hints in /etc/issue."
 msgstr "Afficher les indices de mot de passe root/live par défaut dans /etc/issue."
 
-#: lib/main_configurator.py:164
+#: lib/main_configurator.py:165
 msgid "Lockscreen mode"
 msgstr "Mode écran de verrouillage"
 
-#: lib/main_configurator.py:165
+#: lib/main_configurator.py:166
 msgid "relaxed keeps live-session convenience; hardened preserves/enables screen locking where supported."
 msgstr "‘relaxed’ conserve la commodité de la session live ; ‘hardened’ active ou préserve le verrouillage d’écran lorsque c’est pris en charge."
 
-#: lib/main_configurator.py:167
+#: lib/main_configurator.py:168
 msgid "Keyboard"
 msgstr "Clavier"
 
-#: lib/main_configurator.py:168
+#: lib/main_configurator.py:169
 msgid "Keyboard model"
 msgstr "Modèle de clavier"
 
-#: lib/main_configurator.py:169
+#: lib/main_configurator.py:170
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -433,11 +433,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'keyboard-model')"
 
-#: lib/main_configurator.py:172
+#: lib/main_configurator.py:173
 msgid "Keyboard layouts"
 msgstr "Agencements de clavier"
 
-#: lib/main_configurator.py:173
+#: lib/main_configurator.py:174
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -451,11 +451,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'keyboard-layouts')"
 
-#: lib/main_configurator.py:176
+#: lib/main_configurator.py:177
 msgid "Keyboard options"
 msgstr "Options du clavier"
 
-#: lib/main_configurator.py:177
+#: lib/main_configurator.py:178
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -469,11 +469,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'keyboard-options')"
 
-#: lib/main_configurator.py:180
+#: lib/main_configurator.py:181
 msgid "Keyboard variants"
 msgstr "Variantes de clavier"
 
-#: lib/main_configurator.py:181
+#: lib/main_configurator.py:182
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -489,15 +489,15 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'keyboard-variants')"
 
-#: lib/main_configurator.py:186
+#: lib/main_configurator.py:187
 msgid "Advanced"
 msgstr "Avancé"
 
-#: lib/main_configurator.py:187
+#: lib/main_configurator.py:188
 msgid "Module mode"
 msgstr "Mode module"
 
-#: lib/main_configurator.py:188
+#: lib/main_configurator.py:189
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -513,11 +513,11 @@ msgstr ""
 "Généralement pas nécessaire, sauf si les modules sont construits indépendamment.\n"
 "Voir : man 7 live-config (rechercher 'module-mode')"
 
-#: lib/main_configurator.py:193
+#: lib/main_configurator.py:194
 msgid "live-config command line"
 msgstr "Ligne de commande live-config"
 
-#: lib/main_configurator.py:194
+#: lib/main_configurator.py:195
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -533,11 +533,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'cmdline')"
 
-#: lib/main_configurator.py:198
+#: lib/main_configurator.py:199
 msgid "Debug mode"
 msgstr "Mode débogage"
 
-#: lib/main_configurator.py:199
+#: lib/main_configurator.py:200
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -551,11 +551,11 @@ msgstr ""
 "\n"
 "Voir : man 7 live-config (rechercher 'debug')"
 
-#: lib/main_configurator.py:202
+#: lib/main_configurator.py:203
 msgid "Export logs to flash drive"
 msgstr "Exporter les journaux sur une clé USB"
 
-#: lib/main_configurator.py:203
+#: lib/main_configurator.py:204
 msgid ""
 "If enabled, MiniOS and live-config logs are copied to the writable MiniOS drive during every boot.\n"
 "\n"
@@ -571,15 +571,15 @@ msgstr ""
 "\n"
 "Voir : https://github.com/minios-linux/minios-live/wiki"
 
-#: lib/main_configurator.py:328
+#: lib/main_configurator.py:332
 msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr "Si vous n'êtes pas sûr d'un champ, ne le modifiez pas. Des paramètres incorrects peuvent empêcher le démarrage du système."
 
-#: lib/main_configurator.py:333
+#: lib/main_configurator.py:337
 msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
 msgstr "La persistance LUKS a été demandée au démarrage. La prise en charge du chiffrement est assurée par l’initrd ; ce configurateur n’ouvre pas les conteneurs et ne demande pas de mots de passe."
 
-#: lib/main_configurator.py:338
+#: lib/main_configurator.py:342
 msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
 msgstr "La persistance LUKS a été demandée au démarrage, mais cet initrd n’indique pas de prise en charge du chiffrement. Elle ne peut pas être activée tant qu’un initrd compatible chiffrement ne fournit pas /run/initramfs/etc/minios-initramfs-crypt."
 
@@ -599,145 +599,165 @@ msgstr "Détecter la configuration du clavier utilisée par la session en cours.
 msgid "Detect current keyboard"
 msgstr "Détecter le clavier actuel"
 
-#: lib/main_configurator.py:430
+#: lib/main_configurator.py:433
 msgid "Preset only; individual settings are saved"
 msgstr "Préréglage uniquement ; seuls les paramètres individuels sont enregistrés"
 
-#: lib/main_configurator.py:433
+#: lib/main_configurator.py:436
 msgid "Applies after reboot"
 msgstr "S'applique après redémarrage"
 
-#: lib/main_configurator.py:434
+#: lib/main_configurator.py:437
 msgid "Only when creating a new session"
 msgstr "Uniquement lors de la création d'une nouvelle session"
 
-#: lib/main_configurator.py:487 lib/main_configurator.py:490
-#: lib/main_configurator.py:491
+#: lib/main_configurator.py:479 lib/main_configurator.py:495
+msgid "Show password"
+msgstr "Afficher le mot de passe"
+
+#: lib/main_configurator.py:495
+msgid "Hide password"
+msgstr "Masquer le mot de passe"
+
+#: lib/main_configurator.py:505 lib/main_configurator.py:508
+#: lib/main_configurator.py:509
 msgid "Automatic"
 msgstr "Automatique"
 
-#: lib/main_configurator.py:488 lib/main_configurator.py:489
+#: lib/main_configurator.py:506 lib/main_configurator.py:507
 msgid "Use system default"
 msgstr "Utiliser la configuration système par défaut"
 
-#: lib/main_configurator.py:492 lib/main_configurator.py:493
-#: lib/main_configurator.py:494 lib/main_configurator.py:495
-#: lib/main_configurator.py:496
+#: lib/main_configurator.py:510 lib/main_configurator.py:511
+#: lib/main_configurator.py:512 lib/main_configurator.py:513
+#: lib/main_configurator.py:514
 msgid "None"
 msgstr "Aucun"
 
-#: lib/main_configurator.py:517
+#: lib/main_configurator.py:536
 msgid "Enabled"
 msgstr "Activé"
 
-#: lib/main_configurator.py:518
+#: lib/main_configurator.py:537
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: lib/main_configurator.py:557
+#: lib/main_configurator.py:577
 msgid "Custom"
 msgstr "Personnalisé"
 
-#: lib/main_configurator.py:582
+#: lib/main_configurator.py:602
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr "XRDP n'est pas installé. Ce paramètre sera enregistré et utilisé si XRDP est installé ultérieurement."
 
-#: lib/main_configurator.py:607
-msgid "Reset"
-msgstr "Réinitialiser"
+#: lib/main_configurator.py:627
+msgid "Discard changes…"
+msgstr "Annuler les modifications…"
 
-#: lib/main_configurator.py:610 lib/main_configurator.py:967
+#: lib/main_configurator.py:630 lib/main_configurator.py:987
 msgid "Review changes"
 msgstr "Examiner les modifications"
 
-#: lib/main_configurator.py:613
+#: lib/main_configurator.py:633
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: lib/main_configurator.py:715
+#: lib/main_configurator.py:732
 msgid "This value is not valid."
 msgstr "Cette valeur n'est pas valide."
 
-#: lib/main_configurator.py:730
+#: lib/main_configurator.py:748
 msgid "No unsaved changes"
 msgstr "Aucune modification non enregistrée"
 
-#: lib/main_configurator.py:732
+#: lib/main_configurator.py:750
 msgid "1 unsaved change"
 msgstr "1 modification non enregistrée"
 
-#: lib/main_configurator.py:734
+#: lib/main_configurator.py:752
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr "{count} modifications non enregistrées"
 
-#: lib/main_configurator.py:829
+#: lib/main_configurator.py:853
 msgid "Detecting current system settings..."
 msgstr "Détection des paramètres système en cours..."
 
-#: lib/main_configurator.py:855
+#: lib/main_configurator.py:879
 msgid "Automatic detection failed: {}"
 msgstr "Échec de la détection automatique : {}"
 
-#: lib/main_configurator.py:867
+#: lib/main_configurator.py:891
 msgid "No system settings could be detected."
 msgstr "Aucun paramètre système n’a pu être détecté."
 
-#: lib/main_configurator.py:871
+#: lib/main_configurator.py:895
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr "1 paramètre mis à jour. Les champs modifiés sont surlignés."
 
-#: lib/main_configurator.py:873
+#: lib/main_configurator.py:897
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr "{count} paramètres mis à jour. Les champs modifiés sont surlignés."
 
-#: lib/main_configurator.py:877
+#: lib/main_configurator.py:901
 msgid "Detected settings already match the values shown."
 msgstr "Les paramètres détectés correspondent déjà aux valeurs affichées."
 
-#: lib/main_configurator.py:891
+#: lib/main_configurator.py:909
 msgid "Fix invalid fields before saving changes."
 msgstr "Corrigez les champs invalides avant d’enregistrer les modifications."
 
-#: lib/main_configurator.py:922
+#: lib/main_configurator.py:940
 msgid "Settings could not be saved: {}"
 msgstr "Impossible d’enregistrer les paramètres : {}"
 
-#: lib/main_configurator.py:926
+#: lib/main_configurator.py:943
 msgid "Settings saved. They will be used on the next boot."
 msgstr "Paramètres enregistrés. Ils seront appliqués au prochain démarrage."
 
-#: lib/main_configurator.py:968
+#: lib/main_configurator.py:955
+msgid "Discard all unsaved changes?"
+msgstr "Annuler toutes les modifications non enregistrées ?"
+
+#: lib/main_configurator.py:956
+msgid "The form will return to the currently saved settings."
+msgstr "Le formulaire reviendra aux paramètres actuellement enregistrés."
+
+#: lib/main_configurator.py:957
+msgid "Discard"
+msgstr "Annuler"
+
+#: lib/main_configurator.py:988
 msgid "Close"
 msgstr "Fermer"
 
-#: lib/main_configurator.py:979
+#: lib/main_configurator.py:999
 msgid "1 setting will change"
 msgstr "1 paramètre sera modifié"
 
-#: lib/main_configurator.py:981
+#: lib/main_configurator.py:1001
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr "{count} paramètres seront modifiés"
 
-#: lib/main_configurator.py:985
+#: lib/main_configurator.py:1005
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr "Vérifiez les valeurs actuelles et les nouvelles avant d’enregistrer. Les champs vides utiliseront la valeur par défaut de MiniOS."
 
-#: lib/main_configurator.py:1011 lib/main_configurator.py:1012
+#: lib/main_configurator.py:1031 lib/main_configurator.py:1032
 msgid "Not set (use default)"
 msgstr "Non défini (utiliser la valeur par défaut)"
 
-#: lib/main_configurator.py:1057
+#: lib/main_configurator.py:1077
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Un outil graphique pour configurer les paramètres de MiniOS"
 
-#: lib/main_configurator.py:1063
+#: lib/main_configurator.py:1083
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Chemin vers le fichier de configuration (par défaut : /etc/live/config.conf)"
 
-#: lib/main_configurator.py:1068
+#: lib/main_configurator.py:1088
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Hériter des paramètres de configuration de la ligne de commande du noyau (/proc/cmdline)"
 

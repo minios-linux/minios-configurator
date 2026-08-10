@@ -8,30 +8,15 @@ Copyright (C) 2025 MiniOS Linux
 Author: crims0n <crims0n@minios.dev>
 """
 
-import os
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 # Icon names
 ICON_WINDOW             = 'preferences-system'
 ICON_WARNING            = 'dialog-warning'
-ICON_SAVE               = 'document-save-symbolic'
 ICON_EYE_OPEN           = 'eye-open-negative-filled-symbolic'
 ICON_EYE_CLOSED         = 'eye-not-looking-symbolic'
-
-def apply_css_if_exists(css_file_path: str):
-    """
-    Load and apply CSS if the file exists.
-    """
-    provider = Gtk.CssProvider()
-    if os.path.exists(css_file_path):
-        provider.load_from_path(css_file_path)
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
 
 def match_completion_by_token(completion: Gtk.EntryCompletion, key: str, 
                              tree_iter: Gtk.TreeIter, entry: Gtk.Entry) -> bool:
@@ -63,30 +48,6 @@ def on_completion_selected(completion: Gtk.EntryCompletion, model: Gtk.TreeModel
     entry.set_text(new_text)
     entry.set_position(len(prefix) + len(candidate))
     return True
-
-def on_toggle_password_visibility(toggle_button: Gtk.ToggleButton, password_entry: Gtk.Entry):
-    """
-    Show or hide password and swap the eye icon.
-    """
-    is_visible = toggle_button.get_active()
-    password_entry.set_visibility(is_visible)
-    icon_name = ICON_EYE_CLOSED if is_visible else ICON_EYE_OPEN
-    icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
-    toggle_button.set_image(icon)
-    toggle_button.set_always_show_image(True)
-
-def show_error_dialog(parent_window: Gtk.Window, message: str):
-    """
-    Show error dialog.
-    """
-    dialog = Gtk.MessageDialog(
-        transient_for=parent_window,
-        message_type=Gtk.MessageType.ERROR,
-        buttons=Gtk.ButtonsType.OK,
-        text=message
-    )
-    dialog.run()
-    dialog.destroy()
 
 def create_completion(items: set, entry: Gtk.Entry) -> Gtk.EntryCompletion:
     """

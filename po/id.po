@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-07-17 14:32+0300\n"
-"PO-Revision-Date: 2026-07-17 11:32+0000\n"
+"POT-Creation-Date: 2026-08-10 01:41+0300\n"
+"PO-Revision-Date: 2026-08-04 22:37+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
@@ -36,15 +36,15 @@ msgstr "Gagal memuat konfigurasi: {}"
 msgid "Failed to update config: {}"
 msgstr "Gagal memperbarui konfigurasi: {}"
 
-#: lib/main_configurator.py:71
+#: lib/main_configurator.py:72
 msgid "User"
 msgstr "Pengguna"
 
-#: lib/main_configurator.py:72
+#: lib/main_configurator.py:73
 msgid "Username"
 msgstr "Nama pengguna"
 
-#: lib/main_configurator.py:73
+#: lib/main_configurator.py:74
 msgid ""
 "Set the default username for the live session.\n"
 "\n"
@@ -58,11 +58,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'username')"
 
-#: lib/main_configurator.py:76
+#: lib/main_configurator.py:77
 msgid "Full name"
 msgstr "Nama lengkap"
 
-#: lib/main_configurator.py:77
+#: lib/main_configurator.py:78
 msgid ""
 "Enter the full name for the default user.\n"
 "\n"
@@ -76,11 +76,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-fullname')"
 
-#: lib/main_configurator.py:80
+#: lib/main_configurator.py:81
 msgid "User groups"
 msgstr "Grup pengguna"
 
-#: lib/main_configurator.py:81
+#: lib/main_configurator.py:82
 msgid ""
 "Specify additional groups for the user, separated by commas or spaces.\n"
 "\n"
@@ -94,11 +94,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-default-groups')"
 
-#: lib/main_configurator.py:84
+#: lib/main_configurator.py:85
 msgid "User password"
 msgstr "Kata sandi pengguna"
 
-#: lib/main_configurator.py:85
+#: lib/main_configurator.py:86
 msgid ""
 "Set the initial password for the default user.\n"
 "\n"
@@ -114,11 +114,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-password')"
 
-#: lib/main_configurator.py:89
+#: lib/main_configurator.py:90
 msgid "Root password"
 msgstr "Kata sandi root"
 
-#: lib/main_configurator.py:90
+#: lib/main_configurator.py:91
 msgid ""
 "Set the initial password for the root (administrator) account.\n"
 "\n"
@@ -134,11 +134,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'root-password')"
 
-#: lib/main_configurator.py:94
+#: lib/main_configurator.py:95
 msgid "Link user directories to storage"
 msgstr "Tautkan direktori pengguna ke penyimpanan"
 
-#: lib/main_configurator.py:95
+#: lib/main_configurator.py:96
 msgid ""
 "If enabled, user home directories will be symlinked to persistent storage.\n"
 "\n"
@@ -156,11 +156,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'link-user-dirs')"
 
-#: lib/main_configurator.py:100
+#: lib/main_configurator.py:101
 msgid "Bind user directories to storage"
 msgstr "Bind direktori pengguna ke penyimpanan"
 
-#: lib/main_configurator.py:101
+#: lib/main_configurator.py:102
 msgid ""
 "If enabled, user home directories will be bind-mounted to persistent storage.\n"
 "\n"
@@ -178,11 +178,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'bind-user-dirs')"
 
-#: lib/main_configurator.py:106
+#: lib/main_configurator.py:107
 msgid "User directories path on storage"
 msgstr "Path direktori pengguna di penyimpanan"
 
-#: lib/main_configurator.py:107
+#: lib/main_configurator.py:108
 msgid ""
 "Set the base path on persistent storage for user directories.\n"
 "\n"
@@ -200,15 +200,15 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'user-dirs-path')"
 
-#: lib/main_configurator.py:112
+#: lib/main_configurator.py:113
 msgid "System"
 msgstr "Sistem"
 
-#: lib/main_configurator.py:113
+#: lib/main_configurator.py:114
 msgid "No-root mode"
 msgstr "Mode tanpa root"
 
-#: lib/main_configurator.py:114
+#: lib/main_configurator.py:115
 msgid ""
 "If enabled, disables the root account, enhancing security.\n"
 "\n"
@@ -224,11 +224,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'noroot')"
 
-#: lib/main_configurator.py:118
+#: lib/main_configurator.py:119
 msgid "Hostname"
 msgstr "Nama host"
 
-#: lib/main_configurator.py:119
+#: lib/main_configurator.py:120
 msgid ""
 "Set the computer's network name (hostname).\n"
 "\n"
@@ -244,11 +244,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'hostname')"
 
-#: lib/main_configurator.py:123
+#: lib/main_configurator.py:124
 msgid "Locales"
 msgstr "Lokal"
 
-#: lib/main_configurator.py:124
+#: lib/main_configurator.py:125
 msgid ""
 "Set system language(s) and regional settings.\n"
 "\n"
@@ -264,11 +264,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'locales')"
 
-#: lib/main_configurator.py:128
+#: lib/main_configurator.py:129
 msgid "Timezone"
 msgstr "Zona waktu"
 
-#: lib/main_configurator.py:129
+#: lib/main_configurator.py:130
 msgid ""
 "Set the system timezone (e.g., 'Europe/Berlin', 'America/New_York').\n"
 "\n"
@@ -282,11 +282,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'timezone')"
 
-#: lib/main_configurator.py:132
+#: lib/main_configurator.py:133
 msgid "Default boot target"
 msgstr "Target boot default"
 
-#: lib/main_configurator.py:133
+#: lib/main_configurator.py:134
 msgid ""
 "Set the default boot target:\n"
 "• 'graphical.target' – start with a desktop.\n"
@@ -302,11 +302,11 @@ msgstr ""
 "\n"
 "Alias singkat seperti 'graphical' dan 'multi-user' juga diterima."
 
-#: lib/main_configurator.py:138
+#: lib/main_configurator.py:139
 msgid "Enable services"
 msgstr "Aktifkan layanan"
 
-#: lib/main_configurator.py:139
+#: lib/main_configurator.py:140
 msgid ""
 "List services to enable at boot, separated by commas.\n"
 "\n"
@@ -318,11 +318,11 @@ msgstr ""
 "• Contoh: 'ssh, NetworkManager'.\n"
 "• Mendukung nama unit systemd dan skrip sysvinit."
 
-#: lib/main_configurator.py:142
+#: lib/main_configurator.py:143
 msgid "Disable services"
 msgstr "Nonaktifkan layanan"
 
-#: lib/main_configurator.py:143
+#: lib/main_configurator.py:144
 msgid ""
 "List services to disable at boot, separated by commas.\n"
 "\n"
@@ -334,91 +334,91 @@ msgstr ""
 "• Contoh: 'bluetooth, ModemManager'.\n"
 "• Mendukung nama unit systemd dan skrip sysvinit."
 
-#: lib/main_configurator.py:147
+#: lib/main_configurator.py:148
 msgid "Security"
 msgstr "Keamanan"
 
-#: lib/main_configurator.py:148
+#: lib/main_configurator.py:149
 msgid "Security preset"
 msgstr "Preset keamanan"
 
-#: lib/main_configurator.py:149
+#: lib/main_configurator.py:150
 msgid "Choose a preset to fill the settings below. You can customize any setting afterward. Only the individual settings are saved."
 msgstr "Pilih preset untuk mengisi pengaturan di bawah ini. Anda dapat menyesuaikan setiap pengaturan setelahnya. Hanya pengaturan individual yang akan disimpan."
 
-#: lib/main_configurator.py:150
+#: lib/main_configurator.py:151
 msgid "Sudo mode"
 msgstr "Mode Sudo"
 
-#: lib/main_configurator.py:151
+#: lib/main_configurator.py:152
 msgid "passwordless keeps historical MiniOS behavior; password requires the user password; disabled removes the MiniOS sudo grant."
 msgstr "tanpa sandi mempertahankan perilaku MiniOS sebelumnya; sandi memerlukan sandi pengguna; nonaktif menghapus hak sudo MiniOS."
 
-#: lib/main_configurator.py:152
+#: lib/main_configurator.py:153
 msgid "PolicyKit mode"
 msgstr "Mode PolicyKit"
 
-#: lib/main_configurator.py:153
+#: lib/main_configurator.py:154
 msgid "passwordless keeps historical MiniOS GUI admin convenience; password/disabled remove that rule and use normal PolicyKit authentication."
 msgstr "tanpa sandi mempertahankan kemudahan admin GUI MiniOS sebelumnya; sandi/nonaktif menghapus aturan tersebut dan menggunakan autentikasi PolicyKit normal."
 
-#: lib/main_configurator.py:154
+#: lib/main_configurator.py:155
 msgid "SSH root login"
 msgstr "Login root SSH"
 
-#: lib/main_configurator.py:155
+#: lib/main_configurator.py:156
 msgid "Allow or deny root login through OpenSSH."
 msgstr "Izinkan atau tolak login root melalui OpenSSH."
 
-#: lib/main_configurator.py:156
+#: lib/main_configurator.py:157
 msgid "SSH password authentication"
 msgstr "Autentikasi sandi SSH"
 
-#: lib/main_configurator.py:157
+#: lib/main_configurator.py:158
 msgid "Allow or deny password authentication through OpenSSH."
 msgstr "Izinkan atau tolak autentikasi sandi melalui OpenSSH."
 
-#: lib/main_configurator.py:158
+#: lib/main_configurator.py:159
 msgid "XRDP mode"
 msgstr "Mode XRDP"
 
-#: lib/main_configurator.py:159
+#: lib/main_configurator.py:160
 msgid "relaxed keeps MiniOS defaults; hardened binds to localhost and disables root login; disabled disables common XRDP service links."
 msgstr "relaxed mempertahankan default MiniOS; hardened hanya mengikat ke localhost dan menonaktifkan login root; nonaktif menonaktifkan link layanan XRDP umum."
 
-#: lib/main_configurator.py:160
+#: lib/main_configurator.py:161
 msgid "X11 mode"
 msgstr "Mode X11"
 
-#: lib/main_configurator.py:161
+#: lib/main_configurator.py:162
 msgid "relaxed keeps compatibility; hardened removes the permissive -ac launch option and tightens Xwrapper where present."
 msgstr "relaxed mempertahankan kompatibilitas; hardened menghapus opsi peluncuran -ac yang permisif dan memperketat Xwrapper jika tersedia."
 
-#: lib/main_configurator.py:162
+#: lib/main_configurator.py:163
 msgid "Show password hints"
 msgstr "Tampilkan petunjuk sandi"
 
-#: lib/main_configurator.py:163
+#: lib/main_configurator.py:164
 msgid "Show default root/live password hints in /etc/issue."
 msgstr "Tampilkan petunjuk sandi root/live default di /etc/issue."
 
-#: lib/main_configurator.py:164
+#: lib/main_configurator.py:165
 msgid "Lockscreen mode"
 msgstr "Mode kunci layar"
 
-#: lib/main_configurator.py:165
+#: lib/main_configurator.py:166
 msgid "relaxed keeps live-session convenience; hardened preserves/enables screen locking where supported."
 msgstr "relaxed mempertahankan kemudahan sesi live; hardened menjaga/mengaktifkan penguncian layar jika didukung."
 
-#: lib/main_configurator.py:167
+#: lib/main_configurator.py:168
 msgid "Keyboard"
 msgstr "Keyboard"
 
-#: lib/main_configurator.py:168
+#: lib/main_configurator.py:169
 msgid "Keyboard model"
 msgstr "Model keyboard"
 
-#: lib/main_configurator.py:169
+#: lib/main_configurator.py:170
 msgid ""
 "Specify the keyboard hardware model (e.g., 'pc105').\n"
 "\n"
@@ -432,11 +432,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-model')"
 
-#: lib/main_configurator.py:172
+#: lib/main_configurator.py:173
 msgid "Keyboard layouts"
 msgstr "Tata letak keyboard"
 
-#: lib/main_configurator.py:173
+#: lib/main_configurator.py:174
 msgid ""
 "List one or more keyboard layouts, separated by commas (e.g., 'us, ru').\n"
 "\n"
@@ -450,11 +450,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-layouts')"
 
-#: lib/main_configurator.py:176
+#: lib/main_configurator.py:177
 msgid "Keyboard options"
 msgstr "Opsi keyboard"
 
-#: lib/main_configurator.py:177
+#: lib/main_configurator.py:178
 msgid ""
 "Set additional keyboard options (XKB).\n"
 "\n"
@@ -468,11 +468,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-options')"
 
-#: lib/main_configurator.py:180
+#: lib/main_configurator.py:181
 msgid "Keyboard variants"
 msgstr "Varian keyboard"
 
-#: lib/main_configurator.py:181
+#: lib/main_configurator.py:182
 msgid ""
 "Specify keyboard variants for chosen layouts, separated by commas.\n"
 "\n"
@@ -488,15 +488,15 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'keyboard-variants')"
 
-#: lib/main_configurator.py:186
+#: lib/main_configurator.py:187
 msgid "Advanced"
 msgstr "Lanjutan"
 
-#: lib/main_configurator.py:187
+#: lib/main_configurator.py:188
 msgid "Module mode"
 msgstr "Mode modul"
 
-#: lib/main_configurator.py:188
+#: lib/main_configurator.py:189
 msgid ""
 "Choose how system modules are loaded:\n"
 "• 'simple' – load modules as-is.\n"
@@ -512,11 +512,11 @@ msgstr ""
 "Biasanya tidak diperlukan kecuali modul dibangun secara independen.\n"
 "Lihat: man 7 live-config (cari 'module-mode')"
 
-#: lib/main_configurator.py:193
+#: lib/main_configurator.py:194
 msgid "live-config command line"
 msgstr "Baris perintah live-config"
 
-#: lib/main_configurator.py:194
+#: lib/main_configurator.py:195
 msgid ""
 "Additional boot parameters for live-config (separated by spaces).\n"
 "\n"
@@ -532,11 +532,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'cmdline')"
 
-#: lib/main_configurator.py:198
+#: lib/main_configurator.py:199
 msgid "Debug mode"
 msgstr "Mode debug"
 
-#: lib/main_configurator.py:199
+#: lib/main_configurator.py:200
 msgid ""
 "Activate to enable detailed debug output during boot.\n"
 "\n"
@@ -550,11 +550,11 @@ msgstr ""
 "\n"
 "Lihat: man 7 live-config (cari 'debug')"
 
-#: lib/main_configurator.py:202
+#: lib/main_configurator.py:203
 msgid "Export logs to flash drive"
 msgstr "Ekspor log ke flash drive"
 
-#: lib/main_configurator.py:203
+#: lib/main_configurator.py:204
 msgid ""
 "If enabled, MiniOS and live-config logs are copied to the writable MiniOS drive during every boot.\n"
 "\n"
@@ -570,15 +570,15 @@ msgstr ""
 "\n"
 "Lihat: https://github.com/minios-linux/minios-live/wiki"
 
-#: lib/main_configurator.py:328
+#: lib/main_configurator.py:332
 msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr "Jika Anda ragu tentang suatu isian, jangan diubah. Pengaturan salah dapat membuat sistem gagal boot."
 
-#: lib/main_configurator.py:333
+#: lib/main_configurator.py:337
 msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
 msgstr "LUKS persistence diminta saat boot. Dukungan kriptografi disediakan oleh initrd; konfigurator ini tidak membuka container atau meminta kata sandi."
 
-#: lib/main_configurator.py:338
+#: lib/main_configurator.py:342
 msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
 msgstr "LUKS persistence diminta saat boot, tetapi initrd ini tidak menyediakan dukungan kriptografi. Fitur ini tidak dapat diaktifkan sampai initrd yang mendukung kriptografi menyediakan /run/initramfs/etc/minios-initramfs-crypt."
 
@@ -598,145 +598,165 @@ msgstr "Deteksi pengaturan keyboard yang digunakan pada sesi saat ini."
 msgid "Detect current keyboard"
 msgstr "Deteksi keyboard saat ini"
 
-#: lib/main_configurator.py:430
+#: lib/main_configurator.py:433
 msgid "Preset only; individual settings are saved"
 msgstr "Hanya preset; pengaturan individual yang disimpan"
 
-#: lib/main_configurator.py:433
+#: lib/main_configurator.py:436
 msgid "Applies after reboot"
 msgstr "Berlaku setelah reboot"
 
-#: lib/main_configurator.py:434
+#: lib/main_configurator.py:437
 msgid "Only when creating a new session"
 msgstr "Hanya saat membuat sesi baru"
 
-#: lib/main_configurator.py:487 lib/main_configurator.py:490
-#: lib/main_configurator.py:491
+#: lib/main_configurator.py:479 lib/main_configurator.py:495
+msgid "Show password"
+msgstr "Tampilkan sandi"
+
+#: lib/main_configurator.py:495
+msgid "Hide password"
+msgstr "Sembunyikan sandi"
+
+#: lib/main_configurator.py:505 lib/main_configurator.py:508
+#: lib/main_configurator.py:509
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: lib/main_configurator.py:488 lib/main_configurator.py:489
+#: lib/main_configurator.py:506 lib/main_configurator.py:507
 msgid "Use system default"
 msgstr "Gunakan default sistem"
 
-#: lib/main_configurator.py:492 lib/main_configurator.py:493
-#: lib/main_configurator.py:494 lib/main_configurator.py:495
-#: lib/main_configurator.py:496
+#: lib/main_configurator.py:510 lib/main_configurator.py:511
+#: lib/main_configurator.py:512 lib/main_configurator.py:513
+#: lib/main_configurator.py:514
 msgid "None"
 msgstr "Tidak ada"
 
-#: lib/main_configurator.py:517
+#: lib/main_configurator.py:536
 msgid "Enabled"
 msgstr "Aktif"
 
-#: lib/main_configurator.py:518
+#: lib/main_configurator.py:537
 msgid "Disabled"
 msgstr "Nonaktif"
 
-#: lib/main_configurator.py:557
+#: lib/main_configurator.py:577
 msgid "Custom"
 msgstr "Kustom"
 
-#: lib/main_configurator.py:582
+#: lib/main_configurator.py:602
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr "XRDP belum terpasang. Pengaturan ini akan disimpan dan digunakan jika XRDP dipasang nanti."
 
-#: lib/main_configurator.py:607
-msgid "Reset"
-msgstr "Reset"
+#: lib/main_configurator.py:627
+msgid "Discard changes…"
+msgstr "Batalkan perubahan…"
 
-#: lib/main_configurator.py:610 lib/main_configurator.py:967
+#: lib/main_configurator.py:630 lib/main_configurator.py:987
 msgid "Review changes"
 msgstr "Tinjau perubahan"
 
-#: lib/main_configurator.py:613
+#: lib/main_configurator.py:633
 msgid "Save changes"
 msgstr "Simpan perubahan"
 
-#: lib/main_configurator.py:715
+#: lib/main_configurator.py:732
 msgid "This value is not valid."
 msgstr "Nilai ini tidak valid."
 
-#: lib/main_configurator.py:730
+#: lib/main_configurator.py:748
 msgid "No unsaved changes"
 msgstr "Tidak ada perubahan yang belum disimpan"
 
-#: lib/main_configurator.py:732
+#: lib/main_configurator.py:750
 msgid "1 unsaved change"
 msgstr "1 perubahan belum disimpan"
 
-#: lib/main_configurator.py:734
+#: lib/main_configurator.py:752
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr "{count} perubahan belum disimpan"
 
-#: lib/main_configurator.py:829
+#: lib/main_configurator.py:853
 msgid "Detecting current system settings..."
 msgstr "Mendeteksi pengaturan sistem saat ini..."
 
-#: lib/main_configurator.py:855
+#: lib/main_configurator.py:879
 msgid "Automatic detection failed: {}"
 msgstr "Deteksi otomatis gagal: {}"
 
-#: lib/main_configurator.py:867
+#: lib/main_configurator.py:891
 msgid "No system settings could be detected."
 msgstr "Tidak ada pengaturan sistem yang dapat dideteksi."
 
-#: lib/main_configurator.py:871
+#: lib/main_configurator.py:895
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr "1 pengaturan diperbarui. Kolom yang diubah disorot."
 
-#: lib/main_configurator.py:873
+#: lib/main_configurator.py:897
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr "{count} pengaturan diperbarui. Kolom yang diubah disorot."
 
-#: lib/main_configurator.py:877
+#: lib/main_configurator.py:901
 msgid "Detected settings already match the values shown."
 msgstr "Pengaturan yang terdeteksi sudah sesuai dengan nilai yang ditampilkan."
 
-#: lib/main_configurator.py:891
+#: lib/main_configurator.py:909
 msgid "Fix invalid fields before saving changes."
 msgstr "Perbaiki kolom yang tidak valid sebelum menyimpan perubahan."
 
-#: lib/main_configurator.py:922
+#: lib/main_configurator.py:940
 msgid "Settings could not be saved: {}"
 msgstr "Pengaturan tidak dapat disimpan: {}"
 
-#: lib/main_configurator.py:926
+#: lib/main_configurator.py:943
 msgid "Settings saved. They will be used on the next boot."
 msgstr "Pengaturan telah disimpan. Pengaturan ini akan digunakan saat booting berikutnya."
 
-#: lib/main_configurator.py:968
+#: lib/main_configurator.py:955
+msgid "Discard all unsaved changes?"
+msgstr "Batalkan semua perubahan yang belum disimpan?"
+
+#: lib/main_configurator.py:956
+msgid "The form will return to the currently saved settings."
+msgstr "Formulir akan kembali ke pengaturan yang sudah disimpan saat ini."
+
+#: lib/main_configurator.py:957
+msgid "Discard"
+msgstr "Batalkan"
+
+#: lib/main_configurator.py:988
 msgid "Close"
 msgstr "Tutup"
 
-#: lib/main_configurator.py:979
+#: lib/main_configurator.py:999
 msgid "1 setting will change"
 msgstr "1 pengaturan akan berubah"
 
-#: lib/main_configurator.py:981
+#: lib/main_configurator.py:1001
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr "{count} pengaturan akan berubah"
 
-#: lib/main_configurator.py:985
+#: lib/main_configurator.py:1005
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr "Tinjau nilai saat ini dan nilai baru sebelum menyimpan. Nilai kosong akan menggunakan default MiniOS."
 
-#: lib/main_configurator.py:1011 lib/main_configurator.py:1012
+#: lib/main_configurator.py:1031 lib/main_configurator.py:1032
 msgid "Not set (use default)"
 msgstr "Belum diatur (gunakan default)"
 
-#: lib/main_configurator.py:1057
+#: lib/main_configurator.py:1077
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Alat grafis untuk mengonfigurasi pengaturan MiniOS"
 
-#: lib/main_configurator.py:1063
+#: lib/main_configurator.py:1083
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Path ke file konfigurasi (default: /etc/live/config.conf)"
 
-#: lib/main_configurator.py:1068
+#: lib/main_configurator.py:1088
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Warisi parameter konfigurasi dari baris perintah kernel (/proc/cmdline)"
 

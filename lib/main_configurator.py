@@ -33,9 +33,10 @@ from system_utils import (read_available_locales, read_available_services,
                            initrd_crypto_supported, parse_cmdline_params,
                            read_perchmode)
 from validation_utils import validate_config, validate_field
-from ui_utils import (apply_css_if_exists, show_error_dialog, create_completion,
-                      on_toggle_password_visibility, ICON_WINDOW, ICON_WARNING,
-                      ICON_SAVE, ICON_EYE_OPEN)
+from ui_utils import (create_completion,
+                        ICON_WINDOW, ICON_WARNING, ICON_EYE_OPEN, ICON_EYE_CLOSED)
+from minios_gui import (apply_minios_css, ask_confirmation, new_icon,
+                         resolve_icon, show_error_dialog, show_info_dialog)
 from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 from minios_security.security_profiles import (
     SECURITY_PROFILE_IDS,
@@ -254,6 +255,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self.field_validity = {}
         self.previous_password_hashes = {}
         self.field_tab_index = {}
+        self._busy = False
 
         # Load config and track required password fields
         try:
@@ -278,8 +280,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self.current_perchmode = read_perchmode()
         self.initrd_crypto_available = initrd_crypto_supported()
 
-        # Apply CSS if available
-        apply_css_if_exists(CSS_FILE_PATH)
+        apply_minios_css(CSS_FILE_PATH)
 
         # Build the UI
         self._build_header_bar()
@@ -308,13 +309,16 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self.category_list = Gtk.ListBox()
         self.category_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.category_list.set_size_request(180, -1)
-        self.category_list.get_style_context().add_class('config-sidebar')
+        self.category_list.get_style_context().add_class('minios-sidebar')
         self.category_list.connect('row-selected', self._on_category_selected)
         body.pack_start(self.category_list, False, False, 0)
         self.stack = Gtk.Stack(transition_type=Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_hexpand(True)
         self.stack.set_vexpand(True)
         body.pack_start(self.stack, True, True, 0)
+        self.detect_button_size_group = Gtk.SizeGroup(
+            Gtk.SizeGroupMode.HORIZONTAL)
+        self.detect_buttons = []
         self._populate_tabs()
         self._add_footer(container)
 
@@ -323,7 +327,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         box.get_style_context().add_class('warning-banner')
         for m in ('set_margin_top', 'set_margin_bottom', 'set_margin_start', 'set_margin_end'):
             getattr(box, m)(6)
-        icon = Gtk.Image.new_from_icon_name(ICON_WARNING, Gtk.IconSize.LARGE_TOOLBAR)
+        icon = new_icon(ICON_WARNING, Gtk.IconSize.LARGE_TOOLBAR)
         label = Gtk.Label()
         text = _('If you are unsure about a field, do not change it. '
                  'Incorrect settings may prevent the system from booting.')
@@ -379,10 +383,6 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             row = Gtk.ListBoxRow()
             row.category_name = name
             label = Gtk.Label(label=tab_label, xalign=0)
-            label.set_margin_top(6)
-            label.set_margin_bottom(6)
-            label.set_margin_start(8)
-            label.set_margin_end(8)
             row.add(label)
             self.category_list.add(row)
         self.category_list.select_row(self.category_list.get_row_at_index(0))
@@ -404,27 +404,30 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         note.get_style_context().add_class('availability-note')
         box.pack_start(note, True, True, 0)
         button = Gtk.Button(label=label)
+        button.set_valign(Gtk.Align.CENTER)
+        self.detect_button_size_group.add_widget(button)
+        self.detect_buttons.append(button)
         button.connect('clicked', self._on_detect_clicked, scope)
         box.pack_end(button, False, False, 0)
         grid.attach(box, 0, row, 2, 1)
 
     def _add_field_row(self, grid, row, tab_index, label_text, key, widget_cls, tooltip):
-        label_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
-        label_line = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        label_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        label_text_box = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, spacing=1)
         label = Gtk.Label(label=label_text, xalign=0)
         label.set_tooltip_text(tooltip)
         self.field_labels[key] = label_text
         if key in self.required_passwords and self.required_passwords[key]:
             label.set_text(label.get_text() + " *")
-        label_line.pack_start(label, True, True, 0)
-        help_icon = Gtk.Image.new_from_icon_name('dialog-information-symbolic', Gtk.IconSize.MENU)
+        label_text_box.pack_start(label, False, False, 0)
+        help_icon = new_icon('dialog-information-symbolic', Gtk.IconSize.MENU)
         help_icon.get_style_context().add_class('field-help-icon')
         help_hover = Gtk.EventBox()
         help_hover.set_visible_window(False)
+        help_hover.set_valign(Gtk.Align.CENTER)
         help_hover.set_tooltip_text(tooltip)
         help_hover.add(help_icon)
-        label_line.pack_end(help_hover, False, False, 0)
-        label_box.pack_start(label_line, False, False, 0)
         applicability = applicability_for_key(key)
         if key == '_SECURITY_PRESET':
             applicability_text = _('Preset only; individual settings are saved')
@@ -434,9 +437,13 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
                 'new-session': _('Only when creating a new session'),
             }[applicability]
         badge = Gtk.Label(label=applicability_text, xalign=0)
-        badge.get_style_context().add_class('applicability-badge')
-        badge.get_style_context().add_class('applicability-' + applicability)
-        label_box.pack_start(badge, False, False, 0)
+        badge.set_halign(Gtk.Align.START)
+        badge.get_style_context().add_class('applicability-note')
+        badge.get_style_context().add_class(
+            'applicability-' + applicability)
+        label_text_box.pack_start(badge, False, False, 0)
+        label_box.pack_start(label_text_box, True, True, 0)
+        label_box.pack_end(help_hover, False, False, 0)
         grid.attach(label_box, 0, row, 1, 1)
         error = Gtk.Label(xalign=0)
         error.get_style_context().add_class('inline-error')
@@ -457,31 +464,42 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
 
     def _add_password_entry(self, grid, row, key, tooltip):
         entry = Gtk.Entry()
-        entry.set_size_request(-1, 32)
+        entry.set_size_request(-1, -1)
         entry.get_style_context().add_class('setting-control')
         entry.set_visibility(False)
         entry.set_hexpand(True)
+        entry.set_valign(Gtk.Align.CENTER)
         entry.set_tooltip_text(tooltip)
-        toggle = Gtk.ToggleButton()
-        toggle.set_size_request(38, 32)
-        toggle.get_style_context().add_class('password-toggle')
-        icon = Gtk.Image.new_from_icon_name(ICON_EYE_OPEN, Gtk.IconSize.BUTTON)
-        toggle.set_image(icon)
-        toggle.set_always_show_image(True)
-        toggle.connect('toggled', on_toggle_password_visibility, entry)
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
-        box.set_hexpand(True)
-        box.pack_start(entry, True, True, 0)
-        box.pack_start(toggle, False, False, 0)
+        # Classic pattern: the show/hide toggle is an icon INSIDE the entry, so
+        # the row keeps the exact height of every other field.
+        entry.set_icon_from_icon_name(
+            Gtk.EntryIconPosition.SECONDARY, resolve_icon(ICON_EYE_OPEN))
+        entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, True)
+        entry.set_icon_tooltip_text(
+            Gtk.EntryIconPosition.SECONDARY, _('Show password'))
+        entry.connect('icon-press', self._on_password_icon_press)
         self._register_widget(entry, key)
         self.field_widgets[key] = entry
-        grid.attach(box, 1, row, 1, 1)
+        grid.attach(entry, 1, row, 1, 1)
+
+    def _on_password_icon_press(self, entry, icon_pos, _event):
+        if icon_pos != Gtk.EntryIconPosition.SECONDARY:
+            return
+        visible = not entry.get_visibility()
+        entry.set_visibility(visible)
+        entry.set_icon_from_icon_name(
+            Gtk.EntryIconPosition.SECONDARY,
+            resolve_icon(ICON_EYE_CLOSED if visible else ICON_EYE_OPEN))
+        entry.set_icon_tooltip_text(
+            Gtk.EntryIconPosition.SECONDARY,
+            _('Hide password') if visible else _('Show password'))
 
     def _add_text_entry(self, grid, row, key, tooltip):
         entry = Gtk.Entry()
-        entry.set_size_request(-1, 32)
+        entry.set_size_request(-1, -1)
         entry.get_style_context().add_class('setting-control')
         entry.set_hexpand(True)
+        entry.set_valign(Gtk.Align.CENTER)
         entry.set_text(self.config_values.get(key, ''))
         placeholders = {
             'LIVE_HOSTNAME': _('Automatic'),
@@ -506,8 +524,9 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
 
     def _add_check_button(self, grid, row, key, tooltip):
         check = Gtk.ComboBoxText()
-        check.set_size_request(-1, 32)
+        check.set_size_request(-1, -1)
         check.set_hexpand(True)
+        check.set_valign(Gtk.Align.CENTER)
         check.get_style_context().add_class('setting-control')
         default_enabled = key in (
             'LIVE_SSH_PERMIT_ROOT_LOGIN',
@@ -530,9 +549,10 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     def _add_combo_box(self, grid, row, key, tooltip):
         combo = Gtk.ComboBoxText()
         combo._setting_ids = True
-        combo.set_size_request(-1, 32)
+        combo.set_size_request(-1, -1)
         combo.get_style_context().add_class('setting-control')
         combo.set_hexpand(True)
+        combo.set_valign(Gtk.Align.CENTER)
         options_map = {
             'LIVE_MODULE_MODE': ['simple', 'merged'],
             'DEFAULT_TARGET': ['graphical.target', 'multi-user.target', 'rescue.target'],
@@ -601,10 +621,10 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
 
     def _add_footer(self, parent):
         footer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        footer.get_style_context().add_class('config-footer')
+        footer.get_style_context().add_class('minios-footer')
         self.dirty_label = Gtk.Label(xalign=0)
         footer.pack_start(self.dirty_label, True, True, 0)
-        self.reset_button = Gtk.Button(label=_('Reset'))
+        self.reset_button = Gtk.Button(label=_('Discard changes…'))
         self.reset_button.connect('clicked', self._on_reset_clicked)
         footer.pack_start(self.reset_button, False, False, 0)
         self.review_button = Gtk.Button(label=_('Review changes'))
@@ -612,9 +632,6 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         footer.pack_start(self.review_button, False, False, 0)
         self.save_button = Gtk.Button(label=_('Save changes'))
         self.save_button.get_style_context().add_class('suggested-action')
-        icon = Gtk.Image.new_from_icon_name(ICON_SAVE, Gtk.IconSize.BUTTON)
-        self.save_button.set_image(icon)
-        self.save_button.set_always_show_image(True)
         self.save_button.connect('clicked', self._on_save_clicked)
         footer.pack_end(self.save_button, False, False, 0)
         parent.pack_end(footer, False, False, 0)
@@ -725,6 +742,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     def _update_actions(self):
         if not hasattr(self, 'dirty_label'):
             return
+        busy = getattr(self, '_busy', False)
         count = self.state.dirty_count
         if count == 0:
             self.dirty_label.set_text(_('No unsaved changes'))
@@ -744,8 +762,8 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             else:
                 ctx.remove_class('changed')
         for button in (self.reset_button, self.review_button):
-            button.set_sensitive(count > 0)
-        self.save_button.set_sensitive(count > 0 and valid)
+            button.set_sensitive(count > 0 and not busy)
+        self.save_button.set_sensitive(count > 0 and valid and not busy)
 
     def _highlight_error_tab(self, tab_index):
         row = self.category_list.get_row_at_index(tab_index)
@@ -820,11 +838,17 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         return updated
 
     def _set_busy(self, busy):
+        self._busy = busy
+        for widget in getattr(self, 'field_widgets', {}).values():
+            widget.set_sensitive(not busy)
+        for button in getattr(self, 'detect_buttons', ()):
+            button.set_sensitive(not busy)
         for button in (self.reset_button, self.review_button, self.save_button):
             button.set_sensitive(not busy)
 
     def _on_detect_clicked(self, button, scope):
-        button.set_sensitive(False)
+        if getattr(self, '_busy', False):
+            return
         self._set_busy(True)
         self.dirty_label.set_text(_('Detecting current system settings...'))
         threading.Thread(target=self._detect_worker, args=(scope, button), daemon=True).start()
@@ -875,18 +899,12 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
                     )
             else:
                 text = _('Detected settings already match the values shown.')
-            dialog = Gtk.MessageDialog(
-                transient_for=self,
-                modal=True,
-                message_type=Gtk.MessageType.INFO,
-                buttons=Gtk.ButtonsType.OK,
-                text=text,
-            )
-            dialog.run()
-            dialog.destroy()
+            show_info_dialog(self, text)
         return False
 
     def _start_save(self):
+        if getattr(self, '_busy', False):
+            return
         if not all(self.field_validity.values()):
             show_error_dialog(self, _('Fix invalid fields before saving changes.'))
             return
@@ -921,11 +939,8 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         if error:
             show_error_dialog(self, _('Settings could not be saved: {}').format(error))
             return False
-        dialog = Gtk.MessageDialog(transient_for=self, modal=True, message_type=Gtk.MessageType.INFO,
-                                   buttons=Gtk.ButtonsType.OK,
-                                   text=_('Settings saved. They will be used on the next boot.'))
-        dialog.run()
-        dialog.destroy()
+        show_info_dialog(
+            self, _('Settings saved. They will be used on the next boot.'))
         return False
 
     def _on_destroy(self, _widget):
@@ -936,6 +951,11 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             self.field_widgets[key].set_text('')
 
     def _on_reset_clicked(self, _button):
+        if not ask_confirmation(
+                self, _('Discard all unsaved changes?'),
+                _('The form will return to the currently saved settings.'),
+                destructive=True, confirm_label=_('Discard')):
+            return
         self.state.reset()
         self._set_widgets_from_state()
 
@@ -1014,7 +1034,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             before_label.set_selectable(True)
             before_label.set_line_wrap(True)
             before_label.get_style_context().add_class('review-before')
-            arrow = Gtk.Image.new_from_icon_name('go-next-symbolic', Gtk.IconSize.MENU)
+            arrow = new_icon('go-next-symbolic', Gtk.IconSize.MENU)
             after_label = Gtk.Label(label=after, xalign=0)
             after_label.set_selectable(True)
             after_label.set_line_wrap(True)
