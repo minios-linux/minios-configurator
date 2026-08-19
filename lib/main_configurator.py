@@ -34,7 +34,8 @@ from system_utils import (read_available_locales, read_available_services,
                            read_perchmode)
 from validation_utils import validate_config, validate_field
 from ui_utils import (ICON_WINDOW, ICON_WARNING, ICON_EYE_OPEN, ICON_EYE_CLOSED)
-from minios_gui import (StatusBanner, TokenCompletionPopover, apply_minios_css, ask_confirmation, new_header_bar,
+from minios_gui import (HelpPopoverButton, StatusBanner, TokenCompletionPopover,
+                         apply_minios_css, ask_confirmation, new_header_bar,
                          new_icon, resolve_icon, show_error_dialog, show_info_dialog)
 from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 from minios_security.security_profiles import (
@@ -408,13 +409,9 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         if key in self.required_passwords and self.required_passwords[key]:
             label.set_text(label.get_text() + " *")
         label_text_box.pack_start(label, False, False, 0)
-        help_icon = new_icon('dialog-information-symbolic', Gtk.IconSize.MENU)
-        help_icon.get_style_context().add_class('field-help-icon')
-        help_hover = Gtk.EventBox()
-        help_hover.set_visible_window(False)
-        help_hover.set_valign(Gtk.Align.CENTER)
-        help_hover.set_tooltip_text(tooltip)
-        help_hover.add(help_icon)
+        help_button = HelpPopoverButton(
+            label_text, summary=tooltip, compact=True, tooltip=tooltip)
+        help_button.set_valign(Gtk.Align.CENTER)
         applicability = applicability_for_key(key)
         if key == '_SECURITY_PRESET':
             applicability_text = _('Preset only; individual settings are saved')
@@ -430,7 +427,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             'applicability-' + applicability)
         label_text_box.pack_start(badge, False, False, 0)
         label_box.pack_start(label_text_box, True, True, 0)
-        label_box.pack_end(help_hover, False, False, 0)
+        label_box.pack_end(help_button, False, False, 0)
         grid.attach(label_box, 0, row, 1, 1)
         error = Gtk.Label(xalign=0)
         error.get_style_context().add_class('inline-error')

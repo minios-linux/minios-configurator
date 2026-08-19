@@ -1,7 +1,7 @@
 minios-configurator (3.0.1) unstable; urgency=medium
 
-  * Use minios-gui 1.1.0 shared HeaderBar, StatusBanner, and token-aware
-    completion components.
+  * Use minios-gui 1.1.0 shared HeaderBar, StatusBanner, token-aware completion,
+    and keyboard-accessible contextual Help popovers.
   * Adopt shared styling, dialogs, and icon handling from minios-gui.
   * Move password visibility controls into the password entries.
   * Confirm before discarding unsaved changes.
