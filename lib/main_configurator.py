@@ -33,10 +33,9 @@ from system_utils import (read_available_locales, read_available_services,
                            initrd_crypto_supported, parse_cmdline_params,
                            read_perchmode)
 from validation_utils import validate_config, validate_field
-from ui_utils import (create_completion,
-                        ICON_WINDOW, ICON_WARNING, ICON_EYE_OPEN, ICON_EYE_CLOSED)
-from minios_gui import (apply_minios_css, ask_confirmation, new_icon,
-                         resolve_icon, show_error_dialog, show_info_dialog)
+from ui_utils import (ICON_WINDOW, ICON_WARNING, ICON_EYE_OPEN, ICON_EYE_CLOSED)
+from minios_gui import (StatusBanner, TokenCompletionPopover, apply_minios_css, ask_confirmation, new_header_bar,
+                         new_icon, resolve_icon, show_error_dialog, show_info_dialog)
 from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 from minios_security.security_profiles import (
     SECURITY_PROFILE_IDS,
@@ -293,11 +292,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     # UI construction
     # ──────────────────────────────────────────────────────────────────────────
     def _build_header_bar(self):
-        header = Gtk.HeaderBar(show_close_button=True)
-        header.set_has_subtitle(False)
-        header.get_style_context().add_class('minios-headerbar')
-        header.props.title = _(APP_TITLE)
-        self.set_titlebar(header)
+        self.set_titlebar(new_header_bar(_(APP_TITLE)))
 
     def _build_main_layout(self):
         container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -323,12 +318,6 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self._add_footer(container)
 
     def _add_warning_label(self, parent: Gtk.Box):
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
-        box.get_style_context().add_class('warning-banner')
-        for m in ('set_margin_top', 'set_margin_bottom', 'set_margin_start', 'set_margin_end'):
-            getattr(box, m)(6)
-        icon = new_icon(ICON_WARNING, Gtk.IconSize.LARGE_TOOLBAR)
-        label = Gtk.Label()
         text = _('If you are unsure about a field, do not change it. '
                  'Incorrect settings may prevent the system from booting.')
         if self.current_perchmode == 'luks':
@@ -343,13 +332,11 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
                     'It cannot be activated until a crypto-capable initrd provides '
                     '/run/initramfs/etc/minios-initramfs-crypt.'
                 )
-        label.set_text(text)
-        label.set_line_wrap(True)
-        label.set_max_width_chars(80)
-        label.set_xalign(0)
-        box.pack_start(icon, False, False, 0)
-        box.pack_start(label, True, True, 0)
-        parent.pack_start(box, False, False, 0)
+        banner = StatusBanner(text, intent='warning', icon=ICON_WARNING)
+        banner.label.set_max_width_chars(80)
+        for method in ('set_margin_top', 'set_margin_bottom', 'set_margin_start', 'set_margin_end'):
+            getattr(banner, method)(6)
+        parent.pack_start(banner, False, False, 0)
 
     def _populate_tabs(self):
         for tab_index, (tab_label, fields) in enumerate(TAB_DEFINITIONS.items()):
@@ -616,8 +603,13 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             'ENABLE_SERVICES': self.available_services,
             'DISABLE_SERVICES': self.available_services,
         }[key]
-        completion = create_completion(items, entry)
-        entry.set_completion(completion)
+        aliases = None
+        if key in ('ENABLE_SERVICES', 'DISABLE_SERVICES'):
+            aliases = lambda value: (
+                value, value[:-8] if value.endswith('.service') else value)
+        TokenCompletionPopover(
+            entry, items=items, delimiters=',', min_chars=1,
+            max_results=12, aliases=aliases)
 
     def _add_footer(self, parent):
         footer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
