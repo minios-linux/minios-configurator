@@ -2,14 +2,38 @@
 *.mo
 
 # Debian package build files
-debian/.debhelper
+debian/.debhelper/
 debian/debhelper-build-stamp
 debian/files
 debian/*.substvars
+debian/*.debhelper
+debian/*.log
 debian/minios-configurator/
 debian/tmp/
+
+# Top-level Debian package artifacts
+/minios-configurator_*.build
+/minios-configurator_*.buildinfo
+/minios-configurator_*.changes
+/minios-configurator_*.deb
+/minios-configurator_*.dsc
+/minios-configurator_*.tar.*
+/minios-configurator_*.udeb
 
 # Python cache
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Test cache
+.pytest_cache/
+.coverage
+.coverage.*
+.hypothesis/
+.mypy_cache/
+.nox/
+.pyre/
+.pytype/
+.ruff_cache/
+.tox/
+htmlcov/
