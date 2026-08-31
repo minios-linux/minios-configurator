@@ -27,9 +27,9 @@ class TestHashSystemPassword:
             
             # Verify input parameter is used (stdin)
             call_args = mock_run.call_args
-            assert call_args.kwargs.get('input') == 'secret123'
+            assert call_args[1].get('input') == 'secret123'
             # Verify password is NOT in command args
-            cmd = call_args.args[0]
+            cmd = call_args[0][0]
             assert 'secret123' not in cmd
     
     def test_falls_back_to_openssl(self):

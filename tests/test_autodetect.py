@@ -4,16 +4,19 @@ from system_utils import detect_current_settings
 
 
 def test_detect_current_settings_uses_session_values():
-    keyboard = 'XKBMODEL="pc105"\nXKBLAYOUT="us,ru"\nXKBOPTIONS="grp:alt_shift_toggle"\n'
+    keyboard = {
+        'XKBMODEL': 'pc105',
+        'XKBLAYOUT': 'us,ru',
+        'XKBOPTIONS': 'grp:alt_shift_toggle',
+    }
 
     def open_file(path, *args, **kwargs):
         if path == '/etc/timezone':
             return mock_open(read_data='Europe/Berlin\n')()
-        if path == '/etc/default/keyboard':
-            return mock_open(read_data=keyboard)()
         raise OSError(path)
 
     with patch('builtins.open', side_effect=open_file), \
+         patch('system_utils._read_assignments', return_value=keyboard), \
          patch('system_utils.socket.gethostname', return_value='minios-test'), \
          patch.dict('system_utils.os.environ', {'LANG': 'de_DE.UTF-8'}, clear=False), \
          patch('system_utils.subprocess.check_output', return_value='graphical.target\n'):
