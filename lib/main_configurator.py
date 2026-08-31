@@ -53,7 +53,6 @@ from gi.repository import Gtk, Gdk, Gio, GLib
 # ──────────────────────────────────────────────────────────────────────────────
 APPLICATION_ID          = 'org.minios.configurator'
 APP_NAME                = 'minios-configurator'
-APP_TITLE               = 'MiniOS Configurator'
 LOCALE_DIRECTORY        = '/usr/share/locale'
 DEFAULT_CONFIG_FILE     = '/etc/live/config.conf'
 CSS_FILE_PATH           = '/usr/share/minios-configurator/style.css'
@@ -235,7 +234,7 @@ def applicability_for_key(key):
 # ──────────────────────────────────────────────────────────────────────────────
 class ConfiguratorWindow(Gtk.ApplicationWindow):
     def __init__(self, application: Gtk.Application, config_path: str, inherit_cmdline: bool = False):
-        super().__init__(application=application, title=_(APP_TITLE))
+        super().__init__(application=application, title=_('MiniOS Configurator'))
         self._destroyed = False
         self.connect('destroy', self._on_destroy)
         screen = Gdk.Screen.get_default()
@@ -293,7 +292,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     # UI construction
     # ──────────────────────────────────────────────────────────────────────────
     def _build_header_bar(self):
-        self.set_titlebar(new_header_bar(_(APP_TITLE)))
+        self.set_titlebar(new_header_bar(_('MiniOS Configurator')))
 
     def _build_main_layout(self):
         container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)

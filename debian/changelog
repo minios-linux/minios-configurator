@@ -1,3 +1,10 @@
+minios-configurator (3.0.3) unstable; urgency=medium
+
+  * Localize the application window title.
+  * Refresh translations and desktop entry metadata.
+
+ -- crims0n <crims0n@minios.dev>  Tue, 01 Sep 2026 01:59:33 +0300
+
 minios-configurator (3.0.2) unstable; urgency=medium
 
   * Exclude VCS metadata and generated build/test artifacts
