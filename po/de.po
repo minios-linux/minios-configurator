@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-09-01 01:24+0300\n"
-"PO-Revision-Date: 2026-08-31 22:24+0000\n"
+"POT-Creation-Date: 2026-09-02 14:13+0300\n"
+"PO-Revision-Date: 2026-09-02 10:42+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
@@ -789,3 +789,11 @@ msgstr "Einstellungen für MiniOS konfigurieren"
 #: share/applications/minios-configurator.desktop:22
 msgid "configure;settings;"
 msgstr "konfigurieren;Einstellungen;"
+
+#: share/polkit/org.minios.configurator.policy:8
+msgid "Configure MiniOS"
+msgstr "MiniOS konfigurieren"
+
+#: share/polkit/org.minios.configurator.policy:17
+msgid "Authentication is required to configure MiniOS"
+msgstr "Zur Konfiguration von MiniOS ist eine Authentifizierung erforderlich"
