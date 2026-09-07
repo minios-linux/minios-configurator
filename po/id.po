@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: minios-configurator 2.0\n"
+"Project-Id-Version: minios-configurator 3.0.5\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-09-02 14:13+0300\n"
+"POT-Creation-Date: 2026-09-07 03:04+0300\n"
 "PO-Revision-Date: 2026-09-02 10:42+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -615,153 +615,153 @@ msgstr "Berlaku setelah reboot"
 msgid "Only when creating a new session"
 msgstr "Hanya saat membuat sesi baru"
 
-#: lib/main_configurator.py:462 lib/main_configurator.py:478
+#: lib/main_configurator.py:456
 msgid "Show password"
 msgstr "Tampilkan sandi"
 
-#: lib/main_configurator.py:478
+#: lib/main_configurator.py:457
 msgid "Hide password"
 msgstr "Sembunyikan sandi"
 
-#: lib/main_configurator.py:488 lib/main_configurator.py:491
-#: lib/main_configurator.py:492
+#: lib/main_configurator.py:475 lib/main_configurator.py:478
+#: lib/main_configurator.py:479
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: lib/main_configurator.py:489 lib/main_configurator.py:490
+#: lib/main_configurator.py:476 lib/main_configurator.py:477
 msgid "Use system default"
 msgstr "Gunakan default sistem"
 
-#: lib/main_configurator.py:493 lib/main_configurator.py:494
-#: lib/main_configurator.py:495 lib/main_configurator.py:496
-#: lib/main_configurator.py:497
+#: lib/main_configurator.py:480 lib/main_configurator.py:481
+#: lib/main_configurator.py:482 lib/main_configurator.py:483
+#: lib/main_configurator.py:484
 msgid "None"
 msgstr "Tidak ada"
 
-#: lib/main_configurator.py:519
+#: lib/main_configurator.py:506
 msgid "Enabled"
 msgstr "Aktif"
 
-#: lib/main_configurator.py:520
+#: lib/main_configurator.py:507
 msgid "Disabled"
 msgstr "Nonaktif"
 
-#: lib/main_configurator.py:560
+#: lib/main_configurator.py:547
 msgid "Custom"
 msgstr "Kustom"
 
-#: lib/main_configurator.py:585
+#: lib/main_configurator.py:572
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr "XRDP belum terpasang. Pengaturan ini akan disimpan dan digunakan jika XRDP dipasang nanti."
 
-#: lib/main_configurator.py:615
+#: lib/main_configurator.py:602
 msgid "Discard changes…"
 msgstr "Batalkan perubahan…"
 
-#: lib/main_configurator.py:618 lib/main_configurator.py:975
+#: lib/main_configurator.py:605 lib/main_configurator.py:962
 msgid "Review changes"
 msgstr "Tinjau perubahan"
 
-#: lib/main_configurator.py:621
+#: lib/main_configurator.py:608
 msgid "Save changes"
 msgstr "Simpan perubahan"
 
-#: lib/main_configurator.py:720
+#: lib/main_configurator.py:707
 msgid "This value is not valid."
 msgstr "Nilai ini tidak valid."
 
-#: lib/main_configurator.py:736
+#: lib/main_configurator.py:723
 msgid "No unsaved changes"
 msgstr "Tidak ada perubahan yang belum disimpan"
 
-#: lib/main_configurator.py:738
+#: lib/main_configurator.py:725
 msgid "1 unsaved change"
 msgstr "1 perubahan belum disimpan"
 
-#: lib/main_configurator.py:740
+#: lib/main_configurator.py:727
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr "{count} perubahan belum disimpan"
 
-#: lib/main_configurator.py:841
+#: lib/main_configurator.py:828
 msgid "Detecting current system settings..."
 msgstr "Mendeteksi pengaturan sistem saat ini..."
 
-#: lib/main_configurator.py:867
+#: lib/main_configurator.py:854
 msgid "Automatic detection failed: {}"
 msgstr "Deteksi otomatis gagal: {}"
 
-#: lib/main_configurator.py:879
+#: lib/main_configurator.py:866
 msgid "No system settings could be detected."
 msgstr "Tidak ada pengaturan sistem yang dapat dideteksi."
 
-#: lib/main_configurator.py:883
+#: lib/main_configurator.py:870
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr "1 pengaturan diperbarui. Kolom yang diubah disorot."
 
-#: lib/main_configurator.py:885
+#: lib/main_configurator.py:872
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr "{count} pengaturan diperbarui. Kolom yang diubah disorot."
 
-#: lib/main_configurator.py:889
+#: lib/main_configurator.py:876
 msgid "Detected settings already match the values shown."
 msgstr "Pengaturan yang terdeteksi sudah sesuai dengan nilai yang ditampilkan."
 
-#: lib/main_configurator.py:897
+#: lib/main_configurator.py:884
 msgid "Fix invalid fields before saving changes."
 msgstr "Perbaiki kolom yang tidak valid sebelum menyimpan perubahan."
 
-#: lib/main_configurator.py:928
+#: lib/main_configurator.py:915
 msgid "Settings could not be saved: {}"
 msgstr "Pengaturan tidak dapat disimpan: {}"
 
-#: lib/main_configurator.py:931
+#: lib/main_configurator.py:918
 msgid "Settings saved. They will be used on the next boot."
 msgstr "Pengaturan telah disimpan. Pengaturan ini akan digunakan saat booting berikutnya."
 
-#: lib/main_configurator.py:943
+#: lib/main_configurator.py:930
 msgid "Discard all unsaved changes?"
 msgstr "Batalkan semua perubahan yang belum disimpan?"
 
-#: lib/main_configurator.py:944
+#: lib/main_configurator.py:931
 msgid "The form will return to the currently saved settings."
 msgstr "Formulir akan kembali ke pengaturan yang sudah disimpan saat ini."
 
-#: lib/main_configurator.py:945
+#: lib/main_configurator.py:932
 msgid "Discard"
 msgstr "Batalkan"
 
-#: lib/main_configurator.py:976
+#: lib/main_configurator.py:963
 msgid "Close"
 msgstr "Tutup"
 
-#: lib/main_configurator.py:987
+#: lib/main_configurator.py:974
 msgid "1 setting will change"
 msgstr "1 pengaturan akan berubah"
 
-#: lib/main_configurator.py:989
+#: lib/main_configurator.py:976
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr "{count} pengaturan akan berubah"
 
-#: lib/main_configurator.py:993
+#: lib/main_configurator.py:980
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr "Tinjau nilai saat ini dan nilai baru sebelum menyimpan. Nilai kosong akan menggunakan default MiniOS."
 
-#: lib/main_configurator.py:1019 lib/main_configurator.py:1020
+#: lib/main_configurator.py:1006 lib/main_configurator.py:1007
 msgid "Not set (use default)"
 msgstr "Belum diatur (gunakan default)"
 
-#: lib/main_configurator.py:1065
+#: lib/main_configurator.py:1052
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Alat grafis untuk mengonfigurasi pengaturan MiniOS"
 
-#: lib/main_configurator.py:1071
+#: lib/main_configurator.py:1058
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Path ke file konfigurasi (default: /etc/live/config.conf)"
 
-#: lib/main_configurator.py:1076
+#: lib/main_configurator.py:1063
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Warisi parameter konfigurasi dari baris perintah kernel (/proc/cmdline)"
 

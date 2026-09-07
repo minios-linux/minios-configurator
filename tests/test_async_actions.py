@@ -52,23 +52,23 @@ def test_save_locks_mutating_controls_before_worker_starts(monkeypatch):
     window.save_button = Control()
     captured = {}
 
-    class WorkerThread:
-        def __init__(self, target, args, daemon):
-            captured['target'] = target
-            captured['updated'] = args[0]
+    class Task:
+        def __init__(self, worker, finished_callback, owner):
+            captured['worker'] = worker
+            captured['finished_callback'] = finished_callback
+            captured['owner'] = owner
             captured['locked'] = not field.sensitive and not detect.sensitive
-            captured['daemon'] = daemon
 
         def start(self):
-            pass
+            captured['started'] = True
+            return self
 
-    monkeypatch.setattr(main_configurator.threading, 'Thread', WorkerThread)
+    monkeypatch.setattr(main_configurator, 'BackgroundTask', Task)
     window._start_save()
 
-    assert captured['target'] == window._save_worker
-    assert captured['updated'] == {'LIVE_HOSTNAME': 'saved-value'}
     assert captured['locked']
-    assert captured['daemon'] is True
+    assert captured['owner'] is window
+    assert captured['started']
 
 
 def test_detection_locks_controls_and_ignores_reentry(monkeypatch):
@@ -87,24 +87,27 @@ def test_detection_locks_controls_and_ignores_reentry(monkeypatch):
     window.dirty_label = Control()
     captured = []
 
-    class WorkerThread:
-        def __init__(self, target, args, daemon):
+    class Task:
+        def __init__(self, worker, finished_callback, owner):
             captured.append({
-                'target': target,
-                'args': args,
+                'worker': worker,
+                'finished_callback': finished_callback,
+                'owner': owner,
                 'locked': not field.sensitive and not detect_keyboard.sensitive,
-                'daemon': daemon,
             })
 
         def start(self):
-            pass
+            return self
 
-    monkeypatch.setattr(main_configurator.threading, 'Thread', WorkerThread)
+    monkeypatch.setattr(main_configurator, 'BackgroundTask', Task)
     window._on_detect_clicked(detect_system, 'system')
     window._on_detect_clicked(detect_keyboard, 'keyboard')
 
     assert len(captured) == 1
-    assert captured[0]['target'] == window._detect_worker
-    assert captured[0]['args'] == ('system', detect_system)
+    assert captured[0]['owner'] is window
     assert captured[0]['locked']
-    assert captured[0]['daemon'] is True
+
+    monkeypatch.setattr(
+        main_configurator, 'detect_current_settings',
+        lambda: {'LIVE_HOSTNAME': 'detected', 'LIVE_KEYBOARD_MODEL': 'pc105'})
+    assert captured[0]['worker'](None) == {'LIVE_HOSTNAME': 'detected'}

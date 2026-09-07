@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: minios-configurator 2.0\n"
+"Project-Id-Version: minios-configurator 3.0.5\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-09-02 14:13+0300\n"
+"POT-Creation-Date: 2026-09-07 03:04+0300\n"
 "PO-Revision-Date: 2026-09-02 10:42+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>\n"
 "Language-Team: Spanish <es@tp.org.es>\n"
@@ -616,153 +616,153 @@ msgstr "Se aplica después de reiniciar"
 msgid "Only when creating a new session"
 msgstr "Solo al crear una nueva sesión"
 
-#: lib/main_configurator.py:462 lib/main_configurator.py:478
+#: lib/main_configurator.py:456
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
-#: lib/main_configurator.py:478
+#: lib/main_configurator.py:457
 msgid "Hide password"
 msgstr "Ocultar contraseña"
 
-#: lib/main_configurator.py:488 lib/main_configurator.py:491
-#: lib/main_configurator.py:492
+#: lib/main_configurator.py:475 lib/main_configurator.py:478
+#: lib/main_configurator.py:479
 msgid "Automatic"
 msgstr "Automático"
 
-#: lib/main_configurator.py:489 lib/main_configurator.py:490
+#: lib/main_configurator.py:476 lib/main_configurator.py:477
 msgid "Use system default"
 msgstr "Usar configuración predeterminada del sistema"
 
-#: lib/main_configurator.py:493 lib/main_configurator.py:494
-#: lib/main_configurator.py:495 lib/main_configurator.py:496
-#: lib/main_configurator.py:497
+#: lib/main_configurator.py:480 lib/main_configurator.py:481
+#: lib/main_configurator.py:482 lib/main_configurator.py:483
+#: lib/main_configurator.py:484
 msgid "None"
 msgstr "Ninguno"
 
-#: lib/main_configurator.py:519
+#: lib/main_configurator.py:506
 msgid "Enabled"
 msgstr "Activado"
 
-#: lib/main_configurator.py:520
+#: lib/main_configurator.py:507
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: lib/main_configurator.py:560
+#: lib/main_configurator.py:547
 msgid "Custom"
 msgstr "Personalizado"
 
-#: lib/main_configurator.py:585
+#: lib/main_configurator.py:572
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr "XRDP no está instalado. Esta configuración se guardará y se aplicará si XRDP se instala más adelante."
 
-#: lib/main_configurator.py:615
+#: lib/main_configurator.py:602
 msgid "Discard changes…"
 msgstr "Descartar cambios…"
 
-#: lib/main_configurator.py:618 lib/main_configurator.py:975
+#: lib/main_configurator.py:605 lib/main_configurator.py:962
 msgid "Review changes"
 msgstr "Revisar cambios"
 
-#: lib/main_configurator.py:621
+#: lib/main_configurator.py:608
 msgid "Save changes"
 msgstr "Guardar cambios"
 
-#: lib/main_configurator.py:720
+#: lib/main_configurator.py:707
 msgid "This value is not valid."
 msgstr "Este valor no es válido."
 
-#: lib/main_configurator.py:736
+#: lib/main_configurator.py:723
 msgid "No unsaved changes"
 msgstr "No hay cambios sin guardar"
 
-#: lib/main_configurator.py:738
+#: lib/main_configurator.py:725
 msgid "1 unsaved change"
 msgstr "1 cambio sin guardar"
 
-#: lib/main_configurator.py:740
+#: lib/main_configurator.py:727
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr "{count} cambios sin guardar"
 
-#: lib/main_configurator.py:841
+#: lib/main_configurator.py:828
 msgid "Detecting current system settings..."
 msgstr "Detectando la configuración actual del sistema..."
 
-#: lib/main_configurator.py:867
+#: lib/main_configurator.py:854
 msgid "Automatic detection failed: {}"
 msgstr "La detección automática falló: {}"
 
-#: lib/main_configurator.py:879
+#: lib/main_configurator.py:866
 msgid "No system settings could be detected."
 msgstr "No se pudo detectar ninguna configuración del sistema."
 
-#: lib/main_configurator.py:883
+#: lib/main_configurator.py:870
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr "1 configuración actualizada. Los campos modificados están resaltados."
 
-#: lib/main_configurator.py:885
+#: lib/main_configurator.py:872
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr "{count} configuraciones actualizadas. Los campos modificados están resaltados."
 
-#: lib/main_configurator.py:889
+#: lib/main_configurator.py:876
 msgid "Detected settings already match the values shown."
 msgstr "Las configuraciones detectadas ya coinciden con los valores mostrados."
 
-#: lib/main_configurator.py:897
+#: lib/main_configurator.py:884
 msgid "Fix invalid fields before saving changes."
 msgstr "Corrige los campos no válidos antes de guardar los cambios."
 
-#: lib/main_configurator.py:928
+#: lib/main_configurator.py:915
 msgid "Settings could not be saved: {}"
 msgstr "No se pudo guardar la configuración: {}"
 
-#: lib/main_configurator.py:931
+#: lib/main_configurator.py:918
 msgid "Settings saved. They will be used on the next boot."
 msgstr "Configuración guardada. Se aplicará en el próximo inicio."
 
-#: lib/main_configurator.py:943
+#: lib/main_configurator.py:930
 msgid "Discard all unsaved changes?"
 msgstr "¿Descartar todos los cambios no guardados?"
 
-#: lib/main_configurator.py:944
+#: lib/main_configurator.py:931
 msgid "The form will return to the currently saved settings."
 msgstr "El formulario volverá a la configuración guardada actualmente."
 
-#: lib/main_configurator.py:945
+#: lib/main_configurator.py:932
 msgid "Discard"
 msgstr "Descartar"
 
-#: lib/main_configurator.py:976
+#: lib/main_configurator.py:963
 msgid "Close"
 msgstr "Cerrar"
 
-#: lib/main_configurator.py:987
+#: lib/main_configurator.py:974
 msgid "1 setting will change"
 msgstr "1 configuración se modificará"
 
-#: lib/main_configurator.py:989
+#: lib/main_configurator.py:976
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr "{count} configuraciones se modificarán"
 
-#: lib/main_configurator.py:993
+#: lib/main_configurator.py:980
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr "Revisa los valores actuales y nuevos antes de guardar. Los valores vacíos utilizan el valor predeterminado de MiniOS."
 
-#: lib/main_configurator.py:1019 lib/main_configurator.py:1020
+#: lib/main_configurator.py:1006 lib/main_configurator.py:1007
 msgid "Not set (use default)"
 msgstr "No establecido (usar valor predeterminado)"
 
-#: lib/main_configurator.py:1065
+#: lib/main_configurator.py:1052
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Una herramienta gráfica para configurar los ajustes de MiniOS"
 
-#: lib/main_configurator.py:1071
+#: lib/main_configurator.py:1058
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Ruta al archivo de configuración (predeterminado: /etc/live/config.conf)"
 
-#: lib/main_configurator.py:1076
+#: lib/main_configurator.py:1063
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Heredar los parámetros de configuración de la línea de comandos del kernel (/proc/cmdline)"
 

@@ -37,6 +37,8 @@ def test_save_only_persists_dirty_values(tmp_path, monkeypatch):
     window = ConfiguratorWindow.__new__(ConfiguratorWindow)
     window.state = state
     window.field_validity = {'LIVE_HOSTNAME': True}
+    window.config_file_path = str(path)
+    window.config_values = state.source
 
     class Button:
         def set_sensitive(self, _value):
@@ -47,21 +49,20 @@ def test_save_only_persists_dirty_values(tmp_path, monkeypatch):
     window.save_button = Button()
     captured = {}
 
-    class WorkerThread:
-        def __init__(self, target, args, daemon):
-            captured['target'] = target
-            captured['updated'] = args[0]
-            captured['daemon'] = daemon
+    class Task:
+        def __init__(self, worker, finished_callback, owner):
+            captured['worker'] = worker
+            captured['finished_callback'] = finished_callback
+            captured['owner'] = owner
 
         def start(self):
-            pass
+            return self
 
-    monkeypatch.setattr(main_configurator.threading, 'Thread', WorkerThread)
+    monkeypatch.setattr(main_configurator, 'BackgroundTask', Task)
     window._start_save()
-    assert captured['target'] == window._save_worker
-    assert captured['updated'] == {'LIVE_HOSTNAME': 'edited'}
-    assert captured['daemon'] is True
-    save_config(str(path), state.source, captured['updated'])
+    assert captured['owner'] is window
+    persisted = captured['worker'](None)
+    assert persisted['LIVE_HOSTNAME'] == 'edited'
 
     assert load_config(str(path)) == {
         'LIVE_HOSTNAME': 'edited',

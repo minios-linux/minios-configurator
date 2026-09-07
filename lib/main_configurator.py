@@ -19,7 +19,6 @@ import sys
 import gi
 import gettext
 import argparse
-import threading
 
 # Add lib directory to Python path
 sys.path.insert(0, '/usr/lib/minios-configurator')
@@ -33,10 +32,11 @@ from system_utils import (read_available_locales, read_available_services,
                            initrd_crypto_supported, parse_cmdline_params,
                            read_perchmode)
 from validation_utils import validate_config, validate_field
-from ui_utils import (ICON_WINDOW, ICON_WARNING, ICON_EYE_OPEN, ICON_EYE_CLOSED)
-from minios_gui import (HelpPopoverButton, StatusBanner, TokenCompletionPopover,
-                         apply_minios_css, ask_confirmation, new_header_bar,
-                         new_icon, resolve_icon, show_error_dialog, show_info_dialog)
+from ui_utils import ICON_WINDOW, ICON_WARNING
+from minios_gui import (BackgroundTask, HelpPopoverButton, PasswordEntry,
+                         StatusBanner, TokenCompletionPopover, apply_minios_css,
+                         ask_confirmation, new_header_bar,
+                         new_icon, show_error_dialog, show_info_dialog)
 from password_utils import PASSWORD_FIELD_MAP, get_required_passwords, get_previous_password_hashes
 from minios_security.security_profiles import (
     SECURITY_PROFILE_IDS,
@@ -446,36 +446,23 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             self._add_combo_box(grid, row, key, tooltip)
 
     def _add_password_entry(self, grid, row, key, tooltip):
-        entry = Gtk.Entry()
-        entry.set_size_request(-1, -1)
-        entry.get_style_context().add_class('setting-control')
-        entry.set_visibility(False)
-        entry.set_hexpand(True)
-        entry.set_valign(Gtk.Align.CENTER)
-        entry.set_tooltip_text(tooltip)
-        # Classic pattern: the show/hide toggle is an icon INSIDE the entry, so
-        # the row keeps the exact height of every other field.
-        entry.set_icon_from_icon_name(
-            Gtk.EntryIconPosition.SECONDARY, resolve_icon(ICON_EYE_OPEN))
-        entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, True)
-        entry.set_icon_tooltip_text(
-            Gtk.EntryIconPosition.SECONDARY, _('Show password'))
-        entry.connect('icon-press', self._on_password_icon_press)
+        password, entry = self._create_password_entry(tooltip)
         self._register_widget(entry, key)
         self.field_widgets[key] = entry
-        grid.attach(entry, 1, row, 1, 1)
+        grid.attach(password, 1, row, 1, 1)
 
-    def _on_password_icon_press(self, entry, icon_pos, _event):
-        if icon_pos != Gtk.EntryIconPosition.SECONDARY:
-            return
-        visible = not entry.get_visibility()
-        entry.set_visibility(visible)
-        entry.set_icon_from_icon_name(
-            Gtk.EntryIconPosition.SECONDARY,
-            resolve_icon(ICON_EYE_CLOSED if visible else ICON_EYE_OPEN))
-        entry.set_icon_tooltip_text(
-            Gtk.EntryIconPosition.SECONDARY,
-            _('Hide password') if visible else _('Show password'))
+    def _create_password_entry(self, tooltip):
+        password = PasswordEntry(
+            reveal_mode='toggle', show_label=_('Show password'),
+            hide_label=_('Hide password'))
+        password.set_hexpand(True)
+        password.set_valign(Gtk.Align.CENTER)
+        entry = password.entry
+        entry.set_size_request(-1, -1)
+        entry.get_style_context().add_class('setting-control')
+        entry.set_valign(Gtk.Align.CENTER)
+        entry.set_tooltip_text(tooltip)
+        return password, entry
 
     def _add_text_entry(self, grid, row, key, tooltip):
         entry = Gtk.Entry()
@@ -839,10 +826,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             return
         self._set_busy(True)
         self.dirty_label.set_text(_('Detecting current system settings...'))
-        threading.Thread(target=self._detect_worker, args=(scope, button), daemon=True).start()
-
-    def _detect_worker(self, scope, button):
-        try:
+        def work(_token):
             detected = detect_current_settings()
             if scope == 'system':
                 allowed = {'LIVE_HOSTNAME', 'LIVE_LOCALES', 'LIVE_TIMEZONE', 'DEFAULT_TARGET'}
@@ -851,12 +835,15 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
                     'LIVE_KEYBOARD_MODEL', 'LIVE_KEYBOARD_LAYOUTS',
                     'LIVE_KEYBOARD_OPTIONS', 'LIVE_KEYBOARD_VARIANTS',
                 }
-            detected = {key: value for key, value in detected.items() if key in allowed}
-            error = None
-        except Exception as exc:
-            detected = {}
-            error = str(exc)
-        GLib.idle_add(self._detect_finished, detected, error, button)
+            return {key: value for key, value in detected.items() if key in allowed}
+
+        def finished(outcome):
+            self._detect_finished(
+                outcome.value if outcome.succeeded else {},
+                None if outcome.succeeded else str(outcome.error), button)
+
+        self._detect_task = BackgroundTask(
+            work, finished_callback=finished, owner=self).start()
 
     def _detect_finished(self, detected, error, button):
         if self._destroyed:
@@ -898,19 +885,19 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
             return
         updated = self._collect_changes_for_save()
         self._set_busy(True)
-        threading.Thread(target=self._save_worker, args=(updated,), daemon=True).start()
 
-    def _save_worker(self, updated):
-        saved = False
-        error = None
-        persisted = None
-        try:
+        def work(_token):
             save_config(self.config_file_path, self.config_values, updated)
-            persisted = load_config(self.config_file_path)
-            saved = True
-        except Exception as exc:
-            error = str(exc)
-        GLib.idle_add(self._save_finished, saved, updated, persisted, error)
+            return load_config(self.config_file_path)
+
+        def finished(outcome):
+            self._save_finished(
+                outcome.succeeded, updated,
+                outcome.value if outcome.succeeded else None,
+                None if outcome.succeeded else str(outcome.error))
+
+        self._save_task = BackgroundTask(
+            work, finished_callback=finished, owner=self).start()
 
     def _save_finished(self, saved, updated, persisted, error):
         if self._destroyed:
