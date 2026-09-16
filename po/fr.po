@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 3.0.5\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-09-07 03:04+0300\n"
-"PO-Revision-Date: 2026-09-02 10:42+0000\n"
+"POT-Creation-Date: 2026-09-14 21:30+0300\n"
+"PO-Revision-Date: 2026-09-14 18:30+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -571,214 +571,214 @@ msgstr ""
 "\n"
 "Voir : https://github.com/minios-linux/minios-live/wiki"
 
-#: lib/main_configurator.py:237 lib/main_configurator.py:295
+#: lib/main_configurator.py:237 lib/main_configurator.py:296
 #: share/applications/minios-configurator.desktop:4
 msgid "MiniOS Configurator"
 msgstr "Configurateur MiniOS"
 
-#: lib/main_configurator.py:321
+#: lib/main_configurator.py:322
 msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr "Si vous n'êtes pas sûr d'un champ, ne le modifiez pas. Des paramètres incorrects peuvent empêcher le démarrage du système."
 
-#: lib/main_configurator.py:326
-msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
-msgstr "La persistance LUKS a été demandée au démarrage. La prise en charge du chiffrement est assurée par l’initrd ; ce configurateur n’ouvre pas les conteneurs et ne demande pas de mots de passe."
+#: lib/main_configurator.py:327
+msgid "LUKS persistence encryption was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
+msgstr "Le chiffrement persistant LUKS a été demandé au démarrage. La prise en charge du chiffrement est assurée par l’initrd ; ce configurateur n’ouvre pas les conteneurs et ne demande pas de mots de passe."
 
-#: lib/main_configurator.py:331
-msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
-msgstr "La persistance LUKS a été demandée au démarrage, mais cet initrd n’indique pas de prise en charge du chiffrement. Elle ne peut pas être activée tant qu’un initrd compatible chiffrement ne fournit pas /run/initramfs/etc/minios-initramfs-crypt."
+#: lib/main_configurator.py:332
+msgid "LUKS persistence encryption was requested at boot, but this initrd does not advertise the layered crypto capability. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
+msgstr "Le chiffrement persistant LUKS a été demandé au démarrage, mais cet initrd n’indique pas la prise en charge du chiffrement en couches. Il ne peut pas être activé tant qu’un initrd compatible chiffrement ne fournit pas /run/initramfs/etc/minios-initramfs-crypt."
 
-#: lib/main_configurator.py:384
+#: lib/main_configurator.py:385
 msgid "Detect current hostname, locale, timezone, and boot target."
 msgstr "Détecter le nom d’hôte, la langue, le fuseau horaire et la cible de démarrage actuels."
 
-#: lib/main_configurator.py:385
+#: lib/main_configurator.py:386
 msgid "Detect current system settings"
 msgstr "Détecter la configuration système actuelle"
 
-#: lib/main_configurator.py:387
+#: lib/main_configurator.py:388
 msgid "Detect the keyboard settings used by the current session."
 msgstr "Détecter la configuration du clavier utilisée par la session en cours."
 
-#: lib/main_configurator.py:388
+#: lib/main_configurator.py:389
 msgid "Detect current keyboard"
 msgstr "Détecter le clavier actuel"
 
-#: lib/main_configurator.py:416
+#: lib/main_configurator.py:417
 msgid "Preset only; individual settings are saved"
 msgstr "Préréglage uniquement ; seuls les paramètres individuels sont enregistrés"
 
-#: lib/main_configurator.py:419
+#: lib/main_configurator.py:420
 msgid "Applies after reboot"
 msgstr "S'applique après redémarrage"
 
-#: lib/main_configurator.py:420
+#: lib/main_configurator.py:421
 msgid "Only when creating a new session"
 msgstr "Uniquement lors de la création d'une nouvelle session"
 
-#: lib/main_configurator.py:456
+#: lib/main_configurator.py:457
 msgid "Show password"
 msgstr "Afficher le mot de passe"
 
-#: lib/main_configurator.py:457
+#: lib/main_configurator.py:458
 msgid "Hide password"
 msgstr "Masquer le mot de passe"
 
-#: lib/main_configurator.py:475 lib/main_configurator.py:478
-#: lib/main_configurator.py:479
+#: lib/main_configurator.py:476 lib/main_configurator.py:479
+#: lib/main_configurator.py:480
 msgid "Automatic"
 msgstr "Automatique"
 
-#: lib/main_configurator.py:476 lib/main_configurator.py:477
+#: lib/main_configurator.py:477 lib/main_configurator.py:478
 msgid "Use system default"
 msgstr "Utiliser la configuration système par défaut"
 
-#: lib/main_configurator.py:480 lib/main_configurator.py:481
-#: lib/main_configurator.py:482 lib/main_configurator.py:483
-#: lib/main_configurator.py:484
+#: lib/main_configurator.py:481 lib/main_configurator.py:482
+#: lib/main_configurator.py:483 lib/main_configurator.py:484
+#: lib/main_configurator.py:485
 msgid "None"
 msgstr "Aucun"
 
-#: lib/main_configurator.py:506
+#: lib/main_configurator.py:507
 msgid "Enabled"
 msgstr "Activé"
 
-#: lib/main_configurator.py:507
+#: lib/main_configurator.py:508
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: lib/main_configurator.py:547
+#: lib/main_configurator.py:548
 msgid "Custom"
 msgstr "Personnalisé"
 
-#: lib/main_configurator.py:572
+#: lib/main_configurator.py:573
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr "XRDP n'est pas installé. Ce paramètre sera enregistré et utilisé si XRDP est installé ultérieurement."
 
-#: lib/main_configurator.py:602
+#: lib/main_configurator.py:603
 msgid "Discard changes…"
 msgstr "Annuler les modifications…"
 
-#: lib/main_configurator.py:605 lib/main_configurator.py:962
+#: lib/main_configurator.py:606 lib/main_configurator.py:963
 msgid "Review changes"
 msgstr "Examiner les modifications"
 
-#: lib/main_configurator.py:608
+#: lib/main_configurator.py:609
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: lib/main_configurator.py:707
+#: lib/main_configurator.py:708
 msgid "This value is not valid."
 msgstr "Cette valeur n'est pas valide."
 
-#: lib/main_configurator.py:723
+#: lib/main_configurator.py:724
 msgid "No unsaved changes"
 msgstr "Aucune modification non enregistrée"
 
-#: lib/main_configurator.py:725
+#: lib/main_configurator.py:726
 msgid "1 unsaved change"
 msgstr "1 modification non enregistrée"
 
-#: lib/main_configurator.py:727
+#: lib/main_configurator.py:728
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr "{count} modifications non enregistrées"
 
-#: lib/main_configurator.py:828
+#: lib/main_configurator.py:829
 msgid "Detecting current system settings..."
 msgstr "Détection des paramètres système en cours..."
 
-#: lib/main_configurator.py:854
+#: lib/main_configurator.py:855
 msgid "Automatic detection failed: {}"
 msgstr "Échec de la détection automatique : {}"
 
-#: lib/main_configurator.py:866
+#: lib/main_configurator.py:867
 msgid "No system settings could be detected."
 msgstr "Aucun paramètre système n’a pu être détecté."
 
-#: lib/main_configurator.py:870
+#: lib/main_configurator.py:871
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr "1 paramètre mis à jour. Les champs modifiés sont surlignés."
 
-#: lib/main_configurator.py:872
+#: lib/main_configurator.py:873
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr "{count} paramètres mis à jour. Les champs modifiés sont surlignés."
 
-#: lib/main_configurator.py:876
+#: lib/main_configurator.py:877
 msgid "Detected settings already match the values shown."
 msgstr "Les paramètres détectés correspondent déjà aux valeurs affichées."
 
-#: lib/main_configurator.py:884
+#: lib/main_configurator.py:885
 msgid "Fix invalid fields before saving changes."
 msgstr "Corrigez les champs invalides avant d’enregistrer les modifications."
 
-#: lib/main_configurator.py:915
+#: lib/main_configurator.py:916
 msgid "Settings could not be saved: {}"
 msgstr "Impossible d’enregistrer les paramètres : {}"
 
-#: lib/main_configurator.py:918
+#: lib/main_configurator.py:919
 msgid "Settings saved. They will be used on the next boot."
 msgstr "Paramètres enregistrés. Ils seront appliqués au prochain démarrage."
 
-#: lib/main_configurator.py:930
+#: lib/main_configurator.py:931
 msgid "Discard all unsaved changes?"
 msgstr "Annuler toutes les modifications non enregistrées ?"
 
-#: lib/main_configurator.py:931
+#: lib/main_configurator.py:932
 msgid "The form will return to the currently saved settings."
 msgstr "Le formulaire reviendra aux paramètres actuellement enregistrés."
 
-#: lib/main_configurator.py:932
+#: lib/main_configurator.py:933
 msgid "Discard"
 msgstr "Annuler"
 
-#: lib/main_configurator.py:963
+#: lib/main_configurator.py:964
 msgid "Close"
 msgstr "Fermer"
 
-#: lib/main_configurator.py:974
+#: lib/main_configurator.py:975
 msgid "1 setting will change"
 msgstr "1 paramètre sera modifié"
 
-#: lib/main_configurator.py:976
+#: lib/main_configurator.py:977
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr "{count} paramètres seront modifiés"
 
-#: lib/main_configurator.py:980
+#: lib/main_configurator.py:981
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr "Vérifiez les valeurs actuelles et les nouvelles avant d’enregistrer. Les champs vides utiliseront la valeur par défaut de MiniOS."
 
-#: lib/main_configurator.py:1006 lib/main_configurator.py:1007
+#: lib/main_configurator.py:1007 lib/main_configurator.py:1008
 msgid "Not set (use default)"
 msgstr "Non défini (utiliser la valeur par défaut)"
 
-#: lib/main_configurator.py:1052
+#: lib/main_configurator.py:1053
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr "Un outil graphique pour configurer les paramètres de MiniOS"
 
-#: lib/main_configurator.py:1058
+#: lib/main_configurator.py:1059
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr "Chemin vers le fichier de configuration (par défaut : /etc/live/config.conf)"
 
-#: lib/main_configurator.py:1063
+#: lib/main_configurator.py:1064
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr "Hériter des paramètres de configuration de la ligne de commande du noyau (/proc/cmdline)"
 
-#: lib/validation_utils.py:65
+#: lib/validation_utils.py:71
 msgid "A service cannot be both enabled and disabled: {}"
 msgstr "Un service ne peut pas être à la fois activé et désactivé : {}"
 
-#: lib/validation_utils.py:69
+#: lib/validation_utils.py:75
 msgid "Choose either linked or bind-mounted user directories, not both."
 msgstr "Choisissez soit des répertoires utilisateur liés, soit montés en bind, mais pas les deux."
 
-#: lib/validation_utils.py:74
+#: lib/validation_utils.py:80
 msgid "Enter a safe path inside the MiniOS drive, for example /minios/userdata."
 msgstr "Saisissez un chemin sécurisé à l'intérieur du disque MiniOS, par exemple /minios/userdata."
 
-#: lib/validation_utils.py:76
+#: lib/validation_utils.py:82
 msgid "SSH root login cannot be enabled while no-root mode is enabled."
 msgstr "La connexion SSH en root ne peut pas être activée lorsque le mode sans root est activé."
 
@@ -797,3 +797,9 @@ msgstr "Configurer MiniOS"
 #: share/polkit/org.minios.configurator.policy:17
 msgid "Authentication is required to configure MiniOS"
 msgstr "L'authentification est requise pour configurer MiniOS"
+
+#~ msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
+#~ msgstr "La persistance LUKS a été demandée au démarrage. La prise en charge du chiffrement est assurée par l’initrd ; ce configurateur n’ouvre pas les conteneurs et ne demande pas de mots de passe."
+
+#~ msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
+#~ msgstr "La persistance LUKS a été demandée au démarrage, mais cet initrd n’indique pas de prise en charge du chiffrement. Elle ne peut pas être activée tant qu’un initrd compatible chiffrement ne fournit pas /run/initramfs/etc/minios-initramfs-crypt."

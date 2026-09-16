@@ -118,12 +118,14 @@ def test_user_dirs_path_required_when_mode_enabled():
     assert 'LIVE_USER_DIRS_PATH' in errors
 
 
-@pytest.mark.parametrize('mode', ['native', 'dynfilefs', 'raw'])
+@pytest.mark.parametrize('mode', ['native', 'dynfilefs', 'dynblk', 'raw', 'squashfs'])
 def test_existing_perch_modes_are_valid(mode):
     assert validation_utils.validate_perchmode(mode)
 
 
-def test_luks_perch_mode_requires_initrd_crypto_capability():
+def test_luks_is_encryption_and_requires_initrd_crypto_capability():
     assert not validation_utils.validate_perchmode('luks')
-    assert validation_utils.validate_perchmode('luks', initrd_crypto_available=True)
-    assert not validation_utils.validate_perchmode('unsupported', initrd_crypto_available=True)
+    assert not validation_utils.validate_perchmode('unsupported')
+    assert not validation_utils.validate_perchencrypt('luks')
+    assert validation_utils.validate_perchencrypt(
+        'luks', initrd_crypto_available=True)

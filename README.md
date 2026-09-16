@@ -1,4 +1,4 @@
-# MiniOS Configurator 3.0.5
+# MiniOS Configurator 3.1.0
 
 GTK3 application for editing MiniOS `live-config` settings. It uses a
 category-based interface with change tracking, validation, confirmation before
@@ -70,10 +70,11 @@ User-directory link and bind modes are mutually exclusive. They require a safe
 media-relative path and are unavailable with `toram`, `toram=full`, or
 `toram=trim`. Two populated directory trees are never merged automatically.
 
-`perchmode` and `perchsize` are boot-time persistence parameters and are not
-saved by the configurator. When `perchmode=luks` is present, the application
-only reports whether `/run/initramfs/etc/minios-initramfs-crypt` exists; it does
-not create, open, resize, or unlock persistence containers.
+`perchmode`, `perchencrypt`, and `perchsize` are boot-time persistence
+parameters and are not saved by the configurator. When `perchencrypt=luks` is
+present, the application only reports whether
+`/run/initramfs/etc/minios-initramfs-crypt` contains `luks-layer-v1`; it does not
+create, open, resize, or unlock persistence containers.
 
 ## Build
 

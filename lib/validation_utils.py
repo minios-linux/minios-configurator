@@ -32,10 +32,16 @@ ENUM_VALUES = {
 BOOLEAN_VALUES = {'LIVE_SSH_PERMIT_ROOT_LOGIN', 'LIVE_SSH_PASSWORD_AUTHENTICATION', 'LIVE_ISSUE_PASSWORD_HINTS'}
 
 
-def validate_perchmode(value: str, initrd_crypto_available: bool = False) -> bool:
+def validate_perchmode(value: str) -> bool:
     """Validate a boot-time persistence mode without creating persistence."""
     value = (value or '').strip().lower()
-    return value in PERSISTENCE_MODES and (value != 'luks' or initrd_crypto_available)
+    return value in PERSISTENCE_MODES
+
+
+def validate_perchencrypt(value: str, initrd_crypto_available: bool = False) -> bool:
+    value = (value or '').strip().lower()
+    return value in ('', 'none') or (
+        value == 'luks' and initrd_crypto_available)
 
 
 def validate_user_dirs_path(value: str) -> bool:

@@ -30,7 +30,7 @@ from system_utils import (read_available_locales, read_available_services,
                            detect_current_settings, get_available_timezones,
                            is_xrdp_installed,
                            initrd_crypto_supported, parse_cmdline_params,
-                           read_perchmode)
+                           read_perchencrypt, read_perchmode)
 from validation_utils import validate_config, validate_field
 from ui_utils import ICON_WINDOW, ICON_WARNING
 from minios_gui import (BackgroundTask, HelpPopoverButton, PasswordEntry,
@@ -277,6 +277,7 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
         self.available_services = read_available_services()
         self.xrdp_installed = is_xrdp_installed()
         self.current_perchmode = read_perchmode()
+        self.current_perchencrypt = read_perchencrypt()
         self.initrd_crypto_available = initrd_crypto_supported()
 
         apply_minios_css(CSS_FILE_PATH)
@@ -320,15 +321,15 @@ class ConfiguratorWindow(Gtk.ApplicationWindow):
     def _add_warning_label(self, parent: Gtk.Box):
         text = _('If you are unsure about a field, do not change it. '
                  'Incorrect settings may prevent the system from booting.')
-        if self.current_perchmode == 'luks':
+        if self.current_perchencrypt == 'luks':
             if self.initrd_crypto_available:
                 text += '\n\n' + _(
-                    'LUKS persistence was requested at boot. Crypto support is provided by the initrd; '
+                    'LUKS persistence encryption was requested at boot. Crypto support is provided by the initrd; '
                     'this configurator does not open containers or request passwords.'
                 )
             else:
                 text += '\n\n' + _(
-                    'LUKS persistence was requested at boot, but this initrd does not advertise crypto support. '
+                    'LUKS persistence encryption was requested at boot, but this initrd does not advertise the layered crypto capability. '
                     'It cannot be activated until a crypto-capable initrd provides '
                     '/run/initramfs/etc/minios-initramfs-crypt.'
                 )

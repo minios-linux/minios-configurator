@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minios-configurator 3.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 03:04+0300\n"
+"POT-Creation-Date: 2026-09-14 21:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -442,214 +442,214 @@ msgid ""
 "See: https://github.com/minios-linux/minios-live/wiki"
 msgstr ""
 
-#: lib/main_configurator.py:237 lib/main_configurator.py:295
+#: lib/main_configurator.py:237 lib/main_configurator.py:296
 #: share/applications/minios-configurator.desktop:4
 msgid "MiniOS Configurator"
 msgstr ""
 
-#: lib/main_configurator.py:321
+#: lib/main_configurator.py:322
 msgid "If you are unsure about a field, do not change it. Incorrect settings may prevent the system from booting."
 msgstr ""
 
-#: lib/main_configurator.py:326
-msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
+#: lib/main_configurator.py:327
+msgid "LUKS persistence encryption was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
 msgstr ""
 
-#: lib/main_configurator.py:331
-msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
-msgstr ""
-
-#: lib/main_configurator.py:384
-msgid "Detect current hostname, locale, timezone, and boot target."
+#: lib/main_configurator.py:332
+msgid "LUKS persistence encryption was requested at boot, but this initrd does not advertise the layered crypto capability. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
 msgstr ""
 
 #: lib/main_configurator.py:385
+msgid "Detect current hostname, locale, timezone, and boot target."
+msgstr ""
+
+#: lib/main_configurator.py:386
 msgid "Detect current system settings"
 msgstr ""
 
-#: lib/main_configurator.py:387
+#: lib/main_configurator.py:388
 msgid "Detect the keyboard settings used by the current session."
 msgstr ""
 
-#: lib/main_configurator.py:388
+#: lib/main_configurator.py:389
 msgid "Detect current keyboard"
 msgstr ""
 
-#: lib/main_configurator.py:416
+#: lib/main_configurator.py:417
 msgid "Preset only; individual settings are saved"
 msgstr ""
 
-#: lib/main_configurator.py:419
+#: lib/main_configurator.py:420
 msgid "Applies after reboot"
 msgstr ""
 
-#: lib/main_configurator.py:420
+#: lib/main_configurator.py:421
 msgid "Only when creating a new session"
 msgstr ""
 
-#: lib/main_configurator.py:456
+#: lib/main_configurator.py:457
 msgid "Show password"
 msgstr ""
 
-#: lib/main_configurator.py:457
+#: lib/main_configurator.py:458
 msgid "Hide password"
 msgstr ""
 
-#: lib/main_configurator.py:475 lib/main_configurator.py:478
-#: lib/main_configurator.py:479
+#: lib/main_configurator.py:476 lib/main_configurator.py:479
+#: lib/main_configurator.py:480
 msgid "Automatic"
 msgstr ""
 
-#: lib/main_configurator.py:476 lib/main_configurator.py:477
+#: lib/main_configurator.py:477 lib/main_configurator.py:478
 msgid "Use system default"
 msgstr ""
 
-#: lib/main_configurator.py:480 lib/main_configurator.py:481
-#: lib/main_configurator.py:482 lib/main_configurator.py:483
-#: lib/main_configurator.py:484
+#: lib/main_configurator.py:481 lib/main_configurator.py:482
+#: lib/main_configurator.py:483 lib/main_configurator.py:484
+#: lib/main_configurator.py:485
 msgid "None"
 msgstr ""
 
-#: lib/main_configurator.py:506
+#: lib/main_configurator.py:507
 msgid "Enabled"
 msgstr ""
 
-#: lib/main_configurator.py:507
+#: lib/main_configurator.py:508
 msgid "Disabled"
 msgstr ""
 
-#: lib/main_configurator.py:547
+#: lib/main_configurator.py:548
 msgid "Custom"
 msgstr ""
 
-#: lib/main_configurator.py:572
+#: lib/main_configurator.py:573
 msgid "XRDP is not installed. This setting will be saved and used if XRDP is installed later."
 msgstr ""
 
-#: lib/main_configurator.py:602
+#: lib/main_configurator.py:603
 msgid "Discard changes…"
 msgstr ""
 
-#: lib/main_configurator.py:605 lib/main_configurator.py:962
+#: lib/main_configurator.py:606 lib/main_configurator.py:963
 msgid "Review changes"
 msgstr ""
 
-#: lib/main_configurator.py:608
+#: lib/main_configurator.py:609
 msgid "Save changes"
 msgstr ""
 
-#: lib/main_configurator.py:707
+#: lib/main_configurator.py:708
 msgid "This value is not valid."
 msgstr ""
 
-#: lib/main_configurator.py:723
+#: lib/main_configurator.py:724
 msgid "No unsaved changes"
 msgstr ""
 
-#: lib/main_configurator.py:725
+#: lib/main_configurator.py:726
 msgid "1 unsaved change"
 msgstr ""
 
-#: lib/main_configurator.py:727
+#: lib/main_configurator.py:728
 #, python-brace-format
 msgid "{count} unsaved changes"
 msgstr ""
 
-#: lib/main_configurator.py:828
+#: lib/main_configurator.py:829
 msgid "Detecting current system settings..."
 msgstr ""
 
-#: lib/main_configurator.py:854
+#: lib/main_configurator.py:855
 msgid "Automatic detection failed: {}"
 msgstr ""
 
-#: lib/main_configurator.py:866
+#: lib/main_configurator.py:867
 msgid "No system settings could be detected."
 msgstr ""
 
-#: lib/main_configurator.py:870
+#: lib/main_configurator.py:871
 msgid "1 setting updated. Changed fields are highlighted."
 msgstr ""
 
-#: lib/main_configurator.py:872
+#: lib/main_configurator.py:873
 #, python-brace-format
 msgid "{count} settings updated. Changed fields are highlighted."
 msgstr ""
 
-#: lib/main_configurator.py:876
+#: lib/main_configurator.py:877
 msgid "Detected settings already match the values shown."
 msgstr ""
 
-#: lib/main_configurator.py:884
+#: lib/main_configurator.py:885
 msgid "Fix invalid fields before saving changes."
 msgstr ""
 
-#: lib/main_configurator.py:915
+#: lib/main_configurator.py:916
 msgid "Settings could not be saved: {}"
 msgstr ""
 
-#: lib/main_configurator.py:918
+#: lib/main_configurator.py:919
 msgid "Settings saved. They will be used on the next boot."
 msgstr ""
 
-#: lib/main_configurator.py:930
+#: lib/main_configurator.py:931
 msgid "Discard all unsaved changes?"
 msgstr ""
 
-#: lib/main_configurator.py:931
+#: lib/main_configurator.py:932
 msgid "The form will return to the currently saved settings."
 msgstr ""
 
-#: lib/main_configurator.py:932
+#: lib/main_configurator.py:933
 msgid "Discard"
 msgstr ""
 
-#: lib/main_configurator.py:963
+#: lib/main_configurator.py:964
 msgid "Close"
 msgstr ""
 
-#: lib/main_configurator.py:974
+#: lib/main_configurator.py:975
 msgid "1 setting will change"
 msgstr ""
 
-#: lib/main_configurator.py:976
+#: lib/main_configurator.py:977
 #, python-brace-format
 msgid "{count} settings will change"
 msgstr ""
 
-#: lib/main_configurator.py:980
+#: lib/main_configurator.py:981
 msgid "Review the current and new values before saving. Empty values use the MiniOS default."
 msgstr ""
 
-#: lib/main_configurator.py:1006 lib/main_configurator.py:1007
+#: lib/main_configurator.py:1007 lib/main_configurator.py:1008
 msgid "Not set (use default)"
 msgstr ""
 
-#: lib/main_configurator.py:1052
+#: lib/main_configurator.py:1053
 msgid "A graphical tool for configuring MiniOS settings"
 msgstr ""
 
-#: lib/main_configurator.py:1058
+#: lib/main_configurator.py:1059
 msgid "Path to config file (default: /etc/live/config.conf)"
 msgstr ""
 
-#: lib/main_configurator.py:1063
+#: lib/main_configurator.py:1064
 msgid "Inherit configuration parameters from kernel command line (/proc/cmdline)"
 msgstr ""
 
-#: lib/validation_utils.py:65
+#: lib/validation_utils.py:71
 msgid "A service cannot be both enabled and disabled: {}"
 msgstr ""
 
-#: lib/validation_utils.py:69
+#: lib/validation_utils.py:75
 msgid "Choose either linked or bind-mounted user directories, not both."
 msgstr ""
 
-#: lib/validation_utils.py:74
+#: lib/validation_utils.py:80
 msgid "Enter a safe path inside the MiniOS drive, for example /minios/userdata."
 msgstr ""
 
-#: lib/validation_utils.py:76
+#: lib/validation_utils.py:82
 msgid "SSH root login cannot be enabled while no-root mode is enabled."
 msgstr ""
 

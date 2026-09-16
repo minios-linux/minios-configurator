@@ -1,3 +1,12 @@
+minios-configurator (3.1.0) unstable; urgency=medium
+
+  * Recognize persistence backend and encryption as separate boot properties.
+  * Require the versioned layered-LUKS initrd capability before reporting
+    encrypted persistence support, without taking ownership of boot settings.
+  * Add DynBlk awareness and refresh documentation, tests, and translations.
+
+ -- crims0n <crims0n@minios.dev>  Wed, 16 Sep 2026 14:17:07 +0300
+
 minios-configurator (3.0.5) unstable; urgency=medium
 
   * Use minios-gui 1.4.0 background tasks for system detection and atomic saves,

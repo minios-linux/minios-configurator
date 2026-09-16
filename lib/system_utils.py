@@ -18,7 +18,8 @@ from typing import Set, Dict
 # This marker is created by a crypto-capable MiniOS initrd.  The configurator
 # only observes it; initrd composition and LUKS lifecycle remain boot-time work.
 INITRD_CRYPTO_MARKER = '/run/initramfs/etc/minios-initramfs-crypt'
-PERSISTENCE_MODES = frozenset(('native', 'dynfilefs', 'raw', 'luks'))
+LUKS_LAYER_CAPABILITY = 'luks-layer-v1'
+PERSISTENCE_MODES = frozenset(('native', 'dynfilefs', 'dynblk', 'raw', 'squashfs'))
 
 try:
     from zoneinfo import available_timezones
@@ -93,7 +94,12 @@ def is_xrdp_installed(root: str = '/') -> bool:
 
 def initrd_crypto_supported(root: str = '/', marker: str = INITRD_CRYPTO_MARKER) -> bool:
     """Return whether the running initrd explicitly advertises crypto support."""
-    return os.path.isfile(os.path.join(root, marker.lstrip('/')))
+    try:
+        with open(os.path.join(root, marker.lstrip('/')), encoding='utf-8') as stream:
+            return LUKS_LAYER_CAPABILITY in {
+                line.strip() for line in stream if line.strip()}
+    except OSError:
+        return False
 
 
 def parse_perchmode(cmdline: str) -> str:
@@ -109,6 +115,22 @@ def read_perchmode() -> str:
     try:
         with open('/proc/cmdline', encoding='utf-8') as stream:
             return parse_perchmode(stream.read())
+    except OSError:
+        return ''
+
+
+def parse_perchencrypt(cmdline: str) -> str:
+    """Return the requested persistence encryption from a kernel command line."""
+    for parameter in cmdline.split():
+        if parameter.startswith('perchencrypt='):
+            return parameter.split('=', 1)[1].strip().lower()
+    return ''
+
+
+def read_perchencrypt() -> str:
+    try:
+        with open('/proc/cmdline', encoding='utf-8') as stream:
+            return parse_perchencrypt(stream.read())
     except OSError:
         return ''
 

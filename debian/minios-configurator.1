@@ -1,4 +1,4 @@
-.TH MINIOS-CONFIGURATOR 1 "August 2026" "MiniOS Configurator 3.0.5" "User Commands"
+.TH MINIOS-CONFIGURATOR 1 "September 2026" "MiniOS Configurator 3.1.0" "User Commands"
 .SH NAME
 minios-configurator \- Configure MiniOS system settings
 .SH SYNOPSIS
@@ -91,9 +91,10 @@ mutate the running system.
 .PP
 Passwords are redacted during review and saved only as encrypted values.
 .PP
-Persistence parameters perchmode and perchsize are not configuration fields.
-For a boot request using perchmode=luks, the application only reports the
-runtime capability marker at
+Persistence parameters perchmode, perchencrypt, and perchsize are not
+configuration fields. For a boot request using perchencrypt=luks, the
+application only reports whether the runtime capability marker contains
+luks-layer-v1 at
 .IR /run/initramfs/etc/minios-initramfs-crypt ;
 it never creates, opens, resizes, or unlocks a container.
 .SH AUTHOR
