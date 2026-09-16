@@ -1,4 +1,4 @@
-# MiniOS Configurator 3.1.0
+# MiniOS Configurator
 
 GTK3 application for editing MiniOS `live-config` settings. It uses a
 category-based interface with change tracking, validation, confirmation before

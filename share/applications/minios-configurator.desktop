@@ -28,8 +28,7 @@ Keywords[id]=konfigurasi;pengaturan;
 Keywords[fr]=configurer;paramètres;
 Keywords[es]=configurar;ajustes;
 Keywords[de]=konfigurieren;Einstellungen;
-#Exec=sudo --preserve-env=DBUS_SESSION_BUS_ADDRESS,XDG_RUNTIME_DIR sh -c 'minios-configurator'
-Exec=pkexec /usr/bin/minios-configurator
+Exec=/usr/bin/minios-configurator
 Icon=preferences-system
 Terminal=false
 Categories=GTK;System;

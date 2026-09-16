@@ -1,7 +1,22 @@
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from main_configurator import ConfiguratorWindow, PasswordEntry
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_launcher_elevates_only_non_root_callers():
+    launcher = (ROOT / "bin/minios-configurator").read_text(encoding="utf-8")
+    desktop = (ROOT / "share/applications/minios-configurator.desktop").read_text(
+        encoding="utf-8")
+
+    assert 'if [ "$(id -u)" -ne 0 ]; then' in launcher
+    assert 'exec pkexec "$SCRIPT_PATH" "$@"' in launcher
+    assert "Exec=/usr/bin/minios-configurator\n" in desktop
+    assert "Exec=pkexec" not in desktop
 
 
 def test_password_entry_construction_is_isolated_from_field_registration():

@@ -1,3 +1,10 @@
+minios-configurator (3.1.1) unstable; urgency=medium
+
+  * Elevate only unprivileged launcher invocations and keep the desktop entry
+    pointed at the application launcher directly.
+
+ -- crims0n <crims0n@minios.dev>  Wed, 16 Sep 2026 20:40:22 +0300
+
 minios-configurator (3.1.0) unstable; urgency=medium
 
   * Recognize persistence backend and encryption as separate boot properties.
