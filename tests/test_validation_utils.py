@@ -118,7 +118,7 @@ def test_user_dirs_path_required_when_mode_enabled():
     assert 'LIVE_USER_DIRS_PATH' in errors
 
 
-@pytest.mark.parametrize('mode', ['native', 'dynfilefs', 'dynblk', 'raw', 'squashfs'])
+@pytest.mark.parametrize('mode', ['native', 'dynfilefs', 'dynblk', 'vmdk', 'raw', 'squashfs'])
 def test_existing_perch_modes_are_valid(mode):
     assert validation_utils.validate_perchmode(mode)
 

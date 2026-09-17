@@ -19,7 +19,7 @@ from typing import Set, Dict
 # only observes it; initrd composition and LUKS lifecycle remain boot-time work.
 INITRD_CRYPTO_MARKER = '/run/initramfs/etc/minios-initramfs-crypt'
 LUKS_LAYER_CAPABILITY = 'luks-layer-v1'
-PERSISTENCE_MODES = frozenset(('native', 'dynfilefs', 'dynblk', 'raw', 'squashfs'))
+PERSISTENCE_MODES = frozenset(('native', 'dynfilefs', 'dynblk', 'vmdk', 'raw', 'squashfs'))
 
 try:
     from zoneinfo import available_timezones

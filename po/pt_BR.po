@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: minios-configurator 3.0.5\n"
+"Project-Id-Version: minios-configurator 3.2.0\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
-"POT-Creation-Date: 2026-09-14 21:30+0300\n"
+"POT-Creation-Date: 2026-09-17 21:18+0300\n"
 "PO-Revision-Date: 2026-09-14 18:30+0000\n"
 "Last-Translator: crims0n <crims0n@minios.dev>, 2025.\n"
 "Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge.net>\n"
@@ -800,9 +800,3 @@ msgstr "Configurar MiniOS"
 #: share/polkit/org.minios.configurator.policy:17
 msgid "Authentication is required to configure MiniOS"
 msgstr "É necessária autenticação para configurar MiniOS"
-
-#~ msgid "LUKS persistence was requested at boot. Crypto support is provided by the initrd; this configurator does not open containers or request passwords."
-#~ msgstr "Persistência LUKS foi solicitada na inicialização. O suporte a criptografia é fornecido pelo initrd; este configurador não abre contêineres nem solicita senhas."
-
-#~ msgid "LUKS persistence was requested at boot, but this initrd does not advertise crypto support. It cannot be activated until a crypto-capable initrd provides /run/initramfs/etc/minios-initramfs-crypt."
-#~ msgstr "Persistência LUKS foi solicitada na inicialização, mas este initrd não informa suporte a criptografia. Não é possível ativar até que um initrd compatível com criptografia forneça /run/initramfs/etc/minios-initramfs-crypt."

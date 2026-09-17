@@ -1,3 +1,9 @@
+minios-configurator (3.2.0) unstable; urgency=medium
+
+  * Recognize split VMDK persistence as a supported DynBlk-backed storage mode.
+
+ -- crims0n <crims0n@minios.dev>  Thu, 17 Sep 2026 21:38:54 +0300
+
 minios-configurator (3.1.1) unstable; urgency=medium
 
   * Elevate only unprivileged launcher invocations and keep the desktop entry
