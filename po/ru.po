@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: minios-configurator 3.2.0\n"
+"Project-Id-Version: minios-configurator 3.2.1\n"
 "Report-Msgid-Bugs-To: support@minios.dev\n"
 "POT-Creation-Date: 2026-09-17 21:18+0300\n"
 "PO-Revision-Date: 2026-09-14 18:30+0000\n"

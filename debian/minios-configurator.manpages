@@ -1,1 +1,9 @@
-debian/minios-configurator.1
+manpages/en/minios-configurator.1
+manpages/de/minios-configurator.de.1
+manpages/es/minios-configurator.es.1
+manpages/fr/minios-configurator.fr.1
+manpages/id/minios-configurator.id.1
+manpages/it/minios-configurator.it.1
+manpages/pt/minios-configurator.pt.1
+manpages/pt_BR/minios-configurator.pt_BR.1
+manpages/ru/minios-configurator.ru.1

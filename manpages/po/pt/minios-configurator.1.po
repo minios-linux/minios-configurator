@@ -1,0 +1,399 @@
+# Portuguese translations for minios-configurator package
+# Copyright (C) 2026 Free Software Foundation, Inc.
+# This file is distributed under the same license as the minios-configurator package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: minios-configurator 3.2.1\n"
+"POT-Creation-Date: 2026-09-22 20:55+0300\n"
+"PO-Revision-Date: 2026-09-22 17:58+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. type: TH
+#: en/minios-configurator.1:1
+#, no-wrap
+msgid "MINIOS-CONFIGURATOR"
+msgstr "MINIOS-CONFIGURATOR"
+
+#. type: TH
+#: en/minios-configurator.1:1
+#, no-wrap
+msgid "September 2026"
+msgstr "Setembro de 2026"
+
+#. type: TH
+#: en/minios-configurator.1:1
+#, no-wrap
+msgid "MiniOS Configurator"
+msgstr "Configurador do MiniOS"
+
+#. type: TH
+#: en/minios-configurator.1:1
+#, no-wrap
+msgid "User Commands"
+msgstr "Comandos de Usuário"
+
+#. type: SH
+#: en/minios-configurator.1:2
+#, no-wrap
+msgid "NAME"
+msgstr "NOME"
+
+#. type: Plain text
+#: en/minios-configurator.1:4
+msgid "minios-configurator - Configure MiniOS system settings"
+msgstr "minios-configurator - Configura as definições do sistema MiniOS"
+
+#. type: SH
+#: en/minios-configurator.1:4
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr "SINOPSE"
+
+#. type: Plain text
+#: en/minios-configurator.1:9
+msgid ""
+"B<minios-configurator> [I<--help>] [I<--inherit-cmdline>] [I<config-file>]"
+msgstr ""
+"B<minios-configurator> [I<--help>] [I<--inherit-cmdline>] [I<config-file>]"
+
+#. type: SH
+#: en/minios-configurator.1:9
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "DESCRIÇÃO"
+
+#. type: Plain text
+#: en/minios-configurator.1:12
+msgid ""
+"B<minios-configurator> is a GTK3 graphical utility for configuring MiniOS "
+"system settings. It provides an interface for modifying live-config "
+"parameters that control system behavior."
+msgstr ""
+"B<minios-configurator> é uma ferramenta gráfica GTK3 para configuração das "
+"definições do sistema MiniOS. Fornece uma interface para modificar "
+"parâmetros do live-config que controlam o comportamento do sistema."
+
+#. type: Plain text
+#: en/minios-configurator.1:16
+msgid ""
+"Reads and writes configuration files in live-config format, typically at I</"
+"etc/live/config.conf> with validation and auto-completion."
+msgstr ""
+"Lê e grava arquivos de configuração no formato live-config, normalmente em "
+"I</etc/live/config.conf>, com validação e auto-completação."
+
+#. type: Plain text
+#: en/minios-configurator.1:22
+msgid ""
+"Categories are directly selectable; this application is not a wizard. A "
+"fixed action bar reports unsaved changes and provides Discard changes, "
+"Review changes, and Save changes. Discarding requires confirmation.  Review "
+"output redacts passwords. Saved settings are applied by live-config on the "
+"next boot."
+msgstr ""
+"As categorias são selecionáveis diretamente; este aplicativo não é um "
+"assistente. Uma barra de ações fixa informa alterações não salvas e oferece "
+"as opções Descartar alterações, Revisar alterações e Salvar alterações. O "
+"descarte exige confirmação. A revisão oculta senhas. As configurações salvas "
+"são aplicadas pelo live-config no próximo boot."
+
+#. type: Plain text
+#: en/minios-configurator.1:24
+msgid "Requires administrative privileges via PolicyKit authentication."
+msgstr "Requer privilégios administrativos via autenticação PolicyKit."
+
+#. type: SH
+#: en/minios-configurator.1:24
+#, no-wrap
+msgid "OPTIONS"
+msgstr "OPÇÕES"
+
+#. type: TP
+#: en/minios-configurator.1:25
+#, no-wrap
+msgid "B<-h, --help>"
+msgstr "B<-h, --help>"
+
+#. type: Plain text
+#: en/minios-configurator.1:28
+msgid "Show a short usage message and exit."
+msgstr "Exibe uma mensagem de uso resumida e encerra."
+
+#. type: TP
+#: en/minios-configurator.1:28
+#, no-wrap
+msgid "B<-i, --inherit-cmdline>"
+msgstr "B<-i, --inherit-cmdline>"
+
+#. type: Plain text
+#: en/minios-configurator.1:32
+msgid ""
+"Overlay supported values from /proc/cmdline. The alternate configuration "
+"path remains the persistence target."
+msgstr ""
+"Sobrepõe valores suportados de /proc/cmdline. O caminho alternativo de "
+"configuração permanece como destino de persistência."
+
+#. type: TP
+#: en/minios-configurator.1:32
+#, no-wrap
+msgid "I<config-file>"
+msgstr "I<config-file>"
+
+#. type: Plain text
+#: en/minios-configurator.1:36
+msgid ""
+"Use an alternate live-config file instead of the default I</etc/live/"
+"config.conf>."
+msgstr ""
+"Utiliza um arquivo live-config alternativo em vez do padrão I</etc/live/"
+"config.conf>."
+
+#. type: SH
+#: en/minios-configurator.1:36
+#, no-wrap
+msgid "CONFIGURATION"
+msgstr "CONFIGURAÇÃO"
+
+#. type: TP
+#: en/minios-configurator.1:37
+#, no-wrap
+msgid "B<User>"
+msgstr "B<Usuário>"
+
+#. type: Plain text
+#: en/minios-configurator.1:41
+msgid ""
+"Username, full name, supplementary groups, encrypted user and root "
+"passwords, and media-backed user-directory link or bind mode."
+msgstr ""
+"Nome de usuário, nome completo, grupos suplementares, senhas de usuário e "
+"root criptografadas, e modo de link ou bind de diretório de usuário em mídia "
+"removível."
+
+#. type: TP
+#: en/minios-configurator.1:41
+#, no-wrap
+msgid "B<System>"
+msgstr "B<Sistema>"
+
+#. type: Plain text
+#: en/minios-configurator.1:45
+msgid ""
+"No-root mode, hostname, locales, timezone, boot target, and systemd units or "
+"SysV services to enable or disable."
+msgstr ""
+"Modo sem root, nome do host, localidades, fuso horário, alvo de "
+"inicialização e unidades systemd ou serviços SysV a habilitar ou desabilitar."
+
+#. type: TP
+#: en/minios-configurator.1:45
+#, no-wrap
+msgid "B<Security>"
+msgstr "B<Segurança>"
+
+#. type: Plain text
+#: en/minios-configurator.1:50
+msgid ""
+"Security profiles and editable sudo, PolicyKit, OpenSSH, XRDP, X11, password "
+"hint, and screen-lock posture controls. Profile names are not saved as "
+"runtime configuration keys."
+msgstr ""
+"Perfis de segurança e controles editáveis de sudo, PolicyKit, OpenSSH, XRDP, "
+"X11, dica de senha e postura de bloqueio de tela. Os nomes de perfil não são "
+"salvos como chaves de configuração em tempo de execução."
+
+#. type: TP
+#: en/minios-configurator.1:50
+#, no-wrap
+msgid "B<Keyboard>"
+msgstr "B<Teclado>"
+
+#. type: Plain text
+#: en/minios-configurator.1:53
+msgid "Model, layouts, variants, and options."
+msgstr "Modelo, layouts, variantes e opções."
+
+#. type: TP
+#: en/minios-configurator.1:53
+#, no-wrap
+msgid "B<Advanced>"
+msgstr "B<Avançado>"
+
+#. type: Plain text
+#: en/minios-configurator.1:57
+msgid ""
+"Module mode, additional live-config command line, debug output, and boot-log "
+"export."
+msgstr ""
+"Modo de módulo, linha de comando adicional do live-config, saída de "
+"depuração e exportação do log de inicialização."
+
+#. type: SH
+#: en/minios-configurator.1:57
+#, no-wrap
+msgid "VALUES"
+msgstr "VALORES"
+
+#. type: Plain text
+#: en/minios-configurator.1:61
+msgid ""
+"B<DEFAULT_TARGET> accepts graphical.target, multi-user.target, and "
+"rescue.target. Short graphical, multi-user, and rescue aliases are "
+"normalized."
+msgstr ""
+"B<DEFAULT_TARGET> aceita graphical.target, multi-user.target e "
+"rescue.target. Os atalhos gráficos, multi-user e rescue são normalizados."
+
+#. type: Plain text
+#: en/minios-configurator.1:66
+msgid ""
+"B<LIVE_MODULE_MODE> accepts simple or merged. Sudo and PolicyKit modes "
+"accept passwordless, password, or disabled. XRDP accepts relaxed, hardened, "
+"or disabled. X11 and screen-lock modes accept relaxed or hardened. Boolean "
+"fields accept true or false."
+msgstr ""
+"B<LIVE_MODULE_MODE> aceita simple ou merged. Os modos de Sudo e PolicyKit "
+"aceitam passwordless, password ou disabled. XRDP aceita relaxed, hardened ou "
+"disabled. Os modos X11 e de bloqueio de tela aceitam relaxed ou hardened. "
+"Campos booleanos aceitam true ou false."
+
+#. type: SH
+#: en/minios-configurator.1:66
+#, no-wrap
+msgid "VALIDATION"
+msgstr "VALIDAÇÃO"
+
+#. type: Plain text
+#: en/minios-configurator.1:72
+msgid ""
+"The application validates host and user names, installed UTF-8 locales, "
+"timezones, keyboard values, systemd units and SysV scripts, conflicting "
+"service lists, and cross-field security rules. User-directory link and bind "
+"modes are mutually exclusive and require a safe path inside writable MiniOS "
+"media."
+msgstr ""
+"O aplicativo valida nomes de host e de usuário, localidades UTF-8 "
+"instaladas, fusos horários, valores de teclado, unidades systemd e scripts "
+"SysV, listas de serviços conflitantes e regras de segurança entre campos. Os "
+"modos de link e bind de diretório de usuário são mutuamente exclusivos e "
+"exigem um caminho seguro dentro da mídia gravável MiniOS."
+
+#. type: SH
+#: en/minios-configurator.1:72
+#, no-wrap
+msgid "APPLICABILITY"
+msgstr "APLICABILIDADE"
+
+#. type: Plain text
+#: en/minios-configurator.1:77
+msgid ""
+"Hostname, locale, timezone, services, keyboard, boot controls, user-media, "
+"and log export apply after reboot. Account creation, passwords, no-root "
+"mode, and security posture are one-shot settings used only when a new "
+"session is created."
+msgstr ""
+"Nome do host, localidade, fuso horário, serviços, teclado, controles de "
+"inicialização, mídia de usuário e exportação de logs são aplicados após "
+"reinicialização. Criação de conta, senhas, modo sem root e postura de "
+"segurança são configurações únicas usadas apenas quando uma nova sessão é "
+"criada."
+
+#. type: SH
+#: en/minios-configurator.1:77
+#, no-wrap
+msgid "FILES"
+msgstr "ARQUIVOS"
+
+#. type: Plain text
+#: en/minios-configurator.1:79
+msgid "I</etc/live/config.conf>"
+msgstr "I</etc/live/config.conf>"
+
+#. type: Plain text
+#: en/minios-configurator.1:81
+msgid "I</usr/share/applications/minios-configurator.desktop>"
+msgstr "I</usr/share/applications/minios-configurator.desktop>"
+
+#. type: Plain text
+#: en/minios-configurator.1:83
+msgid "I</usr/share/polkit-1/actions/org.minios.configurator.policy>"
+msgstr "I</usr/share/polkit-1/actions/org.minios.configurator.policy>"
+
+#. type: Plain text
+#: en/minios-configurator.1:85
+msgid "I</usr/lib/minios-configurator/>"
+msgstr "I</usr/lib/minios-configurator/>"
+
+#. type: SH
+#: en/minios-configurator.1:85
+#, no-wrap
+msgid "NOTES"
+msgstr "NOTAS"
+
+#. type: Plain text
+#: en/minios-configurator.1:91
+msgid ""
+"Only explicitly changed fields are saved. Atomic replacement preserves "
+"comments, ordering, unknown keys, ownership, permissions, and extended "
+"attributes. Symlink and non-regular configuration files are rejected. The "
+"configurator does not mutate the running system."
+msgstr ""
+"Somente os campos alterados explicitamente são salvos. A substituição "
+"atômica preserva comentários, ordem, chaves desconhecidas, propriedade, "
+"permissões e atributos estendidos. Arquivos de configuração que sejam links "
+"simbólicos ou não regulares são rejeitados. O configurador não altera o "
+"sistema em execução."
+
+#. type: Plain text
+#: en/minios-configurator.1:93
+msgid ""
+"Passwords are redacted during review and saved only as encrypted values."
+msgstr ""
+"Senhas são ocultadas durante a revisão e salvas apenas como valores "
+"criptografados."
+
+#. type: Plain text
+#: en/minios-configurator.1:100
+msgid ""
+"Persistence parameters perchmode, perchencrypt, and perchsize are not "
+"configuration fields. For a boot request using perchencrypt=luks, the "
+"application only reports whether the runtime capability marker contains luks-"
+"layer-v1 at I</run/initramfs/etc/minios-initramfs-crypt>; it never creates, "
+"opens, resizes, or unlocks a container."
+msgstr ""
+"Os parâmetros de persistência perchmode, perchencrypt e perchsize não são "
+"campos de configuração. Para uma solicitação de inicialização usando "
+"perchencrypt=luks, o aplicativo apenas informa se o marcador de capacidade "
+"de tempo de execução contém luks-layer-v1 em I</run/initramfs/etc/minios-"
+"initramfs-crypt>; nunca cria, abre, redimensiona ou desbloqueia um contêiner."
+
+#. type: SH
+#: en/minios-configurator.1:100
+#, no-wrap
+msgid "AUTHOR"
+msgstr "AUTOR"
+
+#. type: Plain text
+#: en/minios-configurator.1:102
+msgid "crims0n E<lt>crims0n@minios.devE<gt>"
+msgstr "crims0n E<lt>crims0n@minios.devE<gt>"
+
+#. type: SH
+#: en/minios-configurator.1:102
+#, no-wrap
+msgid "BUGS"
+msgstr "ERROS"
+
+#. type: Plain text
+#: en/minios-configurator.1:103
+msgid "https://github.com/minios-linux/minios-configurator/issues"
+msgstr "https://github.com/minios-linux/minios-configurator/issues"

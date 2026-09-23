@@ -1,0 +1,116 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH MINIOS\-CONFIGURATOR 1 "septembre 2026" "Configurateur MiniOS" "Commandes utilisateur"
+.SH NOM
+minios\-configurator \- Configurer les paramètres système MiniOS
+.SH SYNOPSIS
+\fBminios\-configurator\fP [\fI\-\-help\fP] [\fI\-\-inherit\-cmdline\fP] [\fIconfig\-file\fP]
+.SH DESCRIPTION
+\fBminios\-configurator\fP est un utilitaire graphique GTK3 pour la
+configuration des paramètres système MiniOS. Il fournit une interface
+permettant de modifier les paramètres live\-config qui contrôlent le
+comportement du système.
+.PP
+Lit et écrit les fichiers de configuration au format live\-config,
+généralement dans \fI/etc/live/config.conf\fP, avec validation et saisie
+semi\-automatique.
+.PP
+Les catégories sont directement sélectionnables ; cette application n'est
+pas un assistant. Une barre d'action fixe signale les modifications non
+enregistrées et propose Annuler les modifications, Vérifier les
+modifications et Enregistrer les modifications. L'annulation nécessite une
+confirmation. La vérification masque les mots de passe dans la sortie. Les
+paramètres enregistrés sont appliqués par live\-config au prochain démarrage.
+.PP
+Nécessite des privilèges administratifs via une authentification PolicyKit.
+.SH OPTIONS
+.TP
+\fB\-h, \-\-help\fP
+Affiche un bref message d'utilisation et quitte.
+.TP
+\fB\-i, \-\-inherit\-cmdline\fP
+Superpose les valeurs prises en charge depuis /proc/cmdline. Le chemin de
+configuration alternatif reste la cible de persistance.
+.TP
+\fIconfig\-file\fP
+Utilise un autre fichier live\-config à la place du fichier par défaut
+\fI/etc/live/config.conf\fP.
+.SH CONFIGURATION
+.TP
+\fBUtilisateur\fP
+Nom d'utilisateur, nom complet, groupes supplémentaires, mots de passe
+utilisateur et root chiffrés, et lien de répertoire utilisateur sur support
+amovible ou mode bind.
+.TP
+\fBSystème\fP
+Mode sans root, nom d'hôte, locales, fuseau horaire, cible de démarrage, et
+unités systemd ou services SysV à activer ou désactiver.
+.TP
+\fBSécurité\fP
+Profils de sécurité et contrôle éditable de sudo, PolicyKit, OpenSSH, XRDP,
+X11, indice de mot de passe et verrouillage d'écran. Les noms de profils ne
+sont pas enregistrés comme clés de configuration en cours d'exécution.
+.TP
+\fBClavier\fP
+Modèle, dispositions, variantes et options.
+.TP
+\fBAvancé\fP
+Mode module, ligne de commande live\-config supplémentaire, sortie de
+débogage et export du journal de démarrage.
+.SH VALEURS
+.PP
+\fBDEFAULT_TARGET\fP accepte graphical.target, multi\-user.target et
+rescue.target. Les alias courts graphical, multi\-user et rescue sont
+normalisés.
+.PP
+\fBLIVE_MODULE_MODE\fP accepte simple ou merged. Les modes Sudo et PolicyKit
+acceptent passwordless, password ou disabled. XRDP accepte relaxed, hardened
+ou disabled. Les modes X11 et verrouillage d'écran acceptent relaxed ou
+hardened. Les champs booléens acceptent true ou false.
+.SH VALIDATION
+.PP
+L'application valide les noms d'hôte et d'utilisateur, les locales UTF\-8
+installées, les fuseaux horaires, les valeurs de clavier, les unités systemd
+et scripts SysV, les listes de services en conflit, et les règles de
+sécurité inter\-champs. Les modes lien et bind du répertoire utilisateur sont
+mutuellement exclusifs et nécessitent un chemin sûr à l'intérieur d'un
+support MiniOS accessible en écriture.
+.SH APPLICABILITÉ
+.PP
+Le nom d'hôte, la locale, le fuseau horaire, les services, le clavier, les
+contrôles de démarrage, l'utilisateur\-média et l'export de journal
+s'appliquent après redémarrage. La création de compte, les mots de passe, le
+mode sans root et la posture de sécurité sont des réglages ponctuels
+utilisés uniquement lors de la création d'une nouvelle session.
+.SH FICHIERS
+\fI/etc/live/config.conf\fP
+.br
+\fI/usr/share/applications/minios\-configurator.desktop\fP
+.br
+\fI/usr/share/polkit\-1/actions/org.minios.configurator.policy\fP
+.br
+\fI/usr/lib/minios\-configurator/\fP
+.SH NOTES
+.PP
+Seuls les champs explicitement modifiés sont enregistrés. Le remplacement
+atomique préserve les commentaires, l'ordre, les clés inconnues, la
+propriété, les permissions et les attributs étendus. Les fichiers de
+configuration qui sont des liens symboliques ou non réguliers sont
+rejetés. Le configurateur ne modifie jamais le système en cours d'exécution.
+.PP
+Les mots de passe sont masqués lors de la relecture et enregistrés
+uniquement sous forme chiffrée.
+.PP
+Les paramètres de persistance perchmode, perchencrypt et perchsize ne sont
+pas des champs de configuration. Pour une demande de démarrage utilisant
+perchencrypt=luks, l'application indique uniquement si le marqueur de
+capacité d'exécution contient luks\-layer\-v1 dans
+\fI/run/initramfs/etc/minios\-initramfs\-crypt\fP ; elle ne crée, n'ouvre, ne
+redimensionne ni ne déverrouille jamais de conteneur.
+.SH AUTEUR
+crims0n <crims0n@minios.dev>
+.SH BOGUES
+https://github.com/minios\-linux/minios\-configurator/issues

@@ -1,0 +1,111 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH MINIOS\-CONFIGURATOR 1 "September 2026" "Konfigurator MiniOS" "Perintah Pengguna"
+.SH NAMA
+minios\-configurator \- Mengonfigurasi pengaturan sistem MiniOS
+.SH SINOPSIS
+\fBminios\-configurator\fP [\fI\-\-help\fP] [\fI\-\-inherit\-cmdline\fP] [\fIconfig\-file\fP]
+.SH DESKRIPSI
+\fBminios\-configurator\fP adalah utilitas grafis GTK3 untuk mengonfigurasi
+pengaturan sistem MiniOS. Aplikasi ini menyediakan antarmuka untuk mengubah
+parameter live\-config yang mengendalikan perilaku sistem.
+.PP
+Membaca dan menulis berkas konfigurasi dalam format live\-config, biasanya di
+\fI/etc/live/config.conf\fP dengan validasi dan pelengkapan otomatis.
+.PP
+Kategori dapat dipilih secara langsung; aplikasi ini bukan wizard. Bilah
+aksi tetap menampilkan perubahan yang belum disimpan dan menyediakan opsi
+Buang perubahan, Tinjau perubahan, dan Simpan perubahan. Pembuangan
+perubahan memerlukan konfirmasi. Hasil tinjauan menyembunyikan
+sandi. Pengaturan yang disimpan akan diterapkan oleh live\-config saat boot
+berikutnya.
+.PP
+Memerlukan hak administratif melalui autentikasi PolicyKit.
+.SH OPSI
+.TP
+\fB\-h, \-\-help\fP
+Tampilkan pesan penggunaan singkat dan keluar.
+.TP
+\fB\-i, \-\-inherit\-cmdline\fP
+Menimpa nilai yang didukung dari /proc/cmdline. Jalur konfigurasi alternatif
+tetap menjadi target persistensi.
+.TP
+\fIconfig\-file\fP
+Gunakan berkas live\-config alternatif sebagai pengganti
+\fI/etc/live/config.conf\fP default.
+.SH KONFIGURASI
+.TP
+\fBPengguna\fP
+Nama pengguna, nama lengkap, grup tambahan, sandi pengguna dan root
+terenkripsi, serta mode tautan atau bind direktori pengguna yang didukung
+media.
+.TP
+\fBSistem\fP
+Mode tanpa root, hostname, locale, zona waktu, target boot, serta unit
+systemd atau layanan SysV yang akan diaktifkan atau dinonaktifkan.
+.TP
+\fBKeamanan\fP
+Profil keamanan serta kontrol sudo, PolicyKit, OpenSSH, XRDP, X11, petunjuk
+sandi, dan penguncian layar yang dapat diedit. Nama profil tidak disimpan
+sebagai kunci konfigurasi runtime.
+.TP
+\fBPapan Ketik\fP
+Model, tata letak, varian, dan opsi.
+.TP
+\fBLanjutan\fP
+Mode modul, baris perintah live\-config tambahan, keluaran debug, dan ekspor
+log boot.
+.SH NILAI
+.PP
+\fBDEFAULT_TARGET\fP menerima graphical.target, multi\-user.target, dan
+rescue.target. Alias singkat graphical, multi\-user, dan rescue akan
+dinormalisasi.
+.PP
+\fBLIVE_MODULE_MODE\fP menerima simple atau merged. Mode Sudo dan PolicyKit
+menerima passwordless, password, atau disabled. XRDP menerima relaxed,
+hardened, atau disabled. Mode X11 dan penguncian layar menerima relaxed atau
+hardened. Field boolean menerima true atau false.
+.SH VALIDASI
+.PP
+Aplikasi memvalidasi nama host dan pengguna, locale UTF\-8 yang terpasang,
+zona waktu, nilai papan ketik, unit systemd dan skrip SysV, daftar layanan
+yang bertentangan, serta aturan keamanan antar field. Mode tautan dan bind
+direktori pengguna bersifat eksklusif dan memerlukan jalur aman di dalam
+media MiniOS yang dapat ditulis.
+.SH KEBERLAKUAN
+.PP
+Hostname, locale, zona waktu, layanan, papan ketik, kontrol boot,
+user\-media, dan ekspor log berlaku setelah reboot. Pembuatan akun, sandi,
+mode tanpa root, dan postur keamanan adalah pengaturan satu kali yang hanya
+digunakan saat sesi baru dibuat.
+.SH BERKAS
+\fI/etc/live/config.conf\fP
+.br
+\fI/usr/share/applications/minios\-configurator.desktop\fP
+.br
+\fI/usr/share/polkit\-1/actions/org.minios.configurator.policy\fP
+.br
+\fI/usr/lib/minios\-configurator/\fP
+.SH CATATAN
+.PP
+Hanya bidang yang diubah secara eksplisit yang akan disimpan. Penggantian
+atomik mempertahankan komentar, urutan, kunci yang tidak dikenal,
+kepemilikan, izin akses, dan atribut tambahan. Berkas konfigurasi symlink
+dan non\-reguler akan ditolak. Konfigurator tidak mengubah sistem yang sedang
+berjalan.
+.PP
+Kata sandi akan disamarkan saat ditinjau dan hanya disimpan dalam bentuk
+terenkripsi.
+.PP
+Parameter persistensi perchmode, perchencrypt, dan perchsize bukan merupakan
+bidang konfigurasi. Untuk permintaan boot dengan perchencrypt=luks, aplikasi
+hanya melaporkan apakah penanda kapabilitas runtime berisi luks\-layer\-v1
+pada \fI/run/initramfs/etc/minios\-initramfs\-crypt\fP; aplikasi tidak pernah
+membuat, membuka, mengubah ukuran, atau membuka kunci kontainer.
+.SH PENULIS
+crims0n <crims0n@minios.dev>
+.SH BUG
+https://github.com/minios\-linux/minios\-configurator/issues
